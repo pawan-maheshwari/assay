@@ -1,6 +1,6 @@
 {
   "reportTitle": "LLM Release Claims Audit",
-  "preparedBy": "Pawan Maheshwari, Planet AI",
+  "preparedBy": "Bhavin Maheshwari, Group CTO, PlanetAI",
   "footerCredit": "Bhavin Maheshwari, Group CTO",
   "extractionModel": "claude-sonnet-5",
   "releaseNotes": {
