@@ -31,7 +31,8 @@ A.addScenarios(files.filter(Boolean));
 
 // 1. Detect new models.
 const known = await readJSON("watch/known-models.json", { models: [] });
-const firstRun = !known.models.length;
+// The first run that can see a provider catalogue records it as the baseline instead of flagging everything as new.
+const firstRun = !known.baselined;
 const knownSet = new Set(known.models.map(m => m.provider + ":" + m.id));
 const found = [];
 for (const p of Object.keys(KEYS)) {
@@ -46,7 +47,7 @@ const fresh = firstRun ? [] : found.filter(m => !knownSet.has(m.provider + ":" +
 log(firstRun ? "first run: recording the current catalogue as the baseline" : `${fresh.length} new models`);
 const merged = new Map(known.models.map(m => [m.provider + ":" + m.id, m]));
 found.forEach(m => { const k = m.provider + ":" + m.id; if (!merged.has(k)) merged.set(k, { provider: m.provider, id: m.id, firstSeen: TODAY }); });
-await writeJSON("watch/known-models.json", { updated: TODAY, models: [...merged.values()] });
+await writeJSON("watch/known-models.json", { updated: TODAY, baselined: !!known.baselined || found.length > 0, models: [...merged.values()] });
 
 // 2. Draft scenarios from release notes.
 const stripHtml = h => h.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, " ").replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
