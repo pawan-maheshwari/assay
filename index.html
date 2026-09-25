@@ -224,6 +224,8 @@ input[type=range]{padding:0;accent-color:var(--gold);background:none;border:0}
 .srclist{margin:0;padding-left:22px;font-size:8.5pt;display:grid;gap:4px;word-break:break-word}
 .srclist a{color:var(--ink)}
 .rnote{font-size:9pt;color:var(--muted)}
+.rfoot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:6px;margin-top:6px;font-size:8pt;color:var(--muted)}
+.rfoot b{color:var(--ink);font-weight:600}
 .minis{display:grid;gap:10px}
 .mini{display:grid;grid-template-columns:70px minmax(0,1fr);gap:10px;align-items:center;break-inside:avoid;border-bottom:1px solid var(--line);padding-bottom:8px}
 .mini .stamp{width:66px}
@@ -521,6 +523,7 @@ footer{max-width:1120px;margin:0 auto;padding:0 20px 36px;font-size:13px;color:v
         <label class="f">Subtitle<input id="rp-sub" value="Do vendor claims survive independent measurement?"></label>
         <label class="f">Prepared by<input id="rp-by" value="Pawan Maheshwari, Planet AI"></label>
         <label class="f">Edition date<input id="rp-date" type="date"></label>
+        <label class="f">Footer credit<input id="rp-foot" value="Bhavin Maheshwari, Group CTO"></label>
       </div>
       <div class="row" style="margin-top:12px">
         <label class="chk"><input type="checkbox" id="rp-ref" checked>Public scenarios</label>
@@ -1785,6 +1788,8 @@ function buildReport(){
   const opts = { ref: $("#rp-ref").checked, auto: $("#rp-auto").checked, lab: $("#rp-lab").checked, drafts: $("#rp-drafts").checked };
   const title = $("#rp-title").value.trim() || "LLM Release Claims Audit", sub = $("#rp-sub").value.trim(), by = $("#rp-by").value.trim();
   const ed = $("#rp-date").value || today();
+  const credit = $("#rp-foot").value.trim();
+  const rfoot = `<div class="rfoot"><span>Assay | ${esc(title)} | Edition ${esc(ed)}</span>${credit ? `<b>${esc(credit)}</b>` : ""}</div>`;
   const D = reportData(opts);
   const withRef = D.rows.filter(r => r.c.ref), counts = {};
   D.rows.forEach(r => { counts[r.v.key] = (counts[r.v.key] || 0) + 1; });
@@ -1810,7 +1815,7 @@ function buildReport(){
     <div><div class="brandrow"><svg viewBox="0 0 48 48" width="34" height="34" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="#8E9BFF" stroke-width="3"/><path d="M24 3 A21 21 0 0 1 44.2 29" fill="none" stroke="#E8601F" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="24" r="6" fill="#8E9BFF"/></svg>Assay</div>
       <h1 style="margin-top:18mm">${esc(title)}</h1><p class="sub">${esc(sub)}</p></div>
     ${coverArt(D.rows)}
-    <div class="meta"><span>Prepared by ${esc(by)}</span><span>Edition ${esc(ed)}</span><span>Each ring is one claim; arc length shows how much of it held</span></div>
+    <div class="meta"><span>Prepared by ${esc(by)}</span>${credit ? `<span>${esc(credit)}</span>` : ""}<span>Edition ${esc(ed)}</span><span style="flex-basis:100%">Each ring is one claim; arc length shows how much of it held</span></div>
   </section>`);
   pages.push(`<section class="rpage">
     <div class="chap">Executive summary</div>
@@ -1882,7 +1887,7 @@ function buildReport(){
   </section>`);
   pages.push(`<section class="rpage"><div class="chap">Sources</div><h2>References</h2>
     <ol class="srclist">${D.reg.map(s => `<li>${esc(s.publisher)}. ${esc(s.label)}. ${esc(s.date || "")}. <a href="${esc(s.url)}">${esc(s.url)}</a></li>`).join("")}</ol></section>`);
-  $("#report").innerHTML = pages.join("");
+  $("#report").innerHTML = pages.map((pg, i) => i === 0 ? pg : pg.replace(/<\/section>\s*$/, rfoot + "</section>")).join("");
   window.__reportReady = true;
 }
 
