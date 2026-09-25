@@ -1,17 +1,32 @@
 {
   "reportTitle": "LLM Release Claims Audit",
   "preparedBy": "Pawan Maheshwari, Planet AI",
+  "footerCredit": "Bhavin Maheshwari, Group CTO",
   "extractionModel": "claude-sonnet-5",
   "releaseNotes": {
-    "openai": ["https://platform.openai.com/docs/changelog"],
-    "anthropic": ["https://docs.claude.com/en/release-notes/api"],
-    "gemini": ["https://ai.google.dev/gemini-api/docs/changelog"]
+    "openai": [
+      "https://platform.openai.com/docs/changelog"
+    ],
+    "anthropic": [
+      "https://docs.claude.com/en/release-notes/api"
+    ],
+    "gemini": [
+      "https://ai.google.dev/gemini-api/docs/changelog"
+    ]
   },
   "predecessors": {},
   "prices": {},
-  "autoRun": ["anthropic-opus-5-5", "openai-gpt-6-sol-luna", "google-gemini-3-8-flash"],
+  "autoRun": [
+    "anthropic-opus-5-5",
+    "openai-gpt-6-sol-luna",
+    "google-gemini-3-8-flash"
+  ],
   "autoRunDrafts": true,
-  "runSettings": { "repeats": 2, "maxTokens": 4000, "concurrency": 3 },
+  "runSettings": {
+    "repeats": 2,
+    "maxTokens": 4000,
+    "concurrency": 3
+  },
   "maxCallsPerScenario": 400,
   "_notes": {
     "releaseNotes": "Pages the watcher reads when a new model appears. Claims found are saved as draft scenarios for review.",
