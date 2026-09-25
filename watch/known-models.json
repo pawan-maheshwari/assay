@@ -12,16 +12,6 @@
       "firstSeen": "2026-09-25"
     },
     {
-      "provider": "anthropic",
-      "id": "claude-opus-5",
-      "firstSeen": "2026-09-25"
-    },
-    {
-      "provider": "anthropic",
-      "id": "claude-opus-5-5",
-      "firstSeen": "2026-09-25"
-    },
-    {
       "provider": "openai",
       "id": "gpt-5.6-sol",
       "firstSeen": "2026-09-25"
