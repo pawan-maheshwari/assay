@@ -1,0 +1,65 @@
+{
+  "updated": "2026-09-25",
+  "models": [
+    {
+      "provider": "anthropic",
+      "id": "claude-opus-5",
+      "firstSeen": "2026-09-25"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-opus-5-5",
+      "firstSeen": "2026-09-25"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-opus-5",
+      "firstSeen": "2026-09-25"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-opus-5-5",
+      "firstSeen": "2026-09-25"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.6-sol",
+      "firstSeen": "2026-09-25"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-6-sol",
+      "firstSeen": "2026-09-25"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.6-luna",
+      "firstSeen": "2026-09-25"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-6-luna",
+      "firstSeen": "2026-09-25"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-3.7-flash",
+      "firstSeen": "2026-09-25"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-3.8-flash",
+      "firstSeen": "2026-09-25"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-sonnet-4-5",
+      "firstSeen": "2026-09-25"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-opus-4-5-20251101",
+      "firstSeen": "2026-09-25"
+    }
+  ]
+}

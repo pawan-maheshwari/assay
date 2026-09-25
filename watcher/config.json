@@ -1,0 +1,22 @@
+{
+  "reportTitle": "LLM Release Claims Audit",
+  "preparedBy": "Pawan Maheshwari, Planet AI",
+  "extractionModel": "claude-sonnet-5",
+  "releaseNotes": {
+    "openai": ["https://platform.openai.com/docs/changelog"],
+    "anthropic": ["https://docs.claude.com/en/release-notes/api"],
+    "gemini": ["https://ai.google.dev/gemini-api/docs/changelog"]
+  },
+  "predecessors": {},
+  "prices": {},
+  "autoRun": ["anthropic-opus-5-5", "openai-gpt-6-sol-luna", "google-gemini-3-8-flash"],
+  "autoRunDrafts": true,
+  "runSettings": { "repeats": 2, "maxTokens": 4000, "concurrency": 3 },
+  "maxCallsPerScenario": 400,
+  "_notes": {
+    "releaseNotes": "Pages the watcher reads when a new model appears. Claims found are saved as draft scenarios for review.",
+    "predecessors": "Optional map of new model ID to the model it replaces, e.g. {\"gpt-6-sol\": \"gpt-5.6-sol\"}. Otherwise the closest ID is guessed.",
+    "prices": "Optional map of model ID to [input, output] $ per 1M tokens for draft scenarios, e.g. {\"gpt-6-sol\": [2, 10]}.",
+    "maxCallsPerScenario": "Budget guard. Repeats are reduced until a scenario fits under this many API calls."
+  }
+}
