@@ -1,0 +1,162 @@
+{
+  "schema": "assay-scenario/1",
+  "id": "google-gemini-3-8-flash",
+  "title": "Gemini 3.8 Flash against 3.7 Flash",
+  "vendor": "Google",
+  "released": "2026-09-02",
+  "checked": "2026-09-25",
+  "summary": "Same price, same limits, three weeks apart. Google leads with a customer saying 3.8 Flash completed more than three times as many tasks. Independent indexes show a real but much smaller gain in agentic work, flat coding, and a slower first token.",
+  "sources": [
+    {
+      "id": "v",
+      "label": "Gemini 3.8 Flash guide separating vendor and independent figures",
+      "publisher": "Codersera",
+      "url": "https://codersera.com/blog/gemini-3-8-flash-complete-guide-2026/",
+      "date": "2026-09-03"
+    },
+    {
+      "id": "p",
+      "label": "Agent Platform pricing (introductory rates)",
+      "publisher": "Google Cloud",
+      "url": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+      "date": "2026-09"
+    }
+  ],
+  "models": [
+    {
+      "id": "g37",
+      "label": "Gemini 3.7 Flash",
+      "provider": "gemini",
+      "modelId": "gemini-3.7-flash",
+      "idVerified": true,
+      "priceIn": 0.75,
+      "priceOut": 3.75,
+      "setting": "Default thinking level is medium."
+    },
+    {
+      "id": "g38",
+      "label": "Gemini 3.8 Flash",
+      "provider": "gemini",
+      "modelId": "gemini-3.8-flash",
+      "idVerified": true,
+      "priceIn": 0.75,
+      "priceOut": 3.75,
+      "setting": "Default thinking level is medium."
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Completed more than three times as many tasks as 3.7 Flash",
+      "claimedBy": "Customer quote on Google's Flash page",
+      "baseline": "g37",
+      "candidate": "g38",
+      "metric": "score_rel",
+      "claimed": 200,
+      "scope": "proxy",
+      "scopeNote": "The quote comes from one company's document-heavy evaluation. The reference is an independent agentic index, so it is a proxy, not a replication.",
+      "ref": {
+        "baseline": 45.1,
+        "candidate": 50.0,
+        "unit": "Agentic Index points",
+        "sources": [
+          "v"
+        ],
+        "note": "Artificial Analysis Agentic Index."
+      }
+    },
+    {
+      "id": "c2",
+      "text": "Agentic video understanding uses up to 88% fewer tokens on long-form content",
+      "claimedBy": "Google",
+      "baseline": "g37",
+      "candidate": "g38",
+      "metric": "total_tokens",
+      "claimed": 88,
+      "scope": "in",
+      "ref": null,
+      "noRefNote": "No independent measurement found. Build a long-video task set and run it live; note the claim says up to 88%, so a typical figure will be lower."
+    }
+  ],
+  "observations": [
+    {
+      "text": "Time to first token got worse, from 12.0 to 13.2 seconds, even though streaming speed rose from 279 to 299 tokens per second.",
+      "sources": [
+        "v"
+      ]
+    },
+    {
+      "text": "The independent coding index barely moved (76.1 to 76.3), while the overall Intelligence Index rose from 56 to 59.",
+      "sources": [
+        "v"
+      ]
+    },
+    {
+      "text": "Both models are on introductory pricing of $0.75/$3.75 that rises to $1.50/$7.50 on 1 January 2027.",
+      "sources": [
+        "p"
+      ]
+    }
+  ],
+  "livePack": {
+    "note": "Runs the 15 starter tasks plus 7 multi-step efficiency tasks. Add tasks from your own work before trusting a verdict.",
+    "settings": {
+      "repeats": 3,
+      "maxTokens": 8000
+    },
+    "extraTasks": [
+      {
+        "id": "e1",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "205",
+        "prompt": "A train leaves at 09:40 and arrives at 13:05 the same day. How many minutes is the journey? Answer with the number only."
+      },
+      {
+        "id": "e2",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "46",
+        "prompt": "How many positive integers below 100 are divisible by 3 or by 5? Answer with the number only."
+      },
+      {
+        "id": "e3",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "friday",
+        "prompt": "If today is Wednesday, what day of the week will it be 100 days from today? Answer with the day name only."
+      },
+      {
+        "id": "e4",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "28",
+        "prompt": "A shop gives 20% off, then a further 10% off the reduced price. What is the total discount as a percentage of the original price? Answer with the number only."
+      },
+      {
+        "id": "e5",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "0.45",
+        "prompt": "Which is the largest of these: 3/7, 0.45, 4/9, 0.43? Answer with the value exactly as written in the list."
+      },
+      {
+        "id": "e6",
+        "cat": "Efficiency",
+        "grader": "json",
+        "expected": {
+          "po": "PO-7781",
+          "total": 15000
+        },
+        "prompt": "Return only JSON with keys \"po\" and \"total\" (total as a number, in rupees) for this order: \"PO-7781 for 12 units at Rs 1,250 each.\""
+      },
+      {
+        "id": "e7",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "5",
+        "prompt": "How many vowels (a, e, i, o, u) are in the word \"transformation\"? Answer with the number only."
+      }
+    ]
+  }
+}

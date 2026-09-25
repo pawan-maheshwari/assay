@@ -1,0 +1,147 @@
+{
+  "schema": "assay-scenario/1",
+  "id": "anthropic-opus-4-5-tokens",
+  "title": "Claude Opus 4.5 token efficiency against Sonnet 4.5",
+  "vendor": "Anthropic",
+  "released": "2025-11-24",
+  "checked": "2026-09-25",
+  "summary": "A widely repeated efficiency claim from late 2025 that was measured on one benchmark under the vendor's own harness. There is no matching independent number, so this scenario is a live test pack only.",
+  "sources": [
+    {
+      "id": "v",
+      "label": "Launch coverage of the effort parameter and token claims",
+      "publisher": "VentureBeat",
+      "url": "https://venturebeat.com/ai/anthropics-claude-opus-4-5-is-here-cheaper-ai-infinite-chats-and-coding",
+      "date": "2025-11-24"
+    },
+    {
+      "id": "i",
+      "label": "Model ID and pricing reference",
+      "publisher": "ITECS",
+      "url": "https://itecsonline.com/post/opus-4-5-features",
+      "date": "2025-11-25"
+    }
+  ],
+  "models": [
+    {
+      "id": "s45",
+      "label": "Sonnet 4.5",
+      "provider": "anthropic",
+      "modelId": "claude-sonnet-4-5",
+      "idVerified": false,
+      "priceIn": 3,
+      "priceOut": 15,
+      "setting": "Confirm the model ID and that it is still served."
+    },
+    {
+      "id": "o45",
+      "label": "Opus 4.5 (medium)",
+      "provider": "anthropic",
+      "modelId": "claude-opus-4-5-20251101",
+      "idVerified": true,
+      "priceIn": 5,
+      "priceOut": 25,
+      "extraBody": {
+        "output_config": {
+          "effort": "medium"
+        }
+      },
+      "setting": "Effort was a beta parameter at launch. Check the current name."
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "At medium effort, matches Sonnet 4.5 on SWE-bench Verified with 76% fewer output tokens",
+      "claimedBy": "Anthropic",
+      "baseline": "s45",
+      "candidate": "o45",
+      "metric": "out_tokens",
+      "claimed": 76,
+      "scope": "in",
+      "ref": null,
+      "noRefNote": "The figure is from one coding benchmark on Anthropic's harness. The live pack tests whether the saving carries over to short, general tasks, where it is likely to be smaller."
+    },
+    {
+      "id": "c2",
+      "text": "Cheaper per task than Sonnet 4.5 despite higher token prices",
+      "claimedBy": "Implied by the token and price claims",
+      "baseline": "s45",
+      "candidate": "o45",
+      "metric": "cost_task",
+      "claimed": 20,
+      "scope": "in",
+      "ref": null,
+      "noRefNote": "Opus 4.5 costs $5/$25 against Sonnet 4.5's $3/$15, so it only wins per task if it really writes far fewer tokens. The 20% target here is illustrative."
+    }
+  ],
+  "observations": [
+    {
+      "text": "At high effort, Anthropic says Opus 4.5 beat Sonnet 4.5 by 4.3 points while using 48% fewer tokens, so the saving shrinks as effort rises.",
+      "sources": [
+        "v"
+      ]
+    }
+  ],
+  "livePack": {
+    "note": "Runs the 15 starter tasks plus 7 multi-step efficiency tasks. Add tasks from your own work before trusting a verdict.",
+    "settings": {
+      "repeats": 3,
+      "maxTokens": 8000
+    },
+    "extraTasks": [
+      {
+        "id": "e1",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "205",
+        "prompt": "A train leaves at 09:40 and arrives at 13:05 the same day. How many minutes is the journey? Answer with the number only."
+      },
+      {
+        "id": "e2",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "46",
+        "prompt": "How many positive integers below 100 are divisible by 3 or by 5? Answer with the number only."
+      },
+      {
+        "id": "e3",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "friday",
+        "prompt": "If today is Wednesday, what day of the week will it be 100 days from today? Answer with the day name only."
+      },
+      {
+        "id": "e4",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "28",
+        "prompt": "A shop gives 20% off, then a further 10% off the reduced price. What is the total discount as a percentage of the original price? Answer with the number only."
+      },
+      {
+        "id": "e5",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "0.45",
+        "prompt": "Which is the largest of these: 3/7, 0.45, 4/9, 0.43? Answer with the value exactly as written in the list."
+      },
+      {
+        "id": "e6",
+        "cat": "Efficiency",
+        "grader": "json",
+        "expected": {
+          "po": "PO-7781",
+          "total": 15000
+        },
+        "prompt": "Return only JSON with keys \"po\" and \"total\" (total as a number, in rupees) for this order: \"PO-7781 for 12 units at Rs 1,250 each.\""
+      },
+      {
+        "id": "e7",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "5",
+        "prompt": "How many vowels (a, e, i, o, u) are in the word \"transformation\"? Answer with the number only."
+      }
+    ]
+  }
+}

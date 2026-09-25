@@ -1,0 +1,303 @@
+{
+  "schema": "assay-scenario/1",
+  "id": "anthropic-opus-5-5",
+  "title": "Claude Opus 5.5 against Opus 5",
+  "vendor": "Anthropic",
+  "released": "2026-09-22",
+  "checked": "2026-09-25",
+  "summary": "Anthropic cut Opus prices by 20% and says Opus 5.5 costs about 40% less to run than Opus 5 at default effort, while generating output more than 30% faster. Independent measurements support the claim at the default medium effort. At max effort the story reverses: Opus 5.5 writes far more tokens and costs about the same per task.",
+  "sources": [
+    {
+      "id": "v",
+      "label": "Launch coverage summarising Anthropic's claims",
+      "publisher": "Coursiv",
+      "url": "https://coursiv.io/blog/claude-opus-5-5",
+      "date": "2026-09-22"
+    },
+    {
+      "id": "a1",
+      "label": "Claude Opus 5 (medium) measurements",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/claude-opus-5-medium",
+      "date": "2026-07-24"
+    },
+    {
+      "id": "a2",
+      "label": "Claude Opus 5.5 (medium) measurements",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/claude-opus-5-5-medium",
+      "date": "2026-09-23"
+    },
+    {
+      "id": "a3",
+      "label": "Claude Opus 5 (max) measurements",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/claude-opus-5",
+      "date": "2026-07-24"
+    },
+    {
+      "id": "a4",
+      "label": "Claude Opus 5.5 (max) measurements",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/claude-opus-5-5",
+      "date": "2026-09-23"
+    },
+    {
+      "id": "a5",
+      "label": "Opus 5.5 launch analysis (output tokens per task)",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/articles/claude-opus-5-5",
+      "date": "2026-09-23"
+    }
+  ],
+  "models": [
+    {
+      "id": "o5m",
+      "label": "Opus 5 (medium)",
+      "provider": "anthropic",
+      "modelId": "claude-opus-5",
+      "idVerified": false,
+      "priceIn": 5,
+      "priceOut": 25,
+      "setting": "Default effort. Confirm the model ID in Anthropic's docs."
+    },
+    {
+      "id": "o55m",
+      "label": "Opus 5.5 (medium)",
+      "provider": "anthropic",
+      "modelId": "claude-opus-5-5",
+      "idVerified": true,
+      "priceIn": 4,
+      "priceOut": 20,
+      "setting": "Default effort is medium."
+    },
+    {
+      "id": "o5x",
+      "label": "Opus 5 (max)",
+      "provider": "anthropic",
+      "modelId": "claude-opus-5",
+      "idVerified": false,
+      "priceIn": 5,
+      "priceOut": 25,
+      "extraBody": {
+        "output_config": {
+          "effort": "max"
+        }
+      },
+      "setting": "Effort set through extra request fields. Check the current parameter name."
+    },
+    {
+      "id": "o55x",
+      "label": "Opus 5.5 (max)",
+      "provider": "anthropic",
+      "modelId": "claude-opus-5-5",
+      "idVerified": true,
+      "priceIn": 4,
+      "priceOut": 20,
+      "extraBody": {
+        "output_config": {
+          "effort": "max"
+        }
+      },
+      "setting": "Effort set through extra request fields. Check the current parameter name."
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Costs about 40% less to run than Opus 5 on typical workloads at default effort",
+      "claimedBy": "Anthropic",
+      "baseline": "o5m",
+      "candidate": "o55m",
+      "metric": "cost_task",
+      "claimed": 40,
+      "scope": "in",
+      "ref": {
+        "baseline": 2.19,
+        "candidate": 1.34,
+        "unit": "$ per index task",
+        "sources": [
+          "a1",
+          "a2"
+        ],
+        "note": "Artificial Analysis Intelligence Index v4.3.2, both at medium effort."
+      },
+      "guard": {
+        "baseline": 45,
+        "candidate": 51,
+        "label": "Intelligence Index",
+        "sources": [
+          "a1",
+          "a2"
+        ]
+      }
+    },
+    {
+      "id": "c2",
+      "text": "The same 40% saving, checked at max effort",
+      "claimedBy": "Anthropic",
+      "baseline": "o5x",
+      "candidate": "o55x",
+      "metric": "cost_task",
+      "claimed": 40,
+      "scope": "outside",
+      "scopeNote": "Anthropic's claim is for default effort. This row shows what happens if you run both at max.",
+      "ref": {
+        "baseline": 5.86,
+        "candidate": 5.98,
+        "unit": "$ per index task",
+        "sources": [
+          "a3",
+          "a4"
+        ],
+        "note": "Artificial Analysis Intelligence Index v4.3.2, both at max effort."
+      },
+      "guard": {
+        "baseline": 51,
+        "candidate": 58,
+        "label": "Intelligence Index",
+        "sources": [
+          "a3",
+          "a4"
+        ]
+      }
+    },
+    {
+      "id": "c3",
+      "text": "Generates output more than 30% faster than Opus 5",
+      "claimedBy": "Anthropic",
+      "baseline": "o5m",
+      "candidate": "o55m",
+      "metric": "output_speed",
+      "claimed": 30,
+      "scope": "in",
+      "ref": {
+        "baseline": 55,
+        "candidate": 75,
+        "unit": "output tokens per second",
+        "sources": [
+          "a1",
+          "a2"
+        ],
+        "note": "Measured on Anthropic's API at medium effort."
+      }
+    },
+    {
+      "id": "c4",
+      "text": "Uses fewer tokens per task (customer reports range from 20% to 66% fewer)",
+      "claimedBy": "Anthropic, quoting customers",
+      "baseline": "o5m",
+      "candidate": "o55m",
+      "metric": "out_tokens",
+      "claimed": 20,
+      "scope": "in",
+      "scopeNote": "Tested against the lowest customer figure, 20%.",
+      "ref": {
+        "baseline": 49,
+        "candidate": 38,
+        "unit": "million tokens across the index",
+        "sources": [
+          "a1",
+          "a2"
+        ],
+        "note": "Total tokens generated on the index at medium effort."
+      }
+    },
+    {
+      "id": "c5",
+      "text": "Fewer tokens per task, checked at max effort",
+      "claimedBy": "Anthropic, quoting customers",
+      "baseline": "o5x",
+      "candidate": "o55x",
+      "metric": "out_tokens",
+      "claimed": 20,
+      "scope": "outside",
+      "scopeNote": "The token claim is not specific to max effort. This row shows the setting where it breaks.",
+      "ref": {
+        "baseline": 73,
+        "candidate": 119,
+        "unit": "thousand output tokens per task",
+        "sources": [
+          "a5"
+        ],
+        "note": "Roughly 1.6 times the output tokens per task."
+      }
+    }
+  ],
+  "observations": [
+    {
+      "text": "Per-token prices fell 20% ($5/$25 to $4/$20) and cache reads fell 60% ($0.50 to $0.20), so part of the saving is pricing, not efficiency.",
+      "sources": [
+        "v",
+        "a5"
+      ]
+    },
+    {
+      "text": "Thinking can no longer be switched off on Opus 5.5, so pipelines that ran Opus 5 without thinking lose that cheaper option.",
+      "sources": [
+        "v"
+      ]
+    }
+  ],
+  "livePack": {
+    "note": "Runs the 15 starter tasks plus 7 multi-step efficiency tasks. Add tasks from your own work before trusting a verdict.",
+    "settings": {
+      "repeats": 3,
+      "maxTokens": 8000
+    },
+    "extraTasks": [
+      {
+        "id": "e1",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "205",
+        "prompt": "A train leaves at 09:40 and arrives at 13:05 the same day. How many minutes is the journey? Answer with the number only."
+      },
+      {
+        "id": "e2",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "46",
+        "prompt": "How many positive integers below 100 are divisible by 3 or by 5? Answer with the number only."
+      },
+      {
+        "id": "e3",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "friday",
+        "prompt": "If today is Wednesday, what day of the week will it be 100 days from today? Answer with the day name only."
+      },
+      {
+        "id": "e4",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "28",
+        "prompt": "A shop gives 20% off, then a further 10% off the reduced price. What is the total discount as a percentage of the original price? Answer with the number only."
+      },
+      {
+        "id": "e5",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "0.45",
+        "prompt": "Which is the largest of these: 3/7, 0.45, 4/9, 0.43? Answer with the value exactly as written in the list."
+      },
+      {
+        "id": "e6",
+        "cat": "Efficiency",
+        "grader": "json",
+        "expected": {
+          "po": "PO-7781",
+          "total": 15000
+        },
+        "prompt": "Return only JSON with keys \"po\" and \"total\" (total as a number, in rupees) for this order: \"PO-7781 for 12 units at Rs 1,250 each.\""
+      },
+      {
+        "id": "e7",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "5",
+        "prompt": "How many vowels (a, e, i, o, u) are in the word \"transformation\"? Answer with the number only."
+      }
+    ]
+  }
+}

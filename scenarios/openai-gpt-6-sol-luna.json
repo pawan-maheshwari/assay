@@ -1,0 +1,239 @@
+{
+  "schema": "assay-scenario/1",
+  "id": "openai-gpt-6-sol-luna",
+  "title": "GPT-6 Sol and Luna against GPT-5.6",
+  "vendor": "OpenAI",
+  "released": "2026-09-22",
+  "checked": "2026-09-25",
+  "summary": "OpenAI halved token prices for its mid and low tiers. Independent measurement confirms cost per task roughly halves, driven entirely by price: both models use slightly more output tokens than before, and Luna's benchmark score dropped two points.",
+  "sources": [
+    {
+      "id": "v",
+      "label": "Launch coverage summarising OpenAI's claims",
+      "publisher": "Coursiv",
+      "url": "https://coursiv.io/blog/gpt-6-sol-luna",
+      "date": "2026-09-22"
+    },
+    {
+      "id": "a1",
+      "label": "GPT-6 Sol and Luna cost-efficiency analysis",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/articles/gpt-6-sol-and-luna-push-the-cost-efficiency-frontier",
+      "date": "2026-09-23"
+    },
+    {
+      "id": "a2",
+      "label": "Key takeaways post (tokens per task, eval regressions)",
+      "publisher": "Artificial Analysis on X",
+      "url": "https://x.com/ArtificialAnlys/status/2102462962758033624",
+      "date": "2026-09-23"
+    },
+    {
+      "id": "a3",
+      "label": "GPT-5.6 Sol (max) measurements",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/gpt-5-6-sol",
+      "date": "2026-07-09"
+    },
+    {
+      "id": "a4",
+      "label": "GPT-6 Sol (max) measurements",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/gpt-6-sol",
+      "date": "2026-09-23"
+    }
+  ],
+  "models": [
+    {
+      "id": "s56",
+      "label": "GPT-5.6 Sol",
+      "provider": "openai",
+      "modelId": "gpt-5.6-sol",
+      "idVerified": false,
+      "priceIn": 4,
+      "priceOut": 20,
+      "setting": "Promotional price. Confirm the model ID in OpenAI's docs."
+    },
+    {
+      "id": "s6",
+      "label": "GPT-6 Sol",
+      "provider": "openai",
+      "modelId": "gpt-6-sol",
+      "idVerified": true,
+      "priceIn": 2,
+      "priceOut": 10,
+      "setting": "Default effort is medium."
+    },
+    {
+      "id": "l56",
+      "label": "GPT-5.6 Luna",
+      "provider": "openai",
+      "modelId": "gpt-5.6-luna",
+      "idVerified": false,
+      "priceIn": 0.2,
+      "priceOut": 1.2,
+      "setting": "Confirm the model ID in OpenAI's docs."
+    },
+    {
+      "id": "l6",
+      "label": "GPT-6 Luna",
+      "provider": "openai",
+      "modelId": "gpt-6-luna",
+      "idVerified": true,
+      "priceIn": 0.1,
+      "priceOut": 0.5,
+      "setting": "Default effort is medium."
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "GPT-6 Sol costs half as much as GPT-5.6 Sol",
+      "claimedBy": "OpenAI",
+      "baseline": "s56",
+      "candidate": "s6",
+      "metric": "cost_task",
+      "claimed": 50,
+      "scope": "in",
+      "scopeNote": "OpenAI states the cut per token; this checks it per completed task.",
+      "ref": {
+        "baseline": 1.99,
+        "candidate": 1.06,
+        "unit": "$ per index task",
+        "sources": [
+          "a1"
+        ],
+        "note": "Artificial Analysis Intelligence Index v4.3.2, both at max effort."
+      },
+      "guard": {
+        "baseline": 47,
+        "candidate": 48,
+        "label": "Intelligence Index",
+        "sources": [
+          "a3",
+          "a4"
+        ]
+      }
+    },
+    {
+      "id": "c2",
+      "text": "GPT-6 Luna cuts prices by about half",
+      "claimedBy": "OpenAI",
+      "baseline": "l56",
+      "candidate": "l6",
+      "metric": "cost_task",
+      "claimed": 50,
+      "scope": "in",
+      "ref": {
+        "baseline": 0.18,
+        "candidate": 0.07,
+        "unit": "$ per index task",
+        "sources": [
+          "a1"
+        ],
+        "note": "Artificial Analysis Intelligence Index v4.3.2, both at max effort."
+      },
+      "guard": {
+        "baseline": 43,
+        "candidate": 41,
+        "label": "Intelligence Index",
+        "sources": [
+          "a1"
+        ]
+      }
+    },
+    {
+      "id": "c3",
+      "text": "Sol makes about half as many factual mistakes as GPT-5.6 Sol",
+      "claimedBy": "OpenAI",
+      "baseline": "s56",
+      "candidate": "s6",
+      "metric": "accuracy",
+      "claimed": 0,
+      "scope": "in",
+      "ref": null,
+      "noRefNote": "OpenAI's figure comes from its own set of user-flagged conversations. Artificial Analysis reports its knowledge and hallucination index rising from 22 to 27, which points the same way but measures something different. Test it with a factual task set of your own."
+    }
+  ],
+  "observations": [
+    {
+      "text": "The saving comes from price: output tokens per task rose slightly, from about 29k to 31k for Sol and 41k to 51k for Luna.",
+      "sources": [
+        "a2"
+      ]
+    },
+    {
+      "text": "Independent evals show regressions too: Sol dropped about 100 Elo on GDPval-AA v2.1, a benchmark of economically valuable tasks.",
+      "sources": [
+        "a2"
+      ]
+    },
+    {
+      "text": "Prompts above 272K input tokens are billed at higher long-context rates, so very long-context workloads save less.",
+      "sources": [
+        "v"
+      ]
+    }
+  ],
+  "livePack": {
+    "note": "Runs the 15 starter tasks plus 7 multi-step efficiency tasks. Add tasks from your own work before trusting a verdict.",
+    "settings": {
+      "repeats": 3,
+      "maxTokens": 8000
+    },
+    "extraTasks": [
+      {
+        "id": "e1",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "205",
+        "prompt": "A train leaves at 09:40 and arrives at 13:05 the same day. How many minutes is the journey? Answer with the number only."
+      },
+      {
+        "id": "e2",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "46",
+        "prompt": "How many positive integers below 100 are divisible by 3 or by 5? Answer with the number only."
+      },
+      {
+        "id": "e3",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "friday",
+        "prompt": "If today is Wednesday, what day of the week will it be 100 days from today? Answer with the day name only."
+      },
+      {
+        "id": "e4",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "28",
+        "prompt": "A shop gives 20% off, then a further 10% off the reduced price. What is the total discount as a percentage of the original price? Answer with the number only."
+      },
+      {
+        "id": "e5",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "0.45",
+        "prompt": "Which is the largest of these: 3/7, 0.45, 4/9, 0.43? Answer with the value exactly as written in the list."
+      },
+      {
+        "id": "e6",
+        "cat": "Efficiency",
+        "grader": "json",
+        "expected": {
+          "po": "PO-7781",
+          "total": 15000
+        },
+        "prompt": "Return only JSON with keys \"po\" and \"total\" (total as a number, in rupees) for this order: \"PO-7781 for 12 units at Rs 1,250 each.\""
+      },
+      {
+        "id": "e7",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "5",
+        "prompt": "How many vowels (a, e, i, o, u) are in the word \"transformation\"? Answer with the number only."
+      }
+    ]
+  }
+}
