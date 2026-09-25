@@ -121,7 +121,7 @@ try {
   await page.waitForFunction("window.__reportReady === true", null, { timeout: 120000 });
   await page.waitForTimeout(1500);
   await fs.mkdir(path.join(ROOT, "reports"), { recursive: true });
-  const footer = `<div style="font-size:7px;width:100%;padding:0 14mm;display:flex;justify-content:space-between;color:#565C7D;font-family:sans-serif"><span>Assay | ${cfg.reportTitle}</span><span class="pageNumber"></span></div>`;
+  const footer = `<div style="font-size:7px;width:100%;padding:0 14mm;display:flex;justify-content:space-between;color:#565C7D;font-family:sans-serif"><span>Assay | ${cfg.reportTitle}</span><span>${cfg.footerCredit || ""}</span><span class="pageNumber"></span></div>`;
   const opts = { preferCSSPageSize: true, printBackground: true, displayHeaderFooter: true, headerTemplate: "<div></div>", footerTemplate: footer };
   await page.pdf(Object.assign({ path: path.join(ROOT, `reports/assay-report-${TODAY}.pdf`) }, opts));
   await fs.copyFile(path.join(ROOT, `reports/assay-report-${TODAY}.pdf`), path.join(ROOT, "reports/latest.pdf"));
