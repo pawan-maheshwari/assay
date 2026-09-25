@@ -8,18 +8,36 @@
   "summary": "Same price, same limits, three weeks apart. Google leads with a customer saying 3.8 Flash completed more than three times as many tasks. Independent indexes show a real but much smaller gain in agentic work, flat coding, and a slower first token.",
   "sources": [
     {
+      "id": "vp",
+      "label": "Introducing Gemini 3.8 Flash and 3.8 Flash Cyber",
+      "publisher": "Google",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/",
+      "date": "2026-09-02",
+      "type": "vendor"
+    },
+    {
       "id": "v",
       "label": "Gemini 3.8 Flash guide separating vendor and independent figures",
       "publisher": "Codersera",
       "url": "https://codersera.com/blog/gemini-3-8-flash-complete-guide-2026/",
-      "date": "2026-09-03"
+      "date": "2026-09-03",
+      "type": "secondary"
     },
     {
       "id": "p",
       "label": "Agent Platform pricing (introductory rates)",
       "publisher": "Google Cloud",
       "url": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
-      "date": "2026-09"
+      "date": "2026-09",
+      "type": "vendor"
+    },
+    {
+      "id": "r",
+      "label": "Coverage quoting Google's note on token use at higher effort",
+      "publisher": "The Register",
+      "url": "https://www.theregister.com/ai-and-ml/2026/09/02/with-gemini-38-flash-google-reminds-everyone-its-still-in-the-race/5294049",
+      "date": "2026-09-02",
+      "type": "secondary"
     }
   ],
   "models": [
@@ -63,7 +81,10 @@
           "v"
         ],
         "note": "Artificial Analysis Agentic Index."
-      }
+      },
+      "vendorSources": [
+        "v"
+      ]
     },
     {
       "id": "c2",
@@ -79,6 +100,12 @@
     }
   ],
   "observations": [
+    {
+      "text": "Google itself cautions that the model may use more tokens to maximise performance, especially at higher effort levels, so cost per task can rise even at an unchanged price.",
+      "sources": [
+        "r"
+      ]
+    },
     {
       "text": "Time to first token got worse, from 12.0 to 13.2 seconds, even though streaming speed rose from 279 to 299 tokens per second.",
       "sources": [
@@ -158,5 +185,6 @@
         "prompt": "How many vowels (a, e, i, o, u) are in the word \"transformation\"? Answer with the number only."
       }
     ]
-  }
+  },
+  "vendorSource": "vp"
 }

@@ -8,39 +8,52 @@
   "summary": "OpenAI halved token prices for its mid and low tiers. Independent measurement confirms cost per task roughly halves, driven entirely by price: both models use slightly more output tokens than before, and Luna's benchmark score dropped two points.",
   "sources": [
     {
+      "id": "vp",
+      "label": "Introducing GPT-6 Sol and Luna",
+      "publisher": "OpenAI",
+      "url": "https://openai.com/index/introducing-gpt-6-sol-and-luna/",
+      "date": "2026-09-22",
+      "type": "vendor"
+    },
+    {
       "id": "v",
       "label": "Launch coverage summarising OpenAI's claims",
       "publisher": "Coursiv",
       "url": "https://coursiv.io/blog/gpt-6-sol-luna",
-      "date": "2026-09-22"
+      "date": "2026-09-22",
+      "type": "secondary"
     },
     {
       "id": "a1",
       "label": "GPT-6 Sol and Luna cost-efficiency analysis",
       "publisher": "Artificial Analysis",
       "url": "https://artificialanalysis.ai/articles/gpt-6-sol-and-luna-push-the-cost-efficiency-frontier",
-      "date": "2026-09-23"
+      "date": "2026-09-23",
+      "type": "independent"
     },
     {
       "id": "a2",
       "label": "Key takeaways post (tokens per task, eval regressions)",
       "publisher": "Artificial Analysis on X",
       "url": "https://x.com/ArtificialAnlys/status/2102462962758033624",
-      "date": "2026-09-23"
+      "date": "2026-09-23",
+      "type": "independent"
     },
     {
       "id": "a3",
       "label": "GPT-5.6 Sol (max) measurements",
       "publisher": "Artificial Analysis",
       "url": "https://artificialanalysis.ai/models/gpt-5-6-sol",
-      "date": "2026-07-09"
+      "date": "2026-07-09",
+      "type": "independent"
     },
     {
       "id": "a4",
       "label": "GPT-6 Sol (max) measurements",
       "publisher": "Artificial Analysis",
       "url": "https://artificialanalysis.ai/models/gpt-6-sol",
-      "date": "2026-09-23"
+      "date": "2026-09-23",
+      "type": "independent"
     }
   ],
   "models": [
@@ -235,5 +248,6 @@
         "prompt": "How many vowels (a, e, i, o, u) are in the word \"transformation\"? Answer with the number only."
       }
     ]
-  }
+  },
+  "vendorSource": "vp"
 }

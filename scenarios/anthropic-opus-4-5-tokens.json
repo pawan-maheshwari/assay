@@ -12,14 +12,16 @@
       "label": "Launch coverage of the effort parameter and token claims",
       "publisher": "VentureBeat",
       "url": "https://venturebeat.com/ai/anthropics-claude-opus-4-5-is-here-cheaper-ai-infinite-chats-and-coding",
-      "date": "2025-11-24"
+      "date": "2025-11-24",
+      "type": "secondary"
     },
     {
       "id": "i",
       "label": "Model ID and pricing reference",
       "publisher": "ITECS",
       "url": "https://itecsonline.com/post/opus-4-5-features",
-      "date": "2025-11-25"
+      "date": "2025-11-25",
+      "type": "secondary"
     }
   ],
   "models": [
@@ -72,7 +74,8 @@
       "claimed": 20,
       "scope": "in",
       "ref": null,
-      "noRefNote": "Opus 4.5 costs $5/$25 against Sonnet 4.5's $3/$15, so it only wins per task if it really writes far fewer tokens. The 20% target here is illustrative."
+      "noRefNote": "Opus 4.5 costs $5/$25 against Sonnet 4.5's $3/$15, so it only wins per task if it really writes far fewer tokens. The 20% target here is illustrative.",
+      "kind": "hypothesis"
     }
   ],
   "observations": [
@@ -143,5 +146,6 @@
         "prompt": "How many vowels (a, e, i, o, u) are in the word \"transformation\"? Answer with the number only."
       }
     ]
-  }
+  },
+  "vendorSource": "v"
 }

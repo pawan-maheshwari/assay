@@ -8,46 +8,60 @@
   "summary": "Anthropic cut Opus prices by 20% and says Opus 5.5 costs about 40% less to run than Opus 5 at default effort, while generating output more than 30% faster. Independent measurements support the claim at the default medium effort. At max effort the story reverses: Opus 5.5 writes far more tokens and costs about the same per task.",
   "sources": [
     {
+      "id": "vp",
+      "label": "Introducing Claude Opus 5.5",
+      "publisher": "Anthropic",
+      "url": "https://www.anthropic.com/claude-opus-5-5",
+      "date": "2026-09-22",
+      "type": "vendor"
+    },
+    {
       "id": "v",
       "label": "Launch coverage summarising Anthropic's claims",
       "publisher": "Coursiv",
       "url": "https://coursiv.io/blog/claude-opus-5-5",
-      "date": "2026-09-22"
+      "date": "2026-09-22",
+      "type": "secondary"
     },
     {
       "id": "a1",
       "label": "Claude Opus 5 (medium) measurements",
       "publisher": "Artificial Analysis",
       "url": "https://artificialanalysis.ai/models/claude-opus-5-medium",
-      "date": "2026-07-24"
+      "date": "2026-07-24",
+      "type": "independent"
     },
     {
       "id": "a2",
       "label": "Claude Opus 5.5 (medium) measurements",
       "publisher": "Artificial Analysis",
       "url": "https://artificialanalysis.ai/models/claude-opus-5-5-medium",
-      "date": "2026-09-23"
+      "date": "2026-09-23",
+      "type": "independent"
     },
     {
       "id": "a3",
       "label": "Claude Opus 5 (max) measurements",
       "publisher": "Artificial Analysis",
       "url": "https://artificialanalysis.ai/models/claude-opus-5",
-      "date": "2026-07-24"
+      "date": "2026-07-24",
+      "type": "independent"
     },
     {
       "id": "a4",
       "label": "Claude Opus 5.5 (max) measurements",
       "publisher": "Artificial Analysis",
       "url": "https://artificialanalysis.ai/models/claude-opus-5-5",
-      "date": "2026-09-23"
+      "date": "2026-09-23",
+      "type": "independent"
     },
     {
       "id": "a5",
       "label": "Opus 5.5 launch analysis (output tokens per task)",
       "publisher": "Artificial Analysis",
       "url": "https://artificialanalysis.ai/articles/claude-opus-5-5",
-      "date": "2026-09-23"
+      "date": "2026-09-23",
+      "type": "independent"
     }
   ],
   "models": [
@@ -160,7 +174,8 @@
           "a3",
           "a4"
         ]
-      }
+      },
+      "kind": "stress"
     },
     {
       "id": "c3",
@@ -221,21 +236,22 @@
           "a5"
         ],
         "note": "Roughly 1.6 times the output tokens per task."
-      }
+      },
+      "kind": "stress"
     }
   ],
   "observations": [
     {
       "text": "Per-token prices fell 20% ($5/$25 to $4/$20) and cache reads fell 60% ($0.50 to $0.20), so part of the saving is pricing, not efficiency.",
       "sources": [
-        "v",
+        "vp",
         "a5"
       ]
     },
     {
       "text": "Thinking can no longer be switched off on Opus 5.5, so pipelines that ran Opus 5 without thinking lose that cheaper option.",
       "sources": [
-        "v"
+        "vp"
       ]
     }
   ],
@@ -299,5 +315,6 @@
         "prompt": "How many vowels (a, e, i, o, u) are in the word \"transformation\"? Answer with the number only."
       }
     ]
-  }
+  },
+  "vendorSource": "vp"
 }
