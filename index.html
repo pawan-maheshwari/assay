@@ -534,7 +534,7 @@ footer{max-width:1120px;margin:0 auto;padding:0 20px 36px;font-size:13px;color:v
       <div class="report-tools">
         <label class="f">Title<input id="rp-title" value="LLM Release Claims Audit"></label>
         <label class="f">Subtitle<input id="rp-sub" value="Do vendor claims survive independent measurement?"></label>
-        <label class="f">Prepared by<input id="rp-by" value="Pawan Maheshwari, Planet AI"></label>
+        <label class="f">Prepared by<input id="rp-by" value="Bhavin Maheshwari, Group CTO, PlanetAI"></label>
         <label class="f">Edition date<input id="rp-date" type="date"></label>
         <label class="f">Footer credit<input id="rp-foot" value="Bhavin Maheshwari, Group CTO"></label>
       </div>
@@ -1900,7 +1900,7 @@ function buildReport(){
     <div><div class="brandrow"><svg viewBox="0 0 48 48" width="34" height="34" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="#8E9BFF" stroke-width="3"/><path d="M24 3 A21 21 0 0 1 44.2 29" fill="none" stroke="#E8601F" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="24" r="6" fill="#8E9BFF"/></svg>Assay</div>
       <h1 style="margin-top:18mm">${esc(title)}</h1><p class="sub">${esc(sub)}</p></div>
     ${coverArt(D.rows)}
-    <div class="meta"><span>Prepared by ${esc(by)}</span>${credit ? `<span>${esc(credit)}</span>` : ""}<span>${esc(fmtDate(ed))}</span><span style="flex-basis:100%">Each ring is one claim or stress test; arc length shows how much of it held</span></div>
+    <div class="meta"><span>Prepared by ${esc(by)}</span>${credit && !by.includes(credit) ? `<span>${esc(credit)}</span>` : ""}<span>${esc(fmtDate(ed))}</span><span style="flex-basis:100%">Each ring is one claim or stress test; arc length shows how much of it held</span></div>
   </section>`);
   pages.push(`<section class="rpage">
     <div class="chap">About this report</div>
