@@ -1,0 +1,437 @@
+{
+  "schema": "assay-ledger/1",
+  "entries": {
+    "anthropic-sonnet-5-5/c2": {
+      "fp": "01afd1b4",
+      "verdict": "bad",
+      "sealed": "2026-09-30",
+      "reviewed": "2026-09-30",
+      "conditions": {
+        "metric": "cost_task",
+        "claimed": 30,
+        "scope": "outside",
+        "baseline": {
+          "modelId": "claude-sonnet-5",
+          "provider": "anthropic",
+          "setting": {
+            "output_config": {
+              "effort": "max"
+            }
+          },
+          "priceIn": 2,
+          "priceOut": 10
+        },
+        "candidate": {
+          "modelId": "claude-sonnet-5-5",
+          "provider": "anthropic",
+          "setting": {
+            "output_config": {
+              "effort": "max"
+            }
+          },
+          "priceIn": 2,
+          "priceOut": 10
+        },
+        "evidence": {
+          "baseline": 5.09,
+          "candidate": 7.6,
+          "unit": "$ per index task",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/claude-sonnet-5-5",
+              "date": "2026-09-28"
+            },
+            {
+              "url": "https://kingy.ai/blog/claude-sonnet-5-5-specs-benchmarks-pricing/",
+              "date": "2026-09-28"
+            }
+          ]
+        },
+        "guard": {
+          "baseline": 38,
+          "candidate": 56
+        }
+      },
+      "history": []
+    },
+    "anthropic-sonnet-5-5/c5": {
+      "fp": "a1b8557c",
+      "verdict": "bad",
+      "sealed": "2026-09-30",
+      "reviewed": "2026-09-30",
+      "conditions": {
+        "metric": "out_tokens",
+        "claimed": 14,
+        "scope": "outside",
+        "baseline": {
+          "modelId": "claude-sonnet-5",
+          "provider": "anthropic",
+          "setting": {
+            "output_config": {
+              "effort": "max"
+            }
+          }
+        },
+        "candidate": {
+          "modelId": "claude-sonnet-5-5",
+          "provider": "anthropic",
+          "setting": {
+            "output_config": {
+              "effort": "max"
+            }
+          }
+        },
+        "evidence": {
+          "baseline": 118,
+          "candidate": 193,
+          "unit": "thousand output tokens per task",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/claude-sonnet-5-5",
+              "date": "2026-09-28"
+            },
+            {
+              "url": "https://kingy.ai/blog/claude-sonnet-5-5-specs-benchmarks-pricing/",
+              "date": "2026-09-28"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    },
+    "anthropic-opus-5-5/c1": {
+      "fp": "a02ad754",
+      "verdict": "ok",
+      "sealed": "2026-09-30",
+      "reviewed": "2026-09-25",
+      "conditions": {
+        "metric": "cost_task",
+        "claimed": 40,
+        "scope": "in",
+        "baseline": {
+          "modelId": "claude-opus-5",
+          "provider": "anthropic",
+          "setting": null,
+          "priceIn": 5,
+          "priceOut": 25
+        },
+        "candidate": {
+          "modelId": "claude-opus-5-5",
+          "provider": "anthropic",
+          "setting": null,
+          "priceIn": 4,
+          "priceOut": 20
+        },
+        "evidence": {
+          "baseline": 2.19,
+          "candidate": 1.34,
+          "unit": "$ per index task",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/claude-opus-5-medium",
+              "date": "2026-07-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/claude-opus-5-5-medium",
+              "date": "2026-09-23"
+            }
+          ]
+        },
+        "guard": {
+          "baseline": 45,
+          "candidate": 51
+        }
+      },
+      "history": []
+    },
+    "anthropic-opus-5-5/c2": {
+      "fp": "2c56a953",
+      "verdict": "bad",
+      "sealed": "2026-09-30",
+      "reviewed": "2026-09-25",
+      "conditions": {
+        "metric": "cost_task",
+        "claimed": 40,
+        "scope": "outside",
+        "baseline": {
+          "modelId": "claude-opus-5",
+          "provider": "anthropic",
+          "setting": {
+            "output_config": {
+              "effort": "max"
+            }
+          },
+          "priceIn": 5,
+          "priceOut": 25
+        },
+        "candidate": {
+          "modelId": "claude-opus-5-5",
+          "provider": "anthropic",
+          "setting": {
+            "output_config": {
+              "effort": "max"
+            }
+          },
+          "priceIn": 4,
+          "priceOut": 20
+        },
+        "evidence": {
+          "baseline": 5.86,
+          "candidate": 5.98,
+          "unit": "$ per index task",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/claude-opus-5",
+              "date": "2026-07-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/claude-opus-5-5",
+              "date": "2026-09-23"
+            }
+          ]
+        },
+        "guard": {
+          "baseline": 51,
+          "candidate": 58
+        }
+      },
+      "history": []
+    },
+    "anthropic-opus-5-5/c3": {
+      "fp": "62954a23",
+      "verdict": "ok",
+      "sealed": "2026-09-30",
+      "reviewed": "2026-09-25",
+      "conditions": {
+        "metric": "output_speed",
+        "claimed": 30,
+        "scope": "in",
+        "baseline": {
+          "modelId": "claude-opus-5",
+          "provider": "anthropic",
+          "setting": null
+        },
+        "candidate": {
+          "modelId": "claude-opus-5-5",
+          "provider": "anthropic",
+          "setting": null
+        },
+        "evidence": {
+          "baseline": 55,
+          "candidate": 75,
+          "unit": "output tokens per second",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/claude-opus-5-medium",
+              "date": "2026-07-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/claude-opus-5-5-medium",
+              "date": "2026-09-23"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    },
+    "anthropic-opus-5-5/c4": {
+      "fp": "f5f717b0",
+      "verdict": "ok",
+      "sealed": "2026-09-30",
+      "reviewed": "2026-09-25",
+      "conditions": {
+        "metric": "out_tokens",
+        "claimed": 20,
+        "scope": "in",
+        "baseline": {
+          "modelId": "claude-opus-5",
+          "provider": "anthropic",
+          "setting": null
+        },
+        "candidate": {
+          "modelId": "claude-opus-5-5",
+          "provider": "anthropic",
+          "setting": null
+        },
+        "evidence": {
+          "baseline": 49,
+          "candidate": 38,
+          "unit": "million tokens across the index",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/claude-opus-5-medium",
+              "date": "2026-07-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/claude-opus-5-5-medium",
+              "date": "2026-09-23"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    },
+    "anthropic-opus-5-5/c5": {
+      "fp": "2814889e",
+      "verdict": "bad",
+      "sealed": "2026-09-30",
+      "reviewed": "2026-09-25",
+      "conditions": {
+        "metric": "out_tokens",
+        "claimed": 20,
+        "scope": "outside",
+        "baseline": {
+          "modelId": "claude-opus-5",
+          "provider": "anthropic",
+          "setting": {
+            "output_config": {
+              "effort": "max"
+            }
+          }
+        },
+        "candidate": {
+          "modelId": "claude-opus-5-5",
+          "provider": "anthropic",
+          "setting": {
+            "output_config": {
+              "effort": "max"
+            }
+          }
+        },
+        "evidence": {
+          "baseline": 73,
+          "candidate": 119,
+          "unit": "thousand output tokens per task",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/articles/claude-opus-5-5",
+              "date": "2026-09-23"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    },
+    "openai-gpt-6-sol-luna/c1": {
+      "fp": "04f9f766",
+      "verdict": "ok",
+      "sealed": "2026-09-30",
+      "reviewed": "2026-09-25",
+      "conditions": {
+        "metric": "cost_task",
+        "claimed": 50,
+        "scope": "in",
+        "baseline": {
+          "modelId": "gpt-5.6-sol",
+          "provider": "openai",
+          "setting": null,
+          "priceIn": 4,
+          "priceOut": 20
+        },
+        "candidate": {
+          "modelId": "gpt-6-sol",
+          "provider": "openai",
+          "setting": null,
+          "priceIn": 2,
+          "priceOut": 10
+        },
+        "evidence": {
+          "baseline": 1.99,
+          "candidate": 1.06,
+          "unit": "$ per index task",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/articles/gpt-6-sol-and-luna-push-the-cost-efficiency-frontier",
+              "date": "2026-09-23"
+            }
+          ]
+        },
+        "guard": {
+          "baseline": 47,
+          "candidate": 48
+        }
+      },
+      "history": []
+    },
+    "openai-gpt-6-sol-luna/c2": {
+      "fp": "c921487f",
+      "verdict": "part",
+      "sealed": "2026-09-30",
+      "reviewed": "2026-09-25",
+      "conditions": {
+        "metric": "cost_task",
+        "claimed": 50,
+        "scope": "in",
+        "baseline": {
+          "modelId": "gpt-5.6-luna",
+          "provider": "openai",
+          "setting": null,
+          "priceIn": 0.2,
+          "priceOut": 1.2
+        },
+        "candidate": {
+          "modelId": "gpt-6-luna",
+          "provider": "openai",
+          "setting": null,
+          "priceIn": 0.1,
+          "priceOut": 0.5
+        },
+        "evidence": {
+          "baseline": 0.18,
+          "candidate": 0.07,
+          "unit": "$ per index task",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/articles/gpt-6-sol-and-luna-push-the-cost-efficiency-frontier",
+              "date": "2026-09-23"
+            }
+          ]
+        },
+        "guard": {
+          "baseline": 43,
+          "candidate": 41
+        }
+      },
+      "history": []
+    },
+    "google-gemini-3-8-flash/c1": {
+      "fp": "a2fcfdc6",
+      "verdict": "bad",
+      "sealed": "2026-09-30",
+      "reviewed": "2026-09-25",
+      "conditions": {
+        "metric": "score_rel",
+        "claimed": 200,
+        "scope": "proxy",
+        "baseline": {
+          "modelId": "gemini-3.7-flash",
+          "provider": "gemini",
+          "setting": null
+        },
+        "candidate": {
+          "modelId": "gemini-3.8-flash",
+          "provider": "gemini",
+          "setting": null
+        },
+        "evidence": {
+          "baseline": 45.1,
+          "candidate": 50,
+          "unit": "Agentic Index points",
+          "sources": [
+            {
+              "url": "https://codersera.com/blog/gemini-3-8-flash-complete-guide-2026/",
+              "date": "2026-09-03"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    }
+  },
+  "maxAgeDays": 90
+}

@@ -1,6 +1,7 @@
 {
   "updated": "2026-09-30",
-  "baselined": false,
+  "baselined": true,
+  "notesBaselined": true,
   "models": [
     {
       "provider": "anthropic",
@@ -51,6 +52,301 @@
       "provider": "anthropic",
       "id": "claude-opus-4-5-20251101",
       "firstSeen": "2026-09-25"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-fable-5-1",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-mythos-5-1",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-opus-4-1-20250805",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-opus-4-7",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-opus-4-6",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-sonnet-4-20250514",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-opus-4-20250514",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-fable-5",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-mythos-5",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-6",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-6.1-sol",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-6.1",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-6-astra",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.6",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-4",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.6-cyber",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.6-terra",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.5",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.4",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.5-pro",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.4-mini",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.4-nano",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.4-class",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.3-chat",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.4-pro",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.3",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.3-codex",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.2-chat",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.2",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-5.2-codex",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-3.8-flash-lite",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-3.5-transcribe",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-3.6-flash",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-3.5-flash-lite",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-3.1-flash-lite",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.0-flash",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.0-flash-lite",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-3.5-flash",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-3.1-flash-image",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-3-pro-image",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.5-flash-lite",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-3-pro-preview",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-3.1-pro-preview",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.5-flash-preview",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-3-flash-preview",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.5-flash-image",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.5-flash-native",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.0-flash-exp",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.0-flash-preview",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.0-flash-thinking",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.5-pro-preview",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.0-pro-exp",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.5-flash-exp",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-1.5-pro",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-1.5-flash",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.5-pro",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.5-pro-exp",
+      "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.5-flash",
+      "firstSeen": "2026-09-30"
     }
   ]
 }
