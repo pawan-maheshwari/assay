@@ -1299,6 +1299,74 @@ function refVerdict(sc, c){
   }
   return { key, note, flag, ratio, point };
 }
+/* ---------- Reuse control ----------
+   A verdict is a verification: true for the exact conditions it was measured under.
+   Reuse is a separate authorisation, recomputed on every run: a verdict is cleared for reuse
+   only while its condition fingerprint still matches the sealed one in watch/verdict-ledger.json,
+   its evidence is younger than the age limit, and no newer version of the model has appeared. */
+let reuseLedger = null, reuseKnown = null;
+const REUSE_DEFAULT_DAYS = 90;
+function stableJSON(o){
+  if(Array.isArray(o)) return "[" + o.map(stableJSON).join(",") + "]";
+  if(o && typeof o === "object") return "{" + Object.keys(o).sort().filter(k => o[k] !== undefined).map(k => JSON.stringify(k) + ":" + stableJSON(o[k])).join(",") + "}";
+  return JSON.stringify(o === undefined ? null : o);
+}
+function fnv1a(str){ let h = 0x811c9dc5; for(let i = 0; i < str.length; i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(16).padStart(8, "0"); }
+function conditionsOf(sc, c){
+  // Prices are a condition only for cost claims; a price change does not affect a speed or token claim.
+  const priced = /cost|price/.test(c.metric);
+  const mod = id => { const x = sc.models.find(y => y.id === id); return x ? { modelId: x.modelId, provider: x.provider, setting: x.extraBody || null, priceIn: priced ? Number(x.priceIn) || 0 : undefined, priceOut: priced ? Number(x.priceOut) || 0 : undefined } : null; };
+  const src = ids => (ids || []).map(id => { const s = (sc.sources || []).find(x => x.id === id); return s ? { url: s.url, date: s.date } : { id }; });
+  return { metric: c.metric, claimed: Number(c.claimed), scope: c.scope || "in", baseline: mod(c.baseline), candidate: mod(c.candidate),
+    evidence: c.ref ? { baseline: Number(c.ref.baseline), candidate: Number(c.ref.candidate), unit: c.ref.unit || "", sources: src(c.ref.sources) } : null,
+    guard: c.guard ? { baseline: Number(c.guard.baseline), candidate: Number(c.guard.candidate) } : null };
+}
+function conditionFingerprint(sc, c){ return fnv1a(stableJSON(conditionsOf(sc, c))); }
+function conditionChanges(a, b){
+  const out = new Set(), walk = (x, y, path) => {
+    if(stableJSON(x) === stableJSON(y)) return;
+    if(x && y && typeof x === "object" && typeof y === "object" && !Array.isArray(x)){ new Set([...Object.keys(x), ...Object.keys(y)]).forEach(k => walk(x[k], y[k], path.concat(k))); return; }
+    const [top, sub] = path, who = top === "baseline" ? "baseline" : "candidate";
+    if(top === "baseline" || top === "candidate") out.add(sub === "modelId" ? `${who} model version (${x} → ${y})` : sub === "setting" ? `${who} configuration` : sub && sub.startsWith("price") ? `${who} price` : `${who} model`);
+    else if(top === "evidence") out.add("independent evidence");
+    else if(top === "guard") out.add("quality benchmark");
+    else out.add("claim wording or scope");
+  };
+  walk(a || {}, b || {}, []);
+  return [...out];
+}
+function addDays(d, n){ const t = Date.parse(d); return isFinite(t) ? new Date(t + n * 864e5).toISOString().slice(0, 10) : ""; }
+function daysBetween(a, b){ const x = Date.parse(a), y = Date.parse(b); return isFinite(x) && isFinite(y) ? Math.floor((y - x) / 864e5) : 0; }
+function reuseStatus(sc, c, v, asOf){
+  v = v || refVerdict(sc, c);
+  if(v.key === "noref" || sc.status === "draft") return { status: "none", reasons: [] };
+  const maxDays = (reuseLedger && reuseLedger.maxAgeDays) || REUSE_DEFAULT_DAYS;
+  const key = sc.id + "/" + c.id, fp = conditionFingerprint(sc, c), now = asOf || today();
+  const e = reuseLedger && reuseLedger.entries && reuseLedger.entries[key];
+  const sealed = e ? e.sealed : sc.checked, validUntil = addDays(sc.checked, maxDays);
+  const r = { key, fp, sealed, validUntil, status: "valid", reasons: [] };
+  if(e && e.fp !== fp){ r.status = "stale"; r.reasons.push(`Changed since it was verified: ${conditionChanges(e.conditions, conditionsOf(sc, c)).join(", ")}.`); return r; }
+  const age = daysBetween(sc.checked, now);
+  if(age > maxDays){ r.status = "expired"; r.reasons.push(`The evidence is ${age} days old; the limit is ${maxDays}.`); return r; }
+  const cand = sc.models.find(m => m.id === c.candidate), known = reuseKnown || knownRemote || [];
+  if(cand && cand.modelId){
+    const fam = modelFamily(cand.modelId);
+    const newer = known.filter(m => m.provider === cand.provider && m.id !== cand.modelId && modelFamily(m.id) === fam && m.firstSeen && m.firstSeen > sealed && !sc.models.some(x => x.modelId === m.id));
+    if(newer.length){ r.status = "review"; r.reasons.push(`A newer model in the same family appeared after verification: ${newer.map(m => m.id).join(", ")}.`); return r; }
+  }
+  return r;
+}
+const REUSE = {
+  valid: { word: "Cleared for reuse", col: "#1F8A5B" },
+  review: { word: "Review before reuse", col: "#B7791F" },
+  expired: { word: "Not cleared: evidence expired", col: "#B7791F" },
+  stale: { word: "Not cleared: conditions changed", col: "#C2366B" }
+};
+function reuseLine(sc, c, v, cls){
+  const r = reuseStatus(sc, c, v); if(r.status === "none") return "";
+  const R = REUSE[r.status];
+  return `<div class="${cls || "rnote"}" style="margin-top:4px"><b style="color:${R.col}">${esc(R.word)}</b>${r.status === "valid" ? ` until ${esc(fmtDate(r.validUntil))}` : ""}. ${esc(r.reasons.join(" "))} <span style="opacity:.7">Conditions ID ${esc(r.fp)}.</span></div>`;
+}
 function srcLinks(sc, ids){
   return (ids || []).map(id => { const s = (sc.sources || []).find(x => x.id === id); if(!s) return ""; const n = sc.sources.indexOf(s) + 1; return `<a href="${esc(s.url)}" target="_blank" rel="noopener">[${n}]</a>`; }).join(" ");
 }
@@ -1327,6 +1395,7 @@ function renderScenarios(){
           ${c.ref ? `<p class="src">Published figures: ${esc(c.ref.baseline)} → ${esc(c.ref.candidate)} ${esc(c.ref.unit)}. ${esc(c.ref.note || "")} ${srcLinks(sc, c.ref.sources)}</p>` : ""}
           ${c.scopeNote ? `<p class="src" style="margin-top:4px">${esc(c.scopeNote)}</p>` : ""}
           ${v.flag ? `<p class="warn" style="margin-top:8px">${esc(v.flag)}</p>` : ""}
+          ${reuseLine(sc, c, v, "src")}
         </div>
       </div>`;
     }).join("");
@@ -1489,7 +1558,9 @@ async function fetchAutomation(){
   try{ const r = await fetch("results/latest.json", { cache: "no-store" }); if(r.ok) autoResults = await r.json(); }catch(e){ /* not deployed with automation */ }
   const rd = runDateOf(autoResults); if(rd && !editionDateTouched) $("#rp-date").value = rd;
   try{ const r = await fetch("watch/known-models.json", { cache: "no-store" }); if(r.ok){ const k = await r.json(); knownRemote = k.models || []; } }catch(e){}
+  try{ const r = await fetch("watch/verdict-ledger.json", { cache: "no-store" }); if(r.ok) reuseLedger = await r.json(); }catch(e){}
   renderAutoStatus();
+  if(typeof renderScenarios === "function") renderScenarios();
 }
 function withRuns(runs, models, fn){
   const sr = state.runs, sm = state.models;
@@ -1902,6 +1973,8 @@ function buildReport(){
   const AR = opts.auto ? autoResults : null;
   const liveCount = D.chapters.filter(c => c.live).length;
   const newIds = ((AR && AR.newModels) || []).map(m => m.id);
+  const reuseAll = D.chapters.flatMap(ch => ch.claims.map(r => reuseStatus(ch.sc, r.c, r.v))).filter(x => x.status !== "none");
+  const reuseOk = reuseAll.filter(x => x.status === "valid").length;
   let runLine = AR ? `This edition reflects the Assay ${runTriggerText(AR)} of ${fmtDate(AR.runDate || AR.generatedAt)}.` : `This edition is dated ${fmtDate(ed)}.`;
   if(AR){
     runLine += newIds.length ? ` That run detected ${newIds.length} new model${newIds.length === 1 ? "" : "s"} (${newIds.join(", ")}).` : " That run found no new model releases since the previous check.";
@@ -1922,6 +1995,7 @@ function buildReport(){
     <h2>What we checked, against what evidence, and how to read the verdicts.</h2>
     <div class="twocol">
       <div><h3>Scope</h3><p>${esc(runLine)} It covers ${D.chapters.length} model releases${dates.length ? ` announced between ${esc(fmtDate(new Date(dates[0]).toISOString()))} and ${esc(fmtDate(new Date(dates[dates.length - 1]).toISOString()))}` : ""}: ${vend.length} vendor claims, ${stress.length} Assay stress tests and ${hyp.length} test hypothesis${hyp.length === 1 ? "" : "es"}. Vendor claims are paraphrased from each vendor's announcement; stress tests re-check a claim outside the conditions the vendor stated, and are never counted against the vendor.</p></div>
+      <div><h3>Reuse control</h3><p>A verdict records what was true under the conditions it was measured in. Whether it may still inform a new decision is checked separately on every run: each verdict carries a fingerprint of its model versions, settings, prices and evidence, and is cleared for reuse only while that fingerprint is unchanged, the evidence is under ${esc(String((reuseLedger && reuseLedger.maxAgeDays) || REUSE_DEFAULT_DAYS))} days old and no newer model version has appeared. In this edition ${reuseOk} of ${reuseAll.length} verdicts are cleared for reuse.</p></div>
       <div><h3>Evidence base</h3><p>${D.reg.length} sources: ${stypes.vendor || 0} vendor announcements and pricing pages, ${stypes.independent || 0} independent measurements, and ${stypes.secondary || 0} secondary reports used where no primary figure was available. Every number carries a numbered citation.</p></div>
     </div>
     <div class="exhibit"><div class="xl">Verdict key</div><h3>How much of the claimed improvement independent data confirms</h3>
@@ -1963,7 +2037,7 @@ function buildReport(){
       <div class="rnote">${esc(r.c.claimedBy || sc.vendor)}. ${claimed > 0 ? `Claimed: ${esc(phrase(r.c.metric, claimed))}${r.c.ref && isFinite(r.v.point) ? `. Independent data: ${esc(phrase(r.c.metric, r.v.point))}` : ""}.` : "No figure that can be tested directly."}</div>
       ${r.c.ref && isFinite(r.v.point) && claimed > 0 ? gauge({ point: r.v.point, lo: NaN, hi: NaN }, claimed, M.unit, r.v.key, r.c.metric) : ""}
       <div class="rnote">${r.c.ref ? `Published figures: ${esc(refText(r.c.ref))}. ${esc(r.c.ref.note || "")}${citeTag(r.refs)} ` : `${esc(r.v.note)} `}${r.c.scopeNote ? esc(r.c.scopeNote) : ""}</div>
-      ${r.v.flag ? `<div class="rnote" style="color:#C2366B">${esc(r.v.flag)}</div>` : ""}</div></div>`; }).join("");
+      ${r.v.flag ? `<div class="rnote" style="color:#C2366B">${esc(r.v.flag)}</div>` : ""}${reuseLine(sc, r.c, r.v)}</div></div>`; }).join("");
     const soWhat = ch.claims.some(r => r.kind === "stress" && r.v.key === "bad") ? "The claim holds under the vendor's stated conditions but not outside them. Pin the setting you deploy in your contract or configuration, and test at that setting."
       : ch.claims.some(r => r.c.scope === "proxy" && r.v.key === "bad") ? "The headline figure comes from a single customer's evaluation; independent data shows a much smaller gain. Treat it as an upper bound and measure on your own workload."
       : ch.claims.some(r => r.v.flag) ? "The saving is real, but part of it came with lower measured quality. Check your own quality bar before switching."
@@ -2324,7 +2398,7 @@ window.addEventListener("scroll", () => {
   requestAnimationFrame(() => { toTop.classList.toggle("show", window.scrollY > 400); topTick = false; });
 }, { passive: true });
 
-window.Assay = { setKey: (id, k) => { keys[id] = k; }, addScenarios, extractClaims, buildDraftScenario, listModels, isChatModel, guessPredecessor, runScenarioHeadless, buildReport, refVerdict, scenarios: () => scenarios, loadScenario, grade, compare, verdictFor, summary, agg, delta, wilson, state: () => state, loadDemo, startRun, STARTER_TASKS };
+window.Assay = { conditionsOf, conditionFingerprint, reuseStatus, setReuseContext: (ledger, known) => { reuseLedger = ledger; reuseKnown = known; }, setKey: (id, k) => { keys[id] = k; }, addScenarios, extractClaims, buildDraftScenario, listModels, isChatModel, guessPredecessor, runScenarioHeadless, buildReport, refVerdict, scenarios: () => scenarios, loadScenario, grade, compare, verdictFor, summary, agg, delta, wilson, state: () => state, loadDemo, startRun, STARTER_TASKS };
 })();
 </script>
 </body>
