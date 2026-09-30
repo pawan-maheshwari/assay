@@ -12,7 +12,9 @@ import { JSDOM } from "jsdom";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const cfg = JSON.parse(await fs.readFile(path.join(ROOT, "watcher/config.json"), "utf8"));
-const KEYS = { openai: process.env.OPENAI_API_KEY || "", anthropic: process.env.ANTHROPIC_API_KEY || "", gemini: process.env.GEMINI_API_KEY || "" };
+const LIVE = cfg.liveTests === true;
+// Desk-audit mode (liveTests: false) never uses API keys, so it costs nothing.
+const KEYS = LIVE ? { openai: process.env.OPENAI_API_KEY || "", anthropic: process.env.ANTHROPIC_API_KEY || "", gemini: process.env.GEMINI_API_KEY || "" } : { openai: "", anthropic: "", gemini: "" };
 const TODAY = new Date().toISOString().slice(0, 10);
 // How this run was started: GitHub sets GITHUB_EVENT_NAME to "schedule" or "workflow_dispatch".
 const EVENT = process.env.GITHUB_EVENT_NAME || "";
@@ -39,8 +41,8 @@ const files = await Promise.all(index.scenarios.map(f => readJSON("scenarios/" +
 A.addScenarios(files.filter(Boolean));
 
 // 1. Detect new models.
-log(`trigger: ${TRIGGER}${FULL ? " (full audit)" : " (new releases only)"}`);
-Object.entries(KEYS).forEach(([p, k]) => { if(!k) warn(`${p.toUpperCase()}_API_KEY is not available to the workflow: no catalogue check and no live tests for ${p}.`); });
+log(`trigger: ${TRIGGER}${FULL ? " (full audit)" : " (new releases only)"}, ${LIVE ? "live tests on" : "desk audit, no API calls"}`);
+if (LIVE) Object.entries(KEYS).forEach(([p, k]) => { if(!k) warn(`${p.toUpperCase()}_API_KEY is not available to the workflow: no catalogue check and no live tests for ${p}.`); });
 const known = await readJSON("watch/known-models.json", { models: [] });
 // Only an empty list counts as a first run. A list that already holds models is the baseline,
 // so the first keyed run can no longer swallow a release made since then.
@@ -48,7 +50,7 @@ const firstRun = !known.baselined && !(known.models || []).length;
 const knownSet = new Set(known.models.map(m => m.provider + ":" + m.id));
 const found = [];
 for (const p of Object.keys(KEYS)) {
-  if (!KEYS[p]) { log(`no ${p} key, skipping catalogue`); continue; }
+  if (!KEYS[p]) { if (LIVE) log(`no ${p} key, skipping catalogue`); continue; }
   try {
     const list = (await A.listModels(p, KEYS[p])).filter(m => A.isChatModel(p, m.id));
     list.forEach(m => found.push(m));
@@ -84,7 +86,8 @@ const fresh = [...FORCED.map(m => Object.assign({ via: "requested" }, m)), ...ca
 log(firstRun ? "first run: recording the current catalogue as the baseline" : `${fresh.length} new models${fresh.length ? ": " + fresh.map(m => `${m.id} (${m.via})`).join(", ") : ""}`);
 const merged = new Map(known.models.map(m => [m.provider + ":" + m.id, m]));
 found.concat(firstRun ? [] : noteFresh).forEach(m => { const k = m.provider + ":" + m.id; if (!merged.has(k)) merged.set(k, { provider: m.provider, id: m.id, firstSeen: TODAY }); });
-await writeJSON("watch/known-models.json", { updated: TODAY, baselined: !!known.baselined || found.length > 0 || (known.models || []).length > 0, notesBaselined: !!known.notesBaselined || notesRead, models: [...merged.values()] });
+const knownChanged = merged.size !== (known.models || []).length || (notesRead && !known.notesBaselined) || !known.baselined;
+if (knownChanged) await writeJSON("watch/known-models.json", { updated: TODAY, baselined: !!known.baselined || found.length > 0 || (known.models || []).length > 0, notesBaselined: !!known.notesBaselined || notesRead, models: [...merged.values()] });
 
 // 2. Draft scenarios from release notes, unless a reviewed scenario already covers the model.
 const covered = [];
@@ -113,12 +116,14 @@ for (const m of fresh.slice(0, 6)) {
 await writeJSON("scenarios/index.json", index);
 
 // 3. Run live packs within budget.
-const results = { generatedAt: new Date().toISOString(), runDate: TODAY, trigger: TRIGGER, fullAudit: FULL, runUrl: RUN_URL,
+await fs.writeFile(path.join(process.env.RUNNER_TEMP || "/tmp", "assay-new-models.json"), JSON.stringify({ runDate: TODAY, models: fresh.map(m => ({ provider: m.provider, id: m.id, via: m.via, draft: drafts.find(d => d.includes(slug(m.id))) || "", covered: covered.find(id => A.scenarios().find(sc => sc.id === id && sc.models.some(x => x.modelId === m.id))) || "" })) }, null, 2));
+function slug(t) { return String(t).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60); }
+const results = { mode: LIVE ? "live" : "desk", generatedAt: new Date().toISOString(), runDate: TODAY, trigger: TRIGGER, fullAudit: FULL, runUrl: RUN_URL,
   keys: Object.fromEntries(Object.entries(KEYS).map(([p, k]) => [p, !!k])),
   newModels: fresh.map(m => ({ provider: m.provider, id: m.id, via: m.via })), scenarios: {}, skipped: {} };
 const prev = await readJSON("results/latest.json", { scenarios: {} });
-const toRun = [...new Set((FULL ? cfg.autoRun : []).concat(covered, cfg.autoRunDrafts ? drafts : []))];
-if (!toRun.length && !FULL) { log("no new releases today; nothing to test, report left unchanged"); await writeJSON("watch/last-check.json", { checkedAt: new Date().toISOString(), trigger: TRIGGER, newModels: [] }); process.exit(0); }
+const toRun = !LIVE ? [] : [...new Set((FULL ? cfg.autoRun : []).concat(covered, cfg.autoRunDrafts ? drafts : []))];
+if (!FULL && !fresh.length) { log("no new releases today; nothing to test, report left unchanged"); process.exit(0); }
 for (const id of toRun) {
   const sc = A.scenarios().find(s => s.id === id);
   if (!sc) { log(`scenario ${id} not found`); continue; }

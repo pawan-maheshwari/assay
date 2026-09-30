@@ -1,4 +1,5 @@
 {
+  "liveTests": false,
   "reportTitle": "LLM Release Claims Audit",
   "preparedBy": "Bhavin Maheshwari, Group CTO, PlanetAI",
   "footerCredit": "Bhavin Maheshwari, Group CTO",
@@ -55,7 +56,8 @@
     "prices": "Optional map of model ID to [input, output] $ per 1M tokens for draft scenarios, e.g. {\"gpt-6-sol\": [2, 10]}.",
     "maxCallsPerScenario": "Budget guard. Repeats are reduced until a scenario fits under this many API calls.",
     "modelPatterns": "Regexes used to spot new model IDs in the release-note pages, so detection works even when a provider key is missing or its catalogue call fails.",
-    "schedule": "The workflow runs daily. Daily runs only test newly detected models; Mondays and on-demand runs re-run every autoRun scenario."
+    "schedule": "Runs daily for free. A new model opens a GitHub issue; the report is rebuilt on Mondays, on demand, and whenever a new model is found.",
+    "liveTests": "false = desk audit: no API keys, no cost. Verdicts come from the published independent data in each scenario. Set to true only if you later add provider API keys as repository secrets."
   },
   "modelPatterns": {
     "anthropic": "claude-[a-z]+-\\d+(?:-\\d+)?(?:-\\d{8})?",
