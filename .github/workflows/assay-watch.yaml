@@ -31,6 +31,22 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      - name: Open an issue for each verdict that is no longer cleared for reuse
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          f="$RUNNER_TEMP/assay-reuse.json"
+          [ -f "$f" ] || exit 0
+          jq -c '.needsReview[]' "$f" | while read -r r; do
+            key=$(echo "$r" | jq -r .key); st=$(echo "$r" | jq -r .status)
+            title=$(echo "$r" | jq -r .title); why=$(echo "$r" | jq -r '.reasons | join(" ")'); fp=$(echo "$r" | jq -r .fp)
+            if gh issue list --state open --search "in:title \"Re-check verdict: $key\"" --json number -q '.[0].number' | grep -q .; then continue; fi
+            gh issue create --title "Re-check verdict: $key ($st)" --body "**$title**
+
+          $why
+
+          The original verdict stays in the record as historically correct, but it is not cleared to inform new decisions. To re-authorise it, update the scenario file with current evidence and set its \`checked\` date to today; the next run re-seals it (new conditions ID replaces $fp)."
+          done
       - name: Publish results
         run: |
           git config user.name "assay-bot"
