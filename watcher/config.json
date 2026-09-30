@@ -14,9 +14,30 @@
       "https://ai.google.dev/gemini-api/docs/changelog"
     ]
   },
-  "predecessors": {},
-  "prices": {},
+  "predecessors": {
+    "claude-sonnet-5-5": "claude-sonnet-5",
+    "claude-opus-5-5": "claude-opus-5"
+  },
+  "prices": {
+    "claude-sonnet-5-5": [
+      2,
+      10
+    ],
+    "claude-sonnet-5": [
+      2,
+      10
+    ],
+    "claude-opus-5-5": [
+      4,
+      20
+    ],
+    "claude-opus-5": [
+      5,
+      25
+    ]
+  },
   "autoRun": [
+    "anthropic-sonnet-5-5",
     "anthropic-opus-5-5",
     "openai-gpt-6-sol-luna",
     "google-gemini-3-8-flash"
@@ -32,6 +53,13 @@
     "releaseNotes": "Pages the watcher reads when a new model appears. Claims found are saved as draft scenarios for review.",
     "predecessors": "Optional map of new model ID to the model it replaces, e.g. {\"gpt-6-sol\": \"gpt-5.6-sol\"}. Otherwise the closest ID is guessed.",
     "prices": "Optional map of model ID to [input, output] $ per 1M tokens for draft scenarios, e.g. {\"gpt-6-sol\": [2, 10]}.",
-    "maxCallsPerScenario": "Budget guard. Repeats are reduced until a scenario fits under this many API calls."
+    "maxCallsPerScenario": "Budget guard. Repeats are reduced until a scenario fits under this many API calls.",
+    "modelPatterns": "Regexes used to spot new model IDs in the release-note pages, so detection works even when a provider key is missing or its catalogue call fails.",
+    "schedule": "The workflow runs daily. Daily runs only test newly detected models; Mondays and on-demand runs re-run every autoRun scenario."
+  },
+  "modelPatterns": {
+    "anthropic": "claude-[a-z]+-\\d+(?:-\\d+)?(?:-\\d{8})?",
+    "openai": "gpt-\\d+(?:\\.\\d+)?(?:-[a-z]+)?",
+    "gemini": "gemini-\\d+(?:\\.\\d+)?-[a-z]+(?:-[a-z]+)?"
   }
 }
