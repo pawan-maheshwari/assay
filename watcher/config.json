@@ -57,11 +57,13 @@
     "maxCallsPerScenario": "Budget guard. Repeats are reduced until a scenario fits under this many API calls.",
     "modelPatterns": "Regexes used to spot new model IDs in the release-note pages, so detection works even when a provider key is missing or its catalogue call fails.",
     "schedule": "Runs daily for free. A new model opens a GitHub issue; the report is rebuilt on Mondays, on demand, and whenever a new model is found.",
-    "liveTests": "false = desk audit: no API keys, no cost. Verdicts come from the published independent data in each scenario. Set to true only if you later add provider API keys as repository secrets."
+    "liveTests": "false = desk audit: no API keys, no cost. Verdicts come from the published independent data in each scenario. Set to true only if you later add provider API keys as repository secrets.",
+    "reuseMaxDays": "Reuse control: a verdict is cleared to inform new decisions only while its conditions fingerprint matches the sealed one in watch/verdict-ledger.json and its evidence is younger than this many days. Re-review a scenario (update it and set 'checked' to today) to re-seal."
   },
   "modelPatterns": {
     "anthropic": "claude-[a-z]+-\\d+(?:-\\d+)?(?:-\\d{8})?",
     "openai": "gpt-\\d+(?:\\.\\d+)?(?:-[a-z]+)?",
     "gemini": "gemini-\\d+(?:\\.\\d+)?-[a-z]+(?:-[a-z]+)?"
-  }
+  },
+  "reuseMaxDays": 90
 }

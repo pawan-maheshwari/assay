@@ -115,15 +115,48 @@ for (const m of fresh.slice(0, 6)) {
 }
 await writeJSON("scenarios/index.json", index);
 
-// 3. Run live packs within budget.
+// 3. Reuse control: verification and authorisation to reuse are kept apart.
+// The ledger seals each verdict with a fingerprint of its conditions. If the conditions change,
+// the verdict stays in the record but is no longer cleared for reuse until a person re-reviews
+// the scenario (bumps its "checked" date), which re-seals it and keeps the old seal in history.
+const ledgerPath = "watch/verdict-ledger.json";
+const ledger = await readJSON(ledgerPath, { schema: "assay-ledger/1", entries: {} });
+const ledgerBefore = JSON.stringify(ledger);
+ledger.maxAgeDays = cfg.reuseMaxDays || ledger.maxAgeDays || 90;
+for (const sc of A.scenarios().filter(x => x.status !== "draft")) for (const c of sc.claims) {
+  const v = A.refVerdict(sc, c); if (v.key === "noref") continue;
+  const key = sc.id + "/" + c.id, fp = A.conditionFingerprint(sc, c), conditions = A.conditionsOf(sc, c), e = ledger.entries[key];
+  if (!e) { ledger.entries[key] = { fp, verdict: v.key, sealed: TODAY, reviewed: sc.checked, conditions, history: [] }; log(`sealed ${key} (${fp})`); continue; }
+  if (e.fp === fp) continue;
+  if (String(sc.checked) > String(e.reviewed || "")) {
+    e.history = [{ fp: e.fp, verdict: e.verdict, sealed: e.sealed, conditions: e.conditions }, ...(e.history || [])].slice(0, 5);
+    Object.assign(e, { fp, verdict: v.key, sealed: TODAY, reviewed: sc.checked, conditions });
+    log(`re-sealed ${key} after review (${fp})`);
+  }
+}
+A.setReuseContext(ledger, [...merged.values()]);
+const needsReview = [];
+for (const sc of A.scenarios().filter(x => x.status !== "draft")) for (const c of sc.claims) {
+  const r = A.reuseStatus(sc, c, null, TODAY);
+  if (r.status !== "none" && r.status !== "valid") needsReview.push({ key: r.key, title: `${sc.title}: ${c.text}`, status: r.status, reasons: r.reasons, fp: r.fp });
+}
+if (needsReview.length) warn(`${needsReview.length} verdict(s) not cleared for reuse: ${needsReview.map(x => x.key + " (" + x.status + ")").join(", ")}`);
+const ledgerChanged = JSON.stringify(ledger) !== ledgerBefore;
+if (ledgerChanged) await writeJSON(ledgerPath, ledger);
+await fs.writeFile(path.join(process.env.RUNNER_TEMP || "/tmp", "assay-reuse.json"), JSON.stringify({ runDate: TODAY, needsReview }, null, 2));
+
+// 4. Run live packs within budget.
 await fs.writeFile(path.join(process.env.RUNNER_TEMP || "/tmp", "assay-new-models.json"), JSON.stringify({ runDate: TODAY, models: fresh.map(m => ({ provider: m.provider, id: m.id, via: m.via, draft: drafts.find(d => d.includes(slug(m.id))) || "", covered: covered.find(id => A.scenarios().find(sc => sc.id === id && sc.models.some(x => x.modelId === m.id))) || "" })) }, null, 2));
 function slug(t) { return String(t).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60); }
-const results = { mode: LIVE ? "live" : "desk", generatedAt: new Date().toISOString(), runDate: TODAY, trigger: TRIGGER, fullAudit: FULL, runUrl: RUN_URL,
+const reuseSummary = { cleared: 0, needsReview: needsReview.length };
+A.scenarios().filter(x => x.status !== "draft").forEach(sc => sc.claims.forEach(c => { if (A.reuseStatus(sc, c, null, TODAY).status === "valid") reuseSummary.cleared++; }));
+const results = { reuse: reuseSummary, mode: LIVE ? "live" : "desk", generatedAt: new Date().toISOString(), runDate: TODAY, trigger: TRIGGER, fullAudit: FULL, runUrl: RUN_URL,
   keys: Object.fromEntries(Object.entries(KEYS).map(([p, k]) => [p, !!k])),
   newModels: fresh.map(m => ({ provider: m.provider, id: m.id, via: m.via })), scenarios: {}, skipped: {} };
 const prev = await readJSON("results/latest.json", { scenarios: {} });
 const toRun = !LIVE ? [] : [...new Set((FULL ? cfg.autoRun : []).concat(covered, cfg.autoRunDrafts ? drafts : []))];
-if (!FULL && !fresh.length) { log("no new releases today; nothing to test, report left unchanged"); process.exit(0); }
+const prevReuse = (await readJSON("results/latest.json", {})).reuse || {};
+if (!FULL && !fresh.length && !ledgerChanged && prevReuse.needsReview === needsReview.length) { log("no new releases today; nothing to test, report left unchanged"); process.exit(0); }
 for (const id of toRun) {
   const sc = A.scenarios().find(s => s.id === id);
   if (!sc) { log(`scenario ${id} not found`); continue; }
@@ -170,5 +203,5 @@ try {
   await fs.copyFile(path.join(ROOT, `reports/assay-report-${TODAY}.pdf`), path.join(ROOT, "reports/latest.pdf"));
   await browser.close();
   log(`report written to reports/assay-report-${TODAY}.pdf`);
-  if (process.env.GITHUB_STEP_SUMMARY) await fs.appendFile(process.env.GITHUB_STEP_SUMMARY, `## Assay ${TRIGGER} run, ${TODAY}\n\n- New models: ${fresh.map(m => m.id).join(", ") || "none"}\n- Live results: ${Object.keys(results.scenarios).filter(id => results.scenarios[id].runDate === TODAY).join(", ") || "none"}\n- Skipped: ${Object.entries(results.skipped).map(([k, v]) => k + " (" + v + ")").join(", ") || "none"}\n- Keys present: ${Object.entries(results.keys).map(([p, v]) => p + (v ? " yes" : " NO")).join(", ")}\n`);
+  if (process.env.GITHUB_STEP_SUMMARY) await fs.appendFile(process.env.GITHUB_STEP_SUMMARY, `## Assay ${TRIGGER} run, ${TODAY}\n\n- New models: ${fresh.map(m => m.id).join(", ") || "none"}\n- Live results: ${Object.keys(results.scenarios).filter(id => results.scenarios[id].runDate === TODAY).join(", ") || "none"}\n- Skipped: ${Object.entries(results.skipped).map(([k, v]) => k + " (" + v + ")").join(", ") || "none"}\n- Verdicts cleared for reuse: ${reuseSummary.cleared}; need review: ${needsReview.map(x => x.key + " (" + x.status + ")").join(", ") || "none"}\n- Keys present: ${Object.entries(results.keys).map(([p, v]) => p + (v ? " yes" : " NO")).join(", ")}\n`);
 } finally { server.close(); }
