@@ -1,5 +1,6 @@
 {
   "scenarios": [
+    "anthropic-sonnet-5-5.json",
     "anthropic-opus-5-5.json",
     "openai-gpt-6-sol-luna.json",
     "google-gemini-3-8-flash.json",

@@ -1,0 +1,312 @@
+{
+  "schema": "assay-scenario/1",
+  "id": "anthropic-sonnet-5-5",
+  "title": "Claude Sonnet 5.5 against Sonnet 5",
+  "vendor": "Anthropic",
+  "released": "2026-09-28",
+  "checked": "2026-09-30",
+  "summary": "Anthropic kept Sonnet 5's $2/$10 price and says Sonnet 5.5 costs up to 30% less per task and writes output more than 30% faster. Launch-day independent data is at max effort only, and there the saving reverses: Sonnet 5.5 writes far more tokens and costs more per task than Sonnet 5, while scoring much higher. The vendor claims are about lower effort, which the live pack tests.",
+  "sources": [
+    {
+      "id": "vp",
+      "label": "Introducing Claude Sonnet 5.5",
+      "publisher": "Anthropic",
+      "url": "https://www.anthropic.com/claude-sonnet-5-5",
+      "date": "2026-09-28",
+      "type": "vendor"
+    },
+    {
+      "id": "d",
+      "label": "What's new in Claude Sonnet 5.5 (API changes, default effort)",
+      "publisher": "Anthropic",
+      "url": "https://platform.claude.com/docs/en/models/sonnet-5-5/whats-new-sonnet-5-5",
+      "date": "2026-09-28",
+      "type": "vendor"
+    },
+    {
+      "id": "aa",
+      "label": "Claude Sonnet 5.5 (max) measurements",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/claude-sonnet-5-5",
+      "date": "2026-09-28",
+      "type": "independent"
+    },
+    {
+      "id": "aa2",
+      "label": "Claude Sonnet 5.5 vs Claude Sonnet 5",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/comparisons/claude-sonnet-5-5-vs-claude-sonnet-5",
+      "date": "2026-09-28",
+      "type": "independent"
+    },
+    {
+      "id": "k",
+      "label": "Sonnet 5.5 review with Artificial Analysis cost-per-task figures",
+      "publisher": "Kingy AI",
+      "url": "https://kingy.ai/blog/claude-sonnet-5-5-specs-benchmarks-pricing/",
+      "date": "2026-09-28",
+      "type": "secondary"
+    },
+    {
+      "id": "m",
+      "label": "Launch coverage of pricing and efficiency claims",
+      "publisher": "MarkTechPost",
+      "url": "https://www.marktechpost.com/2026/09/28/anthropic-releases-claude-sonnet-5-5-70-6-on-terminal-bench-4-0-at-the-same-2-10-price/",
+      "date": "2026-09-28",
+      "type": "secondary"
+    }
+  ],
+  "models": [
+    {
+      "id": "s5",
+      "label": "Sonnet 5 (default)",
+      "provider": "anthropic",
+      "modelId": "claude-sonnet-5",
+      "idVerified": false,
+      "priceIn": 2,
+      "priceOut": 10,
+      "setting": "Default effort. Now a legacy model; confirm the ID is still served."
+    },
+    {
+      "id": "s55m",
+      "label": "Sonnet 5.5 (medium)",
+      "provider": "anthropic",
+      "modelId": "claude-sonnet-5-5",
+      "idVerified": true,
+      "priceIn": 2,
+      "priceOut": 10,
+      "extraBody": {
+        "output_config": {
+          "effort": "medium"
+        }
+      },
+      "setting": "API default is high; medium is where Anthropic's efficiency claims apply."
+    },
+    {
+      "id": "s5x",
+      "label": "Sonnet 5 (max)",
+      "provider": "anthropic",
+      "modelId": "claude-sonnet-5",
+      "idVerified": false,
+      "priceIn": 2,
+      "priceOut": 10,
+      "extraBody": {
+        "output_config": {
+          "effort": "max"
+        }
+      },
+      "setting": "Effort set through extra request fields. Check the current parameter name."
+    },
+    {
+      "id": "s55x",
+      "label": "Sonnet 5.5 (max)",
+      "provider": "anthropic",
+      "modelId": "claude-sonnet-5-5",
+      "idVerified": true,
+      "priceIn": 2,
+      "priceOut": 10,
+      "extraBody": {
+        "output_config": {
+          "effort": "max"
+        }
+      },
+      "setting": "Effort set through extra request fields."
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Costs up to 30% less per task than Sonnet 5",
+      "claimedBy": "Anthropic",
+      "baseline": "s5",
+      "candidate": "s55m",
+      "metric": "cost_task",
+      "claimed": 30,
+      "scope": "in",
+      "scopeNote": "Anthropic ties its efficiency claims to lower effort settings.",
+      "ref": null,
+      "noRefNote": "Launch-day independent figures are at max effort only (see the stress test). The live pack runs Sonnet 5.5 at medium effort against Sonnet 5 at its default.",
+      "vendorSources": [
+        "vp",
+        "m"
+      ]
+    },
+    {
+      "id": "c2",
+      "text": "The same per-task saving, checked at max effort",
+      "claimedBy": "Anthropic",
+      "baseline": "s5x",
+      "candidate": "s55x",
+      "metric": "cost_task",
+      "claimed": 30,
+      "scope": "outside",
+      "scopeNote": "Outside the conditions Anthropic stated. This row shows what happens if you run both at max.",
+      "ref": {
+        "baseline": 5.09,
+        "candidate": 7.6,
+        "unit": "$ per index task",
+        "sources": [
+          "aa",
+          "k"
+        ],
+        "note": "Artificial Analysis Intelligence Index v4.3.2, both at max effort, as reported on launch day."
+      },
+      "guard": {
+        "baseline": 38,
+        "candidate": 56,
+        "label": "Intelligence Index",
+        "sources": [
+          "aa",
+          "k"
+        ]
+      },
+      "kind": "stress"
+    },
+    {
+      "id": "c3",
+      "text": "Generates output more than 30% faster than Sonnet 5",
+      "claimedBy": "Anthropic",
+      "baseline": "s5",
+      "candidate": "s55m",
+      "metric": "output_speed",
+      "claimed": 30,
+      "scope": "in",
+      "ref": null,
+      "noRefNote": "No independent output-speed figure had been published at launch. Re-check when Artificial Analysis adds one; the live pack measures latency meanwhile.",
+      "vendorSources": [
+        "vp",
+        "m"
+      ]
+    },
+    {
+      "id": "c4",
+      "text": "Uses fewer output tokens per task (Slack reported about 14% fewer)",
+      "claimedBy": "Anthropic, quoting customers",
+      "baseline": "s5",
+      "candidate": "s55m",
+      "metric": "out_tokens",
+      "claimed": 14,
+      "scope": "in",
+      "scopeNote": "Tested against the Slack figure, one of the lower customer numbers quoted.",
+      "ref": null,
+      "noRefNote": "Customer figures come from each customer's own evaluation at production settings. No independent figure at medium effort yet; run the live pack.",
+      "vendorSources": [
+        "vp",
+        "k"
+      ]
+    },
+    {
+      "id": "c5",
+      "text": "Fewer output tokens per task, checked at max effort",
+      "claimedBy": "Anthropic, quoting customers",
+      "baseline": "s5x",
+      "candidate": "s55x",
+      "metric": "out_tokens",
+      "claimed": 14,
+      "scope": "outside",
+      "scopeNote": "The token claim is not stated for max effort. This row shows the setting where it breaks.",
+      "ref": {
+        "baseline": 118,
+        "candidate": 193,
+        "unit": "thousand output tokens per task",
+        "sources": [
+          "aa",
+          "k"
+        ],
+        "note": "Roughly 1.6 times the output tokens per task, most of it reasoning."
+      },
+      "kind": "stress"
+    }
+  ],
+  "observations": [
+    {
+      "text": "List prices did not change ($2/$10, cache reads $0.20), so any per-task saving must come from using fewer tokens, not from price.",
+      "sources": [
+        "vp",
+        "m"
+      ]
+    },
+    {
+      "text": "Default effort on the API is high, while the Claude apps default to medium; Anthropic advises re-running effort sweeps rather than carrying Sonnet 5 settings over.",
+      "sources": [
+        "d",
+        "k"
+      ]
+    },
+    {
+      "text": "Five API changes can break Sonnet 5 code, including thinking that can no longer be disabled, removal of forced tool choice, and errors on non-default sampling parameters.",
+      "sources": [
+        "d",
+        "k"
+      ]
+    },
+    {
+      "text": "Independent Terminal-Bench 4.0 came in at 64% against Anthropic's 70.6%; Artificial Analysis also scores it lower than Opus 5.5 on its knowledge-versus-hallucination index.",
+      "sources": [
+        "k"
+      ]
+    }
+  ],
+  "livePack": {
+    "note": "Runs the 15 starter tasks plus 7 multi-step efficiency tasks, with Sonnet 5.5 at medium and max effort. Add tasks from your own work before trusting a verdict.",
+    "settings": {
+      "repeats": 3,
+      "maxTokens": 8000
+    },
+    "extraTasks": [
+      {
+        "id": "e1",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "205",
+        "prompt": "A train leaves at 09:40 and arrives at 13:05 the same day. How many minutes is the journey? Answer with the number only."
+      },
+      {
+        "id": "e2",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "46",
+        "prompt": "How many positive integers below 100 are divisible by 3 or by 5? Answer with the number only."
+      },
+      {
+        "id": "e3",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "friday",
+        "prompt": "If today is Wednesday, what day of the week will it be 100 days from today? Answer with the day name only."
+      },
+      {
+        "id": "e4",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "28",
+        "prompt": "A shop gives 20% off, then a further 10% off the reduced price. What is the total discount as a percentage of the original price? Answer with the number only."
+      },
+      {
+        "id": "e5",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "0.45",
+        "prompt": "Which is the largest of these: 3/7, 0.45, 4/9, 0.43? Answer with the value exactly as written in the list."
+      },
+      {
+        "id": "e6",
+        "cat": "Efficiency",
+        "grader": "json",
+        "expected": {
+          "po": "PO-7781",
+          "total": 15000
+        },
+        "prompt": "Return only JSON with keys \"po\" and \"total\" (total as a number, in rupees) for this order: \"PO-7781 for 12 units at Rs 1,250 each.\""
+      },
+      {
+        "id": "e7",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "5",
+        "prompt": "How many vowels (a, e, i, o, u) are in the word \"transformation\"? Answer with the number only."
+      }
+    ]
+  },
+  "vendorSource": "vp"
+}
