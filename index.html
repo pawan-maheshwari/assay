@@ -1657,8 +1657,8 @@ function renderAutoStatus(){
   const el = $("#auto-status"); if(!el) return;
   if(!autoResults){ el.innerHTML = `<p class="note">No automated run found next to this page yet. See README.md in the download for the five-minute setup.</p>`; return; }
   const n = Object.keys(autoResults.scenarios || {}).length;
-  const k = autoResults.keys || {}, missing = Object.keys(k).filter(p => !k[p]);
-  el.innerHTML = `<p><strong>Last automated run:</strong> ${esc(fmtDate(autoResults.runDate || autoResults.generatedAt))} (${esc(runTriggerText(autoResults))}). ${n} scenario${n === 1 ? "" : "s"} with live results, ${(autoResults.newModels || []).length} new models found.</p>
+  const k = autoResults.mode === "desk" ? {} : (autoResults.keys || {}), missing = Object.keys(k).filter(p => !k[p]);
+  el.innerHTML = `<p><strong>Last automated run:</strong> ${esc(fmtDate(autoResults.runDate || autoResults.generatedAt))} (${esc(runTriggerText(autoResults))}). ${autoResults.mode === "desk" ? "Desk audit (no API calls). " : `${n} scenario${n === 1 ? "" : "s"} with live results, `}${(autoResults.newModels || []).length} new models found.</p>
     ${missing.length ? `<p class="note" style="color:var(--bad)">No API key reached the workflow for: ${missing.map(p => esc(PROVIDERS[p] || p)).join(", ")}. Add them as repository secrets so live tests and model detection can run.</p>` : ""}
     ${(autoResults.newModels || []).length ? `<p class="note">New: ${autoResults.newModels.map(m => esc(m.provider + " " + m.id)).join(", ")}</p>` : ""}
     <p class="note"><a href="reports/latest.pdf">Open the latest PDF report</a></p>`;
@@ -1905,7 +1905,8 @@ function buildReport(){
   let runLine = AR ? `This edition reflects the Assay ${runTriggerText(AR)} of ${fmtDate(AR.runDate || AR.generatedAt)}.` : `This edition is dated ${fmtDate(ed)}.`;
   if(AR){
     runLine += newIds.length ? ` That run detected ${newIds.length} new model${newIds.length === 1 ? "" : "s"} (${newIds.join(", ")}).` : " That run found no new model releases since the previous check.";
-    runLine += liveCount ? ` Live test packs have results for ${liveCount} of ${D.chapters.length} releases.` : AR.keys && !Object.values(AR.keys).some(Boolean) ? " No live tests ran because no provider API keys were available to the workflow; verdicts rest on published independent data." : "";
+    if(AR.mode === "desk") runLine += " It is a desk audit: every verdict rests on published vendor and independent measurements, cited in each chapter; no live API tests were run.";
+    else runLine += liveCount ? ` Live test packs have results for ${liveCount} of ${D.chapters.length} releases.` : AR.keys && !Object.values(AR.keys).some(Boolean) ? " No live tests ran because no provider API keys were available to the workflow; verdicts rest on published independent data." : "";
   }
   let x = 0; const X = () => ++x;
 
@@ -1982,7 +1983,7 @@ function buildReport(){
       <div class="sowhat"><b>So what</b>${esc(soWhat)}</div>
       <div class="exhibit xflow"><div class="xl">Exhibit ${X()}</div><h3>What independent data shows</h3><div class="minis">${minis}</div></div>
       ${ch.obs.length ? `<div><h3>What else the data shows</h3><ul class="rlist" style="margin-top:6px">${ch.obs.map(o => `<li>${esc(o.text)}${citeTag(o.refs)}</li>`).join("")}</ul></div>` : ""}
-      ${ch.live ? liveSection(ch.live, "Automated test") : `<p class="rnote">Live test pack not yet run for this release.</p>`}
+      ${ch.live ? liveSection(ch.live, "Automated test") : AR && AR.mode === "desk" ? "" : `<p class="rnote">Live test pack not yet run for this release.</p>`}
     </section>`);
   });
   if(D.lab) pages.push(`<section class="rpage"><div class="chap">Our lab run</div><h2>Results from the most recent run in this browser.</h2>${liveSection(D.lab, "Lab run")}</section>`);
