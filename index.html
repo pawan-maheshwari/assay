@@ -516,8 +516,8 @@ footer{max-width:1120px;margin:0 auto;padding:0 20px 36px;font-size:13px;color:v
     </div>
 
     <div class="panel">
-      <h3>Automatic weekly checks</h3>
-      <p class="lead">Deploy Assay to GitHub Pages with the included workflow and it will, every Monday: list new models from each provider, read the release notes you point it at, draft scenarios, run the live test packs within a call budget, and publish a fresh PDF report to <code>reports/latest.pdf</code>.</p>
+      <h3>Automatic release checks</h3>
+      <p class="lead">Deploy Assay to GitHub Pages with the included workflow and it will, every day: list new models from each provider (from the API catalogues and the release-note pages), read the release notes you point it at, draft scenarios and run their live test packs the same day, re-run the full audit every Monday or on demand, and publish a fresh PDF report to <code>reports/latest.pdf</code>.</p>
       <div id="auto-status" style="margin-top:10px"></div>
     </div>
   </section>
@@ -1487,6 +1487,7 @@ let autoResults = null, knownRemote = [];
 async function fetchAutomation(){
   if(!/^https?:/.test(location.protocol)) return;
   try{ const r = await fetch("results/latest.json", { cache: "no-store" }); if(r.ok) autoResults = await r.json(); }catch(e){ /* not deployed with automation */ }
+  const rd = runDateOf(autoResults); if(rd && !editionDateTouched) $("#rp-date").value = rd;
   try{ const r = await fetch("watch/known-models.json", { cache: "no-store" }); if(r.ok){ const k = await r.json(); knownRemote = k.models || []; } }catch(e){}
   renderAutoStatus();
 }
@@ -1496,6 +1497,9 @@ function withRuns(runs, models, fn){
   try{ return fn(); } finally { state.runs = sr; state.models = sm; compareCache.clear(); }
 }
 function today(){ return new Date().toISOString().slice(0, 10); }
+let editionDateTouched = false;
+function runDateOf(ar){ const t = ar && Date.parse(ar.runDate || ar.generatedAt); return isFinite(t) ? new Date(t).toISOString().slice(0, 10) : ""; }
+function runTriggerText(ar){ const t = ar && ar.trigger; return t === "scheduled" ? "scheduled run" : t === "on-demand" ? "on-demand run" : t ? "local run" : "automated run"; }
 function slug(t){ return String(t).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60); }
 
 /* ---------- release watch ---------- */
@@ -1653,7 +1657,9 @@ function renderAutoStatus(){
   const el = $("#auto-status"); if(!el) return;
   if(!autoResults){ el.innerHTML = `<p class="note">No automated run found next to this page yet. See README.md in the download for the five-minute setup.</p>`; return; }
   const n = Object.keys(autoResults.scenarios || {}).length;
-  el.innerHTML = `<p><strong>Last automated run:</strong> ${esc(autoResults.generatedAt || "")}. ${n} scenario${n === 1 ? "" : "s"} tested, ${(autoResults.newModels || []).length} new models found.</p>
+  const k = autoResults.keys || {}, missing = Object.keys(k).filter(p => !k[p]);
+  el.innerHTML = `<p><strong>Last automated run:</strong> ${esc(fmtDate(autoResults.runDate || autoResults.generatedAt))} (${esc(runTriggerText(autoResults))}). ${n} scenario${n === 1 ? "" : "s"} with live results, ${(autoResults.newModels || []).length} new models found.</p>
+    ${missing.length ? `<p class="note" style="color:var(--bad)">No API key reached the workflow for: ${missing.map(p => esc(PROVIDERS[p] || p)).join(", ")}. Add them as repository secrets so live tests and model detection can run.</p>` : ""}
     ${(autoResults.newModels || []).length ? `<p class="note">New: ${autoResults.newModels.map(m => esc(m.provider + " " + m.id)).join(", ")}</p>` : ""}
     <p class="note"><a href="reports/latest.pdf">Open the latest PDF report</a></p>`;
 }
@@ -1893,6 +1899,14 @@ function buildReport(){
   const matrix = D.chapters.map(ch => `<tr><td><b>${esc(ch.sc.vendor)}</b><br><span class="rnote">${esc(ch.sc.title)}</span></td>${matrixCats.map(cat => { const cs = ch.claims.filter(r => metricGroup(r.c.metric) === cat); return `<td>${cs.map(r => vpill(r.v.key, r.kind !== "vendor", r.kind)).join(" ") || '<span class="rnote">–</span>'}</td>`; }).join("")}</tr>`).join("");
   const stypes = D.reg.reduce((a, s) => { const t = sourceType(s); a[t] = (a[t] || 0) + 1; return a; }, {});
   const dates = D.chapters.map(c => Date.parse(c.sc.released)).filter(isFinite).sort((a, b) => a - b);
+  const AR = opts.auto ? autoResults : null;
+  const liveCount = D.chapters.filter(c => c.live).length;
+  const newIds = ((AR && AR.newModels) || []).map(m => m.id);
+  let runLine = AR ? `This edition reflects the Assay ${runTriggerText(AR)} of ${fmtDate(AR.runDate || AR.generatedAt)}.` : `This edition is dated ${fmtDate(ed)}.`;
+  if(AR){
+    runLine += newIds.length ? ` That run detected ${newIds.length} new model${newIds.length === 1 ? "" : "s"} (${newIds.join(", ")}).` : " That run found no new model releases since the previous check.";
+    runLine += liveCount ? ` Live test packs have results for ${liveCount} of ${D.chapters.length} releases.` : AR.keys && !Object.values(AR.keys).some(Boolean) ? " No live tests ran because no provider API keys were available to the workflow; verdicts rest on published independent data." : "";
+  }
   let x = 0; const X = () => ++x;
 
   const pages = [];
@@ -1900,13 +1914,13 @@ function buildReport(){
     <div><div class="brandrow"><svg viewBox="0 0 48 48" width="34" height="34" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="#8E9BFF" stroke-width="3"/><path d="M24 3 A21 21 0 0 1 44.2 29" fill="none" stroke="#E8601F" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="24" r="6" fill="#8E9BFF"/></svg>Assay</div>
       <h1 style="margin-top:18mm">${esc(title)}</h1><p class="sub">${esc(sub)}</p></div>
     ${coverArt(D.rows)}
-    <div class="meta"><span>Prepared by ${esc(by)}</span>${credit && !by.includes(credit) ? `<span>${esc(credit)}</span>` : ""}<span>${esc(fmtDate(ed))}</span><span style="flex-basis:100%">Each ring is one claim or stress test; arc length shows how much of it held</span></div>
+    <div class="meta"><span>Prepared by ${esc(by)}</span>${credit && !by.includes(credit) ? `<span>${esc(credit)}</span>` : ""}<span>${esc(fmtDate(ed))}${AR ? ` · ${esc(runTriggerText(AR).replace(/^./, c => c.toUpperCase()))}` : ""}</span><span style="flex-basis:100%">Each ring is one claim or stress test; arc length shows how much of it held</span></div>
   </section>`);
   pages.push(`<section class="rpage">
     <div class="chap">About this report</div>
     <h2>What we checked, against what evidence, and how to read the verdicts.</h2>
     <div class="twocol">
-      <div><h3>Scope</h3><p>${D.chapters.length} model releases${dates.length ? ` from ${esc(fmtDate(new Date(dates[0]).toISOString()))} to ${esc(fmtDate(new Date(dates[dates.length - 1]).toISOString()))}` : ""}: ${vend.length} vendor claims, ${stress.length} Assay stress tests and ${hyp.length} test hypothesis${hyp.length === 1 ? "" : "es"}. Vendor claims are paraphrased from each vendor's announcement; stress tests re-check a claim outside the conditions the vendor stated, and are never counted against the vendor.</p></div>
+      <div><h3>Scope</h3><p>${esc(runLine)} It covers ${D.chapters.length} model releases${dates.length ? ` announced between ${esc(fmtDate(new Date(dates[0]).toISOString()))} and ${esc(fmtDate(new Date(dates[dates.length - 1]).toISOString()))}` : ""}: ${vend.length} vendor claims, ${stress.length} Assay stress tests and ${hyp.length} test hypothesis${hyp.length === 1 ? "" : "es"}. Vendor claims are paraphrased from each vendor's announcement; stress tests re-check a claim outside the conditions the vendor stated, and are never counted against the vendor.</p></div>
       <div><h3>Evidence base</h3><p>${D.reg.length} sources: ${stypes.vendor || 0} vendor announcements and pricing pages, ${stypes.independent || 0} independent measurements, and ${stypes.secondary || 0} secondary reports used where no primary figure was available. Every number carries a numbered citation.</p></div>
     </div>
     <div class="exhibit"><div class="xl">Verdict key</div><h3>How much of the claimed improvement independent data confirms</h3>
@@ -2295,7 +2309,8 @@ renderScale();
 renderAll();
 const bootFetches = Promise.all([fetchScenarioFolder(), fetchAutomation()]);
 initGuide();
-$("#rp-date").value = today();
+$("#rp-date").value = runDateOf(autoResults) || today();
+$("#rp-date").addEventListener("input", () => { editionDateTouched = true; });
 window.addEventListener("beforeprint", () => { if(!$("#report").innerHTML) buildReport(); });
 if(location.hash === "#report" || /[?&]pdf=1/.test(location.search)){
   showTab("report");
