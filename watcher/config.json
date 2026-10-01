@@ -17,7 +17,8 @@
   },
   "predecessors": {
     "claude-sonnet-5-5": "claude-sonnet-5",
-    "claude-opus-5-5": "claude-opus-5"
+    "claude-opus-5-5": "claude-opus-5",
+    "gemini-4-argon": "gemini-3.8-flash"
   },
   "prices": {
     "claude-sonnet-5-5": [
@@ -38,6 +39,7 @@
     ]
   },
   "autoRun": [
+    "google-gemini-4-argon",
     "anthropic-sonnet-5-5",
     "anthropic-opus-5-5",
     "openai-gpt-6-sol-luna",
