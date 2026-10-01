@@ -1,12 +1,18 @@
 name: Assay release watch
 
+# Desk-audit mode: no API keys and no API cost.
+# Checks vendor release notes daily, opens an issue when a new model appears
+# or a verdict is no longer cleared for reuse, and rebuilds the PDF report
+# on Mondays, on demand, and whenever something changes.
+
 on:
   schedule:
-    - cron: "30 3 * * 1"   # Mondays 03:30 UTC (09:00 IST)
+    - cron: "30 3 * * *"   # daily 03:30 UTC (09:00 IST)
   workflow_dispatch: {}
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: assay-watch
@@ -15,7 +21,7 @@ concurrency:
 jobs:
   watch:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,13 +31,33 @@ jobs:
         run: |
           npm install --no-save jsdom@24 playwright@1.56.0
           npx playwright install --with-deps chromium
-      - name: Check releases, run tests, build report
+      - name: Check releases and build report
         run: node watcher/watch.mjs
+      - name: Publish results
+        run: |
+          git config user.name "assay-bot"
+          git config user.email "assay-bot@users.noreply.github.com"
+          git add scenarios results reports watch
+          git diff --cached --quiet || git commit -m "Assay watch $(date -u +%F) (${{ github.event_name }})"
+          git push
+      - name: Open an issue for each new model
+        continue-on-error: true
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          f="$RUNNER_TEMP/assay-new-models.json"
+          [ -f "$f" ] || exit 0
+          jq -c '.models[]' "$f" | while read -r m; do
+            id=$(echo "$m" | jq -r .id); prov=$(echo "$m" | jq -r .provider)
+            cov=$(echo "$m" | jq -r .covered); draft=$(echo "$m" | jq -r .draft)
+            if gh issue list --state all --search "in:title \"New release: $id\"" --json number -q '.[0].number' | grep -q .; then continue; fi
+            if [ -n "$cov" ]; then note="Already covered by scenario \`$cov\`. Nothing to do."; else note="A draft scenario${draft:+ (\`$draft\`)} was created without claims. To complete it for free, paste this issue into a Claude chat and ask for an Assay scenario JSON with the vendor's claims and independent figures, then commit it to \`scenarios/\`."; fi
+            gh issue create --title "New release: $id ($prov)" --body "Detected by the Assay watcher on $(date -u +%F).
+
+          $note"
+          done
       - name: Open an issue for each verdict that is no longer cleared for reuse
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -47,10 +73,3 @@ jobs:
 
           The original verdict stays in the record as historically correct, but it is not cleared to inform new decisions. To re-authorise it, update the scenario file with current evidence and set its \`checked\` date to today; the next run re-seals it (new conditions ID replaces $fp)."
           done
-      - name: Publish results
-        run: |
-          git config user.name "assay-bot"
-          git config user.email "assay-bot@users.noreply.github.com"
-          git add scenarios results reports watch
-          git diff --cached --quiet || git commit -m "Assay watch $(date -u +%F)"
-          git push
