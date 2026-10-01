@@ -431,6 +431,211 @@
         "guard": null
       },
       "history": []
+    },
+    "google-gemini-4-argon/c1": {
+      "fp": "f8d7c63e",
+      "verdict": "ok",
+      "sealed": "2026-10-01",
+      "reviewed": "2026-10-01",
+      "conditions": {
+        "metric": "index_points",
+        "claimed": 1.9,
+        "scope": "in",
+        "baseline": {
+          "modelId": "claude-opus-5-5",
+          "provider": "anthropic",
+          "setting": null
+        },
+        "candidate": {
+          "modelId": "gemini-4-argon",
+          "provider": "gemini",
+          "setting": null
+        },
+        "evidence": {
+          "baseline": 67,
+          "candidate": 68.9,
+          "unit": "Vals Index, %",
+          "sources": [
+            {
+              "url": "https://www.vals.ai/benchmarks/vals_index",
+              "date": "2026-09-30"
+            },
+            {
+              "url": "https://kingy.ai/blog/gemini-4-argon-specs-benchmarks-pricing/",
+              "date": "2026-09-30"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    },
+    "google-gemini-4-argon/c2": {
+      "fp": "6d62c86f",
+      "verdict": "ok",
+      "sealed": "2026-10-01",
+      "reviewed": "2026-10-01",
+      "conditions": {
+        "metric": "index_points",
+        "claimed": 8.8,
+        "scope": "in",
+        "baseline": {
+          "modelId": "claude-opus-5-5",
+          "provider": "anthropic",
+          "setting": null
+        },
+        "candidate": {
+          "modelId": "gemini-4-argon",
+          "provider": "gemini",
+          "setting": null
+        },
+        "evidence": {
+          "baseline": 42.47,
+          "candidate": 51.29,
+          "unit": "AutomationBench, % tasks fully completed",
+          "sources": [
+            {
+              "url": "https://zapier.com/benchmarks",
+              "date": "2026-09-30"
+            },
+            {
+              "url": "https://kingy.ai/blog/gemini-4-argon-specs-benchmarks-pricing/",
+              "date": "2026-09-30"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    },
+    "google-gemini-4-argon/c3": {
+      "fp": "d657f2eb",
+      "verdict": "ok",
+      "sealed": "2026-10-01",
+      "reviewed": "2026-10-01",
+      "conditions": {
+        "metric": "cost_task",
+        "claimed": 50,
+        "scope": "in",
+        "baseline": {
+          "modelId": "claude-opus-5-5",
+          "provider": "anthropic",
+          "setting": null,
+          "priceIn": 4,
+          "priceOut": 20
+        },
+        "candidate": {
+          "modelId": "gemini-4-argon",
+          "provider": "gemini",
+          "setting": null,
+          "priceIn": 2,
+          "priceOut": 10
+        },
+        "evidence": {
+          "baseline": 1.44,
+          "candidate": 0.85,
+          "unit": "$ per AutomationBench task",
+          "sources": [
+            {
+              "url": "https://zapier.com/benchmarks",
+              "date": "2026-09-30"
+            },
+            {
+              "url": "https://kingy.ai/blog/gemini-4-argon-specs-benchmarks-pricing/",
+              "date": "2026-09-30"
+            }
+          ]
+        },
+        "guard": {
+          "baseline": 42.47,
+          "candidate": 51.29
+        }
+      },
+      "history": []
+    },
+    "google-gemini-4-argon/c4": {
+      "fp": "b0cc360e",
+      "verdict": "bad",
+      "sealed": "2026-10-01",
+      "reviewed": "2026-10-01",
+      "conditions": {
+        "metric": "cost_task",
+        "claimed": 50,
+        "scope": "outside",
+        "baseline": {
+          "modelId": "claude-opus-5-5",
+          "provider": "anthropic",
+          "setting": null,
+          "priceIn": 4,
+          "priceOut": 20
+        },
+        "candidate": {
+          "modelId": "gemini-4-argon",
+          "provider": "gemini",
+          "setting": null,
+          "priceIn": 4,
+          "priceOut": 20
+        },
+        "evidence": {
+          "baseline": 1.44,
+          "candidate": 1.7,
+          "unit": "$ per AutomationBench task",
+          "sources": [
+            {
+              "url": "https://zapier.com/benchmarks",
+              "date": "2026-09-30"
+            },
+            {
+              "url": "https://kingy.ai/blog/gemini-4-argon-specs-benchmarks-pricing/",
+              "date": "2026-09-30"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    },
+    "google-gemini-4-argon/c5": {
+      "fp": "0393a90a",
+      "verdict": "bad",
+      "sealed": "2026-10-01",
+      "reviewed": "2026-10-01",
+      "conditions": {
+        "metric": "cost_task",
+        "claimed": 50,
+        "scope": "outside",
+        "baseline": {
+          "modelId": "claude-opus-5-5",
+          "provider": "anthropic",
+          "setting": null,
+          "priceIn": 4,
+          "priceOut": 20
+        },
+        "candidate": {
+          "modelId": "gemini-4-argon",
+          "provider": "gemini",
+          "setting": null,
+          "priceIn": 2,
+          "priceOut": 10
+        },
+        "evidence": {
+          "baseline": 0.79,
+          "candidate": 6.63,
+          "unit": "$ per CWE-bench rollout",
+          "sources": [
+            {
+              "url": "https://cwe-bench.com/?v=v1",
+              "date": "2026-09-30"
+            },
+            {
+              "url": "https://kingy.ai/blog/gemini-4-argon-specs-benchmarks-pricing/",
+              "date": "2026-09-30"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
     }
   },
   "maxAgeDays": 90

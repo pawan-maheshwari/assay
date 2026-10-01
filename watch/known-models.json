@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30",
+  "updated": "2026-10-01",
   "baselined": true,
   "notesBaselined": true,
   "models": [
@@ -347,6 +347,11 @@
       "provider": "gemini",
       "id": "gemini-2.5-flash",
       "firstSeen": "2026-09-30"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-sonnet-4-5-20250929",
+      "firstSeen": "2026-10-01"
     }
   ]
 }
