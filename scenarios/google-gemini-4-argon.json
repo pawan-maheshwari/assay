@@ -1,0 +1,351 @@
+{
+  "schema": "assay-scenario/1",
+  "id": "google-gemini-4-argon",
+  "title": "Gemini 4 Argon against Claude Opus 5.5",
+  "vendor": "Google",
+  "released": "2026-09-30",
+  "checked": "2026-10-01",
+  "summary": "Google's new frontier model leads its chosen rivals on the Vals Index and AutomationBench, and independent leaderboards confirm both. Its headline price of $2/$10 is introductory and doubles later; at the later price its cost per AutomationBench task is above Opus 5.5. Argon is open only to selected cyber partners, so no live test is possible yet.",
+  "sources": [
+    {
+      "id": "vp",
+      "label": "Gemini 4 Argon launch announcement",
+      "publisher": "Google",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+      "date": "2026-09-30",
+      "type": "vendor"
+    },
+    {
+      "id": "dm",
+      "label": "Gemini 4 Argon performance table",
+      "publisher": "Google DeepMind",
+      "url": "https://deepmind.google/models/gemini/",
+      "date": "2026-09-30",
+      "type": "vendor"
+    },
+    {
+      "id": "me",
+      "label": "Gemini 4 Argon evaluation methodology (PDF)",
+      "publisher": "Google DeepMind",
+      "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_4_argon_model_evaluation.pdf",
+      "date": "2026-09-30",
+      "type": "vendor"
+    },
+    {
+      "id": "vals",
+      "label": "Vals Index leaderboard",
+      "publisher": "Vals AI",
+      "url": "https://www.vals.ai/benchmarks/vals_index",
+      "date": "2026-09-30",
+      "type": "independent"
+    },
+    {
+      "id": "zap",
+      "label": "AutomationBench results and cost per task",
+      "publisher": "Zapier",
+      "url": "https://zapier.com/benchmarks",
+      "date": "2026-09-30",
+      "type": "independent"
+    },
+    {
+      "id": "cwe",
+      "label": "CWE-bench v1 scores and rollout costs",
+      "publisher": "CWE-bench",
+      "url": "https://cwe-bench.com/?v=v1",
+      "date": "2026-09-30",
+      "type": "independent"
+    },
+    {
+      "id": "k",
+      "label": "Gemini 4 Argon specs, benchmarks and pricing review",
+      "publisher": "Kingy AI",
+      "url": "https://kingy.ai/blog/gemini-4-argon-specs-benchmarks-pricing/",
+      "date": "2026-09-30",
+      "type": "secondary"
+    }
+  ],
+  "models": [
+    {
+      "id": "o55",
+      "label": "Claude Opus 5.5",
+      "provider": "anthropic",
+      "modelId": "claude-opus-5-5",
+      "idVerified": true,
+      "priceIn": 4,
+      "priceOut": 20,
+      "setting": "Max effort where the evaluator lists it."
+    },
+    {
+      "id": "arg",
+      "label": "Gemini 4 Argon (introductory price)",
+      "provider": "gemini",
+      "modelId": "gemini-4-argon",
+      "idVerified": false,
+      "priceIn": 2,
+      "priceOut": 10,
+      "setting": "High thinking. Google has not published a public API model ID; access is limited to Fairwind partners."
+    },
+    {
+      "id": "argL",
+      "label": "Gemini 4 Argon (later list price)",
+      "provider": "gemini",
+      "modelId": "gemini-4-argon",
+      "idVerified": false,
+      "priceIn": 4,
+      "priceOut": 20,
+      "setting": "Google says prices double after an introductory period with no announced end date."
+    },
+    {
+      "id": "f38c",
+      "label": "Gemini 3.8 Flash Cyber",
+      "provider": "gemini",
+      "modelId": "gemini-3.8-flash-cyber",
+      "idVerified": false,
+      "priceIn": 0.75,
+      "priceOut": 3.75,
+      "setting": "Google's own comparison model for its security evaluations."
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Leads rival frontier models on the Vals Index, ahead of Opus 5.5",
+      "claimedBy": "Google",
+      "baseline": "o55",
+      "candidate": "arg",
+      "metric": "index_points",
+      "claimed": 1.9,
+      "scope": "in",
+      "ref": {
+        "baseline": 67.0,
+        "candidate": 68.9,
+        "unit": "Vals Index, %",
+        "sources": [
+          "vals",
+          "k"
+        ],
+        "note": "Vals' own leaderboard, which publicly named Argon its new #1. The lead is 1.9 points."
+      },
+      "vendorSources": [
+        "vp",
+        "dm"
+      ],
+      "kind": "vendor"
+    },
+    {
+      "id": "c2",
+      "text": "Ranks first on Zapier's AutomationBench at 51.3%",
+      "claimedBy": "Google",
+      "baseline": "o55",
+      "candidate": "arg",
+      "metric": "index_points",
+      "claimed": 8.8,
+      "scope": "in",
+      "ref": {
+        "baseline": 42.47,
+        "candidate": 51.29,
+        "unit": "AutomationBench, % tasks fully completed",
+        "sources": [
+          "zap",
+          "k"
+        ],
+        "note": "Zapier's live leaderboard: Argon High against Opus 5.5 Max with default fallbacks."
+      },
+      "vendorSources": [
+        "vp",
+        "dm"
+      ],
+      "kind": "vendor"
+    },
+    {
+      "id": "c3",
+      "text": "Half Opus 5.5's token price should mean about half the cost per task",
+      "claimedBy": "Assay, from Google's $2/$10 price",
+      "baseline": "o55",
+      "candidate": "arg",
+      "metric": "cost_task",
+      "claimed": 50,
+      "scope": "in",
+      "scopeNote": "Google states the price, not a per-task saving. This row tests what the price implies, at the introductory rate.",
+      "ref": {
+        "baseline": 1.44,
+        "candidate": 0.85,
+        "unit": "$ per AutomationBench task",
+        "sources": [
+          "zap",
+          "k"
+        ],
+        "note": "Zapier's reported cost per task at Argon's promotional pricing."
+      },
+      "guard": {
+        "baseline": 42.47,
+        "candidate": 51.29,
+        "label": "AutomationBench score",
+        "sources": [
+          "zap",
+          "k"
+        ]
+      },
+      "kind": "hypothesis"
+    },
+    {
+      "id": "c4",
+      "text": "The same saving, after the introductory price ends",
+      "claimedBy": "Assay, from Google's $2/$10 price",
+      "baseline": "o55",
+      "candidate": "argL",
+      "metric": "cost_task",
+      "claimed": 50,
+      "scope": "outside",
+      "scopeNote": "Google's footnote says prices double to $4/$20 later. This row shows the per-task cost at that list price.",
+      "ref": {
+        "baseline": 1.44,
+        "candidate": 1.7,
+        "unit": "$ per AutomationBench task",
+        "sources": [
+          "zap",
+          "k"
+        ],
+        "note": "Zapier's reported cost per task at Argon's standard list price."
+      },
+      "kind": "stress"
+    },
+    {
+      "id": "c5",
+      "text": "The saving on vulnerability-fixing work (CWE-bench)",
+      "claimedBy": "Assay, from Google's $2/$10 price",
+      "baseline": "o55",
+      "candidate": "arg",
+      "metric": "cost_task",
+      "claimed": 50,
+      "scope": "outside",
+      "scopeNote": "A different workload. Scores are close (68% vs 67%) but each model ran in its own agent harness.",
+      "ref": {
+        "baseline": 0.79,
+        "candidate": 6.63,
+        "unit": "$ per CWE-bench rollout",
+        "sources": [
+          "cwe",
+          "k"
+        ],
+        "note": "Evaluator's own cost accounting; Argon ran in Antigravity, Opus in Claude Code."
+      },
+      "kind": "stress"
+    },
+    {
+      "id": "c6",
+      "text": "Finds far more source-code vulnerabilities than Gemini 3.8 Flash Cyber (85.8% vs 71.0%)",
+      "claimedBy": "Google",
+      "baseline": "f38c",
+      "candidate": "arg",
+      "metric": "accuracy",
+      "claimed": 14.8,
+      "scope": "in",
+      "ref": null,
+      "noRefNote": "Google's internal evaluation only. Argon is open to selected Fairwind partners, so no one outside Google has published a replication yet.",
+      "vendorSources": [
+        "vp",
+        "me"
+      ],
+      "kind": "vendor"
+    }
+  ],
+  "observations": [
+    {
+      "text": "Argon is not generally available: access starts with selected cyber-defence partners, and Google has not published a public API model ID, so live tests are not possible yet.",
+      "sources": [
+        "vp",
+        "k"
+      ]
+    },
+    {
+      "text": "Coding results are mixed: Argon leads DeepSWE v1.1 but trails GPT-6 Astra on FrontierSWE v2 (55.0% vs 65.5%) and Opus 5.5 on Terminal-bench 4.0 (57.4% vs 66.4%).",
+      "sources": [
+        "dm",
+        "k"
+      ]
+    },
+    {
+      "text": "Google's comparison leaves out Claude Sonnet 5.5, which scores higher on Vibe Code Bench, and GPT-6.1 Sol, which already sells at the same $2/$10 price.",
+      "sources": [
+        "k"
+      ]
+    },
+    {
+      "text": "The headline 1 million tokens is an output limit, not input context; Google has not stated the commercial input limit.",
+      "sources": [
+        "vp",
+        "k"
+      ]
+    },
+    {
+      "text": "Google ran Argon at its highest thinking setting, and some rows use unequal conditions, such as different video frame budgets on LVBench.",
+      "sources": [
+        "me",
+        "k"
+      ]
+    }
+  ],
+  "vendorSource": "vp",
+  "livePack": {
+    "note": "Runs the 15 starter tasks plus 7 multi-step efficiency tasks. Add tasks from your own work before trusting a verdict.",
+    "settings": {
+      "repeats": 3,
+      "maxTokens": 8000
+    },
+    "extraTasks": [
+      {
+        "id": "e1",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "205",
+        "prompt": "A train leaves at 09:40 and arrives at 13:05 the same day. How many minutes is the journey? Answer with the number only."
+      },
+      {
+        "id": "e2",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "46",
+        "prompt": "How many positive integers below 100 are divisible by 3 or by 5? Answer with the number only."
+      },
+      {
+        "id": "e3",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "friday",
+        "prompt": "If today is Wednesday, what day of the week will it be 100 days from today? Answer with the day name only."
+      },
+      {
+        "id": "e4",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "28",
+        "prompt": "A shop gives 20% off, then a further 10% off the reduced price. What is the total discount as a percentage of the original price? Answer with the number only."
+      },
+      {
+        "id": "e5",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "0.45",
+        "prompt": "Which is the largest of these: 3/7, 0.45, 4/9, 0.43? Answer with the value exactly as written in the list."
+      },
+      {
+        "id": "e6",
+        "cat": "Efficiency",
+        "grader": "json",
+        "expected": {
+          "po": "PO-7781",
+          "total": 15000
+        },
+        "prompt": "Return only JSON with keys \"po\" and \"total\" (total as a number, in rupees) for this order: \"PO-7781 for 12 units at Rs 1,250 each.\""
+      },
+      {
+        "id": "e7",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "5",
+        "prompt": "How many vowels (a, e, i, o, u) are in the word \"transformation\"? Answer with the number only."
+      }
+    ]
+  }
+}
