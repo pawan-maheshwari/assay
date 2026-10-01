@@ -352,6 +352,16 @@
       "provider": "anthropic",
       "id": "claude-sonnet-4-5-20250929",
       "firstSeen": "2026-10-01"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-1.5-flash-latest",
+      "firstSeen": "2026-10-01"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-1.5-pro-latest",
+      "firstSeen": "2026-10-01"
     }
   ]
 }

@@ -4,11 +4,11 @@
     "needsReview": 2
   },
   "mode": "desk",
-  "generatedAt": "2026-10-01T03:14:54.195Z",
+  "generatedAt": "2026-10-01T10:20:56.792Z",
   "runDate": "2026-10-01",
-  "trigger": "on-demand",
-  "fullAudit": true,
-  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/36809567827",
+  "trigger": "scheduled",
+  "fullAudit": false,
+  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/36848495491",
   "keys": {
     "openai": false,
     "anthropic": false,
@@ -16,8 +16,13 @@
   },
   "newModels": [
     {
-      "provider": "anthropic",
-      "id": "claude-sonnet-4-5-20250929",
+      "provider": "gemini",
+      "id": "gemini-1.5-flash-latest",
+      "via": "release notes"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-1.5-pro-latest",
       "via": "release notes"
     }
   ],
