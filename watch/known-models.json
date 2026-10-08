@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01",
+  "updated": "2026-10-08",
   "baselined": true,
   "notesBaselined": true,
   "models": [
@@ -362,6 +362,16 @@
       "provider": "gemini",
       "id": "gemini-1.5-pro-latest",
       "firstSeen": "2026-10-01"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-haiku-5-5",
+      "firstSeen": "2026-10-08"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.5-pro-pre",
+      "firstSeen": "2026-10-08"
     }
   ]
 }

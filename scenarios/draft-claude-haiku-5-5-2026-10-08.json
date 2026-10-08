@@ -1,0 +1,104 @@
+{
+  "schema": "assay-scenario/1",
+  "id": "draft-claude-haiku-5-5-2026-10-08",
+  "status": "draft",
+  "title": "claude-haiku-5-5 against claude-opus-5-5",
+  "vendor": "Anthropic",
+  "released": "2026-10-08",
+  "checked": "2026-10-08",
+  "summary": "Draft created by Release watch. Claims have not been checked against independent data yet. Review each claim against the source before publishing.",
+  "sources": [
+    {
+      "id": "v",
+      "label": "Release note",
+      "publisher": "Anthropic",
+      "url": "https://docs.claude.com/en/release-notes/api",
+      "date": "2026-10-08"
+    }
+  ],
+  "models": [
+    {
+      "id": "base",
+      "label": "claude-opus-5-5",
+      "provider": "anthropic",
+      "modelId": "claude-opus-5-5",
+      "idVerified": true,
+      "priceIn": 4,
+      "priceOut": 20,
+      "setting": ""
+    },
+    {
+      "id": "cand",
+      "label": "claude-haiku-5-5",
+      "provider": "anthropic",
+      "modelId": "claude-haiku-5-5",
+      "idVerified": true,
+      "priceIn": 0,
+      "priceOut": 0,
+      "setting": "Price needed."
+    }
+  ],
+  "claims": [],
+  "observations": [],
+  "livePack": {
+    "note": "Starter tasks plus multi-step efficiency tasks.",
+    "settings": {
+      "repeats": 3,
+      "maxTokens": 8000
+    },
+    "extraTasks": [
+      {
+        "id": "e1",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "205",
+        "prompt": "A train leaves at 09:40 and arrives at 13:05 the same day. How many minutes is the journey? Answer with the number only."
+      },
+      {
+        "id": "e2",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "46",
+        "prompt": "How many positive integers below 100 are divisible by 3 or by 5? Answer with the number only."
+      },
+      {
+        "id": "e3",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "friday",
+        "prompt": "If today is Wednesday, what day of the week will it be 100 days from today? Answer with the day name only."
+      },
+      {
+        "id": "e4",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "28",
+        "prompt": "A shop gives 20% off, then a further 10% off the reduced price. What is the total discount as a percentage of the original price? Answer with the number only."
+      },
+      {
+        "id": "e5",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "0.45",
+        "prompt": "Which is the largest of these: 3/7, 0.45, 4/9, 0.43? Answer with the value exactly as written in the list."
+      },
+      {
+        "id": "e6",
+        "cat": "Efficiency",
+        "grader": "json",
+        "expected": {
+          "po": "PO-7781",
+          "total": 15000
+        },
+        "prompt": "Return only JSON with keys \"po\" and \"total\" (total as a number, in rupees) for this order: \"PO-7781 for 12 units at Rs 1,250 each.\""
+      },
+      {
+        "id": "e7",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "5",
+        "prompt": "How many vowels (a, e, i, o, u) are in the word \"transformation\"? Answer with the number only."
+      }
+    ]
+  }
+}

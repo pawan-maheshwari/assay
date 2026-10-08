@@ -8,6 +8,8 @@
     "anthropic-opus-4-5-tokens.json",
     "draft-claude-sonnet-4-5-20250929-2026-10-01.json",
     "draft-gemini-1-5-flash-latest-2026-10-01.json",
-    "draft-gemini-1-5-pro-latest-2026-10-01.json"
+    "draft-gemini-1-5-pro-latest-2026-10-01.json",
+    "draft-claude-haiku-5-5-2026-10-08.json",
+    "draft-gemini-2-5-pro-pre-2026-10-08.json"
   ]
 }
