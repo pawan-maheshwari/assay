@@ -4,11 +4,11 @@
     "needsReview": 2
   },
   "mode": "desk",
-  "generatedAt": "2026-10-08T10:48:39.412Z",
-  "runDate": "2026-10-08",
+  "generatedAt": "2026-10-11T10:12:23.868Z",
+  "runDate": "2026-10-11",
   "trigger": "scheduled",
   "fullAudit": false,
-  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/37765847909",
+  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/38131072780",
   "keys": {
     "openai": false,
     "anthropic": false,
@@ -16,13 +16,13 @@
   },
   "newModels": [
     {
-      "provider": "anthropic",
-      "id": "claude-haiku-5-5",
+      "provider": "gemini",
+      "id": "gemini-1.5-pro-exp",
       "via": "release notes"
     },
     {
       "provider": "gemini",
-      "id": "gemini-2.5-pro-pre",
+      "id": "gemini-1.5-flash-exp",
       "via": "release notes"
     }
   ],
