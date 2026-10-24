@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-11",
+  "updated": "2026-10-24",
   "baselined": true,
   "notesBaselined": true,
   "models": [
@@ -382,6 +382,11 @@
       "provider": "gemini",
       "id": "gemini-1.5-flash-exp",
       "firstSeen": "2026-10-11"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-tag-2026-10",
+      "firstSeen": "2026-10-24"
     }
   ]
 }

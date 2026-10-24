@@ -1,0 +1,26 @@
+{
+  "reuse": {
+    "cleared": 13,
+    "needsReview": 2
+  },
+  "mode": "desk",
+  "generatedAt": "2026-10-24T08:18:50.728Z",
+  "runDate": "2026-10-24",
+  "trigger": "scheduled",
+  "fullAudit": false,
+  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/40077505982",
+  "keys": {
+    "openai": false,
+    "anthropic": false,
+    "gemini": false
+  },
+  "newModels": [
+    {
+      "provider": "anthropic",
+      "id": "claude-tag-2026-10",
+      "via": "release notes"
+    }
+  ],
+  "scenarios": {},
+  "skipped": {}
+}
