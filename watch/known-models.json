@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24",
+  "updated": "2026-10-27",
   "baselined": true,
   "notesBaselined": true,
   "models": [
@@ -387,6 +387,11 @@
       "provider": "anthropic",
       "id": "claude-tag-2026-10",
       "firstSeen": "2026-10-24"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-6.1-terra",
+      "firstSeen": "2026-10-27"
     }
   ]
 }
