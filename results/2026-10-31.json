@@ -1,0 +1,31 @@
+{
+  "reuse": {
+    "cleared": 8,
+    "needsReview": 7
+  },
+  "mode": "desk",
+  "generatedAt": "2026-10-31T09:51:45.658Z",
+  "runDate": "2026-10-31",
+  "trigger": "scheduled",
+  "fullAudit": false,
+  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/41190363326",
+  "keys": {
+    "openai": false,
+    "anthropic": false,
+    "gemini": false
+  },
+  "newModels": [
+    {
+      "provider": "anthropic",
+      "id": "claude-opus-4-8",
+      "via": "release notes"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-6-rosalind",
+      "via": "release notes"
+    }
+  ],
+  "scenarios": {},
+  "skipped": {}
+}
