@@ -1,0 +1,20 @@
+{
+  "reuse": {
+    "cleared": 8,
+    "needsReview": 7
+  },
+  "mode": "desk",
+  "generatedAt": "2026-11-02T11:30:31.517Z",
+  "runDate": "2026-11-02",
+  "trigger": "scheduled",
+  "fullAudit": true,
+  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/41437304205",
+  "keys": {
+    "openai": false,
+    "anthropic": false,
+    "gemini": false
+  },
+  "newModels": [],
+  "scenarios": {},
+  "skipped": {}
+}
