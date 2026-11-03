@@ -4,17 +4,28 @@
     "needsReview": 7
   },
   "mode": "desk",
-  "generatedAt": "2026-11-02T11:30:31.517Z",
-  "runDate": "2026-11-02",
+  "generatedAt": "2026-11-03T11:09:47.084Z",
+  "runDate": "2026-11-03",
   "trigger": "scheduled",
-  "fullAudit": true,
-  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/41437304205",
+  "fullAudit": false,
+  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/41625161092",
   "keys": {
     "openai": false,
     "anthropic": false,
     "gemini": false
   },
-  "newModels": [],
+  "newModels": [
+    {
+      "provider": "gemini",
+      "id": "gemini-2.5-pro-models",
+      "via": "release notes"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.5-flash-models",
+      "via": "release notes"
+    }
+  ],
   "scenarios": {},
   "skipped": {}
 }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31",
+  "updated": "2026-11-03",
   "baselined": true,
   "notesBaselined": true,
   "models": [
@@ -402,6 +402,16 @@
       "provider": "openai",
       "id": "gpt-6-rosalind",
       "firstSeen": "2026-10-31"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.5-pro-models",
+      "firstSeen": "2026-11-03"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-2.5-flash-models",
+      "firstSeen": "2026-11-03"
     }
   ]
 }
