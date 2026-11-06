@@ -4,11 +4,11 @@
     "needsReview": 7
   },
   "mode": "desk",
-  "generatedAt": "2026-11-03T11:09:47.084Z",
-  "runDate": "2026-11-03",
+  "generatedAt": "2026-11-06T11:16:05.668Z",
+  "runDate": "2026-11-06",
   "trigger": "scheduled",
   "fullAudit": false,
-  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/41625161092",
+  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/42208911217",
   "keys": {
     "openai": false,
     "anthropic": false,
@@ -16,13 +16,8 @@
   },
   "newModels": [
     {
-      "provider": "gemini",
-      "id": "gemini-2.5-pro-models",
-      "via": "release notes"
-    },
-    {
-      "provider": "gemini",
-      "id": "gemini-2.5-flash-models",
+      "provider": "openai",
+      "id": "gpt-6-cyber",
       "via": "release notes"
     }
   ],

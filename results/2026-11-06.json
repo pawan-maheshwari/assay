@@ -1,0 +1,26 @@
+{
+  "reuse": {
+    "cleared": 8,
+    "needsReview": 7
+  },
+  "mode": "desk",
+  "generatedAt": "2026-11-06T11:16:05.668Z",
+  "runDate": "2026-11-06",
+  "trigger": "scheduled",
+  "fullAudit": false,
+  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/42208911217",
+  "keys": {
+    "openai": false,
+    "anthropic": false,
+    "gemini": false
+  },
+  "newModels": [
+    {
+      "provider": "openai",
+      "id": "gpt-6-cyber",
+      "via": "release notes"
+    }
+  ],
+  "scenarios": {},
+  "skipped": {}
+}
