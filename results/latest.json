@@ -4,23 +4,17 @@
     "needsReview": 7
   },
   "mode": "desk",
-  "generatedAt": "2026-11-06T11:16:05.668Z",
-  "runDate": "2026-11-06",
+  "generatedAt": "2026-11-09T11:55:27.247Z",
+  "runDate": "2026-11-09",
   "trigger": "scheduled",
-  "fullAudit": false,
-  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/42208911217",
+  "fullAudit": true,
+  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/42612745265",
   "keys": {
     "openai": false,
     "anthropic": false,
     "gemini": false
   },
-  "newModels": [
-    {
-      "provider": "openai",
-      "id": "gpt-6-cyber",
-      "via": "release notes"
-    }
-  ],
+  "newModels": [],
   "scenarios": {},
   "skipped": {}
 }
