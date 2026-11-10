@@ -4,17 +4,28 @@
     "needsReview": 7
   },
   "mode": "desk",
-  "generatedAt": "2026-11-09T11:55:27.247Z",
-  "runDate": "2026-11-09",
+  "generatedAt": "2026-11-10T11:29:08.552Z",
+  "runDate": "2026-11-10",
   "trigger": "scheduled",
-  "fullAudit": true,
-  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/42612745265",
+  "fullAudit": false,
+  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/42807735902",
   "keys": {
     "openai": false,
     "anthropic": false,
     "gemini": false
   },
-  "newModels": [],
+  "newModels": [
+    {
+      "provider": "anthropic",
+      "id": "claude-fable-5-2",
+      "via": "release notes"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-mythos-5-2",
+      "via": "release notes"
+    }
+  ],
   "scenarios": {},
   "skipped": {}
 }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-06",
+  "updated": "2026-11-10",
   "baselined": true,
   "notesBaselined": true,
   "models": [
@@ -417,6 +417,16 @@
       "provider": "openai",
       "id": "gpt-6-cyber",
       "firstSeen": "2026-11-06"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-fable-5-2",
+      "firstSeen": "2026-11-10"
+    },
+    {
+      "provider": "anthropic",
+      "id": "claude-mythos-5-2",
+      "firstSeen": "2026-11-10"
     }
   ]
 }
