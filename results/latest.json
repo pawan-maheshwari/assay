@@ -4,11 +4,11 @@
     "needsReview": 7
   },
   "mode": "desk",
-  "generatedAt": "2026-11-11T11:17:59.771Z",
-  "runDate": "2026-11-11",
+  "generatedAt": "2026-11-13T11:21:12.668Z",
+  "runDate": "2026-11-13",
   "trigger": "scheduled",
   "fullAudit": false,
-  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/43010706564",
+  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/43416207572",
   "keys": {
     "openai": false,
     "anthropic": false,
@@ -17,7 +17,7 @@
   "newModels": [
     {
       "provider": "gemini",
-      "id": "gemini-4-carbon",
+      "id": "gemini-4-hydrogen",
       "via": "release notes"
     }
   ],

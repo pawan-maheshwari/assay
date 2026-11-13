@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-11",
+  "updated": "2026-11-13",
   "baselined": true,
   "notesBaselined": true,
   "models": [
@@ -432,6 +432,11 @@
       "provider": "gemini",
       "id": "gemini-4-carbon",
       "firstSeen": "2026-11-11"
+    },
+    {
+      "provider": "gemini",
+      "id": "gemini-4-hydrogen",
+      "firstSeen": "2026-11-13"
     }
   ]
 }
