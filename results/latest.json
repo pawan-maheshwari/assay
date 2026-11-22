@@ -1,14 +1,14 @@
 {
   "reuse": {
-    "cleared": 8,
-    "needsReview": 7
+    "cleared": 7,
+    "needsReview": 8
   },
   "mode": "desk",
-  "generatedAt": "2026-11-13T11:21:12.668Z",
-  "runDate": "2026-11-13",
-  "trigger": "scheduled",
-  "fullAudit": false,
-  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/43416207572",
+  "generatedAt": "2026-11-22T13:57:01.469Z",
+  "runDate": "2026-11-22",
+  "trigger": "on-demand",
+  "fullAudit": true,
+  "runUrl": "https://github.com/pawan-maheshwari/assay/actions/runs/45030070287",
   "keys": {
     "openai": false,
     "anthropic": false,
@@ -16,8 +16,23 @@
   },
   "newModels": [
     {
+      "provider": "openai",
+      "id": "gpt-6.2",
+      "via": "release notes"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-6.2-astra",
+      "via": "release notes"
+    },
+    {
+      "provider": "openai",
+      "id": "gpt-6.2-sol",
+      "via": "release notes"
+    },
+    {
       "provider": "gemini",
-      "id": "gemini-4-hydrogen",
+      "id": "gemini-4-neon",
       "via": "release notes"
     }
   ],
