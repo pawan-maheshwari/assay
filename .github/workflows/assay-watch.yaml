@@ -1,6 +1,7 @@
 name: Assay release watch
 
-# Desk-audit mode: no API keys and no API cost.
+# Desk-audit mode: no live tests. An optional ANTHROPIC_API_KEY secret is used only to
+# extract claims from release notes into new drafts (about one short call per release).
 # Checks vendor release notes daily, opens an issue when a new model appears
 # or a verdict is no longer cleared for reuse, and rebuilds the PDF report
 # on Mondays, on demand, and whenever something changes.
@@ -24,8 +25,8 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
       - name: Install tools
@@ -33,6 +34,9 @@ jobs:
           npm install --no-save jsdom@24 playwright@1.56.0
           npx playwright install --with-deps chromium
       - name: Check releases and build report
+        env:
+          # Optional. Used only to extract vendor claims into new-release drafts.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node watcher/watch.mjs
       - name: Publish results
         run: |

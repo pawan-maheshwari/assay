@@ -1351,7 +1351,7 @@ function reuseStatus(sc, c, v, asOf){
   const cand = sc.models.find(m => m.id === c.candidate), known = reuseKnown || knownRemote || [];
   if(cand && cand.modelId){
     const fam = modelFamily(cand.modelId);
-    const newer = known.filter(m => m.provider === cand.provider && m.id !== cand.modelId && modelFamily(m.id) === fam && m.firstSeen && m.firstSeen > sealed && !sc.models.some(x => x.modelId === m.id));
+    const newer = known.filter(m => m.provider === cand.provider && m.id !== cand.modelId && modelFamily(m.id) === fam && isNewerModel(m.id, cand.modelId) && m.firstSeen && m.firstSeen > sealed && !sc.models.some(x => x.modelId === m.id));
     if(newer.length){ r.status = "review"; r.reasons.push(`A newer model in the same family appeared after verification: ${newer.map(m => m.id).join(", ")}.`); return r; }
   }
   return r;
@@ -1605,11 +1605,13 @@ function knownSet(){
   return k;
 }
 function guessPredecessor(provider, id, pool){
-  const same = pool.filter(m => m.provider === provider && m.id !== id);
-  const stem = s => s.replace(/-\d{8}$/, "");
-  const score = m => { const a = stem(m.id), b = stem(id); let i = 0, j = 0; while(i < a.length && a[i] === b[i]) i++; while(j < a.length - i && j < b.length - i && a[a.length - 1 - j] === b[b.length - 1 - j]) j++; return i + j - Math.abs(a.length - b.length) * .1; };
-  same.sort((x, y) => score(y) - score(x));
-  return same[0] ? same[0].id : "";
+  /* The newest earlier version in the same family (prefer the undated alias); blank if there is none,
+     so a person picks the baseline instead of the watcher pairing unrelated models. */
+  const fam = modelFamily(id), v = modelVersion(id);
+  if(!v) return "";
+  const older = pool.filter(m => m.provider === provider && m.id !== id && modelFamily(m.id) === fam && modelVersion(m.id) && compareVersions(modelVersion(m.id), v) < 0);
+  older.sort((x, y) => compareVersions(modelVersion(y.id), modelVersion(x.id)) || (/-\d{8}$/.test(x.id) - /-\d{8}$/.test(y.id)));
+  return older[0] ? older[0].id : "";
 }
 async function watchCheck(){
   const st = $("#watch-status");
@@ -1811,6 +1813,27 @@ function deliveredChart(rows){
   const H = y + 26;
   const grid = [-50, 0, 40, 100, 150].map(t => `<line x1="${X(t)}" y1="28" x2="${X(t)}" y2="${H - 24}" stroke="${t === 100 ? "#2F3FD9" : "#DADDEA"}" stroke-width="${t === 100 ? 1.5 : 1}" ${t === 100 ? 'stroke-dasharray="4 3"' : ""}/><text x="${X(t)}" y="${H - 8}" font-size="10" fill="#565C7D" text-anchor="middle">${t + "%"}</text>${t === 100 ? `<text x="${X(t) + 4}" y="24" font-size="9.5" fill="#2F3FD9">as claimed</text>` : ""}`).join("");
   return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Share of each claim delivered">${grid}${body}</svg>`;
+}
+/* Version of a model ID: "claude-opus-4-8" -> [4,8], "gpt-6.2-sol" -> [6,2], "claude-sonnet-4-5-20250929" -> [4,5].
+   Null when there is no version or it looks like a year ("claude-tag-2026-10"). */
+function modelVersion(id){
+  const m = String(id || "").toLowerCase().replace(/-\d{8}$/, "").match(/\d+(?:[.-]\d+)*/);
+  if(!m) return null;
+  const v = m[0].split(/[.-]/).map(Number);
+  return v.some(n => n >= 1000) ? null : v;
+}
+function compareVersions(a, b){ for(let i = 0; i < Math.max(a.length, b.length); i++){ const d = (a[i] || 0) - (b[i] || 0); if(d) return d; } return 0; }
+function isNewerModel(id, than){ const a = modelVersion(id), b = modelVersion(than); return !!(a && b) && compareVersions(a, b) > 0; }
+/* Is this ID worth treating as a new release? Rejects aliases and fragments picked up from release notes
+   (-latest, -exp, -pre, -models), year-like IDs, dated snapshots of a model already known, and anything
+   older than the newest model already known in the same family. */
+function isReleaseId(provider, id, known){
+  const s = String(id || "").toLowerCase(), v = modelVersion(s);
+  if(!v || /-(latest|exp|pre|models)$/.test(s)) return false;
+  const same = (known || []).filter(m => m.provider === provider && m.id !== s);
+  if(/-\d{8}$/.test(s) && same.some(m => m.id === s.replace(/-\d{8}$/, ""))) return false;
+  const fam = modelFamily(s);
+  return !same.some(m => modelFamily(m.id) === fam && isNewerModel(m.id, s));
 }
 function modelFamily(id){ return String(id || "").toLowerCase().replace(/-\d{8}$/, "").replace(/[-.]?\d+(\.\d+)?/g, "").replace(/-+/g, "-").replace(/^-|-$/g, ""); }
 function pricePairs(chs){
@@ -2398,7 +2421,7 @@ window.addEventListener("scroll", () => {
   requestAnimationFrame(() => { toTop.classList.toggle("show", window.scrollY > 400); topTick = false; });
 }, { passive: true });
 
-window.Assay = { conditionsOf, conditionFingerprint, reuseStatus, setReuseContext: (ledger, known) => { reuseLedger = ledger; reuseKnown = known; }, setKey: (id, k) => { keys[id] = k; }, addScenarios, extractClaims, buildDraftScenario, listModels, isChatModel, guessPredecessor, runScenarioHeadless, buildReport, refVerdict, scenarios: () => scenarios, loadScenario, grade, compare, verdictFor, summary, agg, delta, wilson, state: () => state, loadDemo, startRun, STARTER_TASKS };
+window.Assay = { modelVersion, isNewerModel, isReleaseId, conditionsOf, conditionFingerprint, reuseStatus, setReuseContext: (ledger, known) => { reuseLedger = ledger; reuseKnown = known; }, setKey: (id, k) => { keys[id] = k; }, addScenarios, extractClaims, buildDraftScenario, listModels, isChatModel, guessPredecessor, runScenarioHeadless, buildReport, refVerdict, scenarios: () => scenarios, loadScenario, grade, compare, verdictFor, summary, agg, delta, wilson, state: () => state, loadDemo, startRun, STARTER_TASKS };
 })();
 </script>
 </body>

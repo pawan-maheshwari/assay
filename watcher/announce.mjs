@@ -29,6 +29,7 @@ export function prettyModel(id) {
     .join(" ").replace(/^GPT (\d)/, "GPT-$1");
 }
 
+const longDate = d => { const t = Date.parse(d); return isFinite(t) ? new Date(t).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }) : d; };
 const xml = s => String(s ?? "").replace(/[<>&'"]/g, c => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", "'": "&apos;", '"': "&quot;" }[c]));
 
 function auditPost(A, sc, today) {
@@ -60,7 +61,7 @@ function detectedPost(m, sc, baseId, today) {
   const name = prettyModel(m.id), vendor = VENDOR[m.provider] || m.provider;
   const id = `detected-${m.provider}-${m.id}`;
   const headline = `New release: ${vendor} ${name}`;
-  const body = `Assay's watcher found ${name} in ${vendor}'s release notes on ${today}. Its launch claims are now in the audit queue${baseId ? `, to be checked against ${prettyModel(baseId)}` : ""}. Verdicts will be posted here once they are checked against independent data.`;
+  const body = `Assay's watcher found ${name} in ${vendor}'s release notes on ${longDate(today)}. Its launch claims are now in the audit queue${baseId ? `, to be checked against ${prettyModel(baseId)}` : ""}. Verdicts will be posted here once they are checked against independent data.`;
   return {
     id, kind: "detected", date: today, provider: m.provider, model: m.id, baseline: baseId || "",
     scenario: sc ? sc.id : "", headline, body, highlights: [], tally: null,
