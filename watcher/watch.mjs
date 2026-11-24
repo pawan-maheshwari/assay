@@ -16,6 +16,9 @@ const cfg = JSON.parse(await fs.readFile(path.join(ROOT, "watcher/config.json"),
 const LIVE = cfg.liveTests === true;
 // Desk-audit mode (liveTests: false) never uses API keys, so it costs nothing.
 const KEYS = LIVE ? { openai: process.env.OPENAI_API_KEY || "", anthropic: process.env.ANTHROPIC_API_KEY || "", gemini: process.env.GEMINI_API_KEY || "" } : { openai: "", anthropic: "", gemini: "" };
+// Claim extraction only: one short Claude call per new release, even in desk-audit mode.
+// Set the ANTHROPIC_API_KEY repository secret to turn it on; without it drafts stay empty as before.
+const EXTRACT_KEY = cfg.extractClaims === false ? "" : (process.env.ANTHROPIC_API_KEY || "");
 const TODAY = new Date().toISOString().slice(0, 10);
 // How this run was started: GitHub sets GITHUB_EVENT_NAME to "schedule" or "workflow_dispatch".
 const EVENT = process.env.GITHUB_EVENT_NAME || "";
@@ -82,8 +85,14 @@ for (const [p, pat] of Object.entries(cfg.modelPatterns || {})) {
   ids.filter(id => !knownSet.has(p + ":" + id) && !found.some(m => m.provider === p && m.id === id)).forEach(id => noteFresh.push({ provider: p, id, via: "release notes" }));
 }
 const seen = new Set();
-const fresh = [...FORCED.map(m => Object.assign({ via: "requested" }, m)), ...catalogueFresh.map(m => Object.assign({ via: "catalogue" }, m)), ...(firstRun || notesFirst ? [] : noteFresh)]
+// Everything seen is recorded as known, but only real releases are drafted and announced:
+// aliases, fragments, dated snapshots and older generations are skipped.
+const knownList = known.models.concat(A.scenarios().flatMap(sc => sc.models.map(m => ({ provider: m.provider, id: m.modelId })))).concat(found);
+const skipped = [];
+const isRelease = m => { const ok = A.isReleaseId(m.provider, m.id, knownList); if (!ok) skipped.push(m.id); return ok; };
+const fresh = [...FORCED.map(m => Object.assign({ via: "requested" }, m)), ...catalogueFresh.filter(isRelease).map(m => Object.assign({ via: "catalogue" }, m)), ...(firstRun || notesFirst ? [] : noteFresh.filter(isRelease))]
   .filter(m => { const k = m.provider + ":" + m.id; if (seen.has(k)) return false; seen.add(k); return true; });
+if (skipped.length) log(`not treated as new releases: ${[...new Set(skipped)].join(", ")}`);
 log(firstRun ? "first run: recording the current catalogue as the baseline" : `${fresh.length} new models${fresh.length ? ": " + fresh.map(m => `${m.id} (${m.via})`).join(", ") : ""}`);
 const merged = new Map(known.models.map(m => [m.provider + ":" + m.id, m]));
 found.concat(firstRun ? [] : noteFresh).forEach(m => { const k = m.provider + ":" + m.id; if (!merged.has(k)) merged.set(k, { provider: m.provider, id: m.id, firstSeen: TODAY }); });
@@ -100,10 +109,10 @@ for (const m of fresh.slice(0, 6)) {
   const baseId = cfg.predecessors[m.id] || A.guessPredecessor(m.provider, m.id, pool);
   let claims = [], summary = "", sourceUrl = (cfg.releaseNotes[m.provider] || [])[0] || "";
   const txt = await releaseText(m.provider);
-  if (txt && KEYS.anthropic) {
+  if (txt && EXTRACT_KEY) {
     try {
       const focus = txt.includes(m.id) ? txt.slice(Math.max(0, txt.indexOf(m.id) - 4000), txt.indexOf(m.id) + 12000) : txt.slice(0, 16000);
-      const out = await A.extractClaims({ text: `New model: ${m.id}\n${focus}`, vendor: m.provider, key: KEYS.anthropic, model: cfg.extractionModel });
+      const out = await A.extractClaims({ text: `New model: ${m.id}\n${focus}`, vendor: m.provider, key: EXTRACT_KEY, model: cfg.extractionModel });
       claims = out.claims; summary = out.summary || "";
     } catch (e) { log(`extraction failed for ${m.id}: ${e.message}`); }
   }
