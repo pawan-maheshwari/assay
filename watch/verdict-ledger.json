@@ -146,10 +146,10 @@
       "history": []
     },
     "anthropic-opus-5-5/c2": {
-      "fp": "2c56a953",
+      "fp": "447c6281",
       "verdict": "bad",
-      "sealed": "2026-09-30",
-      "reviewed": "2026-09-25",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
       "conditions": {
         "metric": "cost_task",
         "claimed": 40,
@@ -177,32 +177,84 @@
           "priceOut": 20
         },
         "evidence": {
-          "baseline": 5.86,
-          "candidate": 5.98,
+          "baseline": 11.82,
+          "candidate": 10.04,
           "unit": "$ per index task",
           "sources": [
             {
               "url": "https://artificialanalysis.ai/models/claude-opus-5",
-              "date": "2026-07-24"
+              "date": "2026-11-24"
             },
             {
               "url": "https://artificialanalysis.ai/models/claude-opus-5-5",
-              "date": "2026-09-23"
+              "date": "2026-11-24"
             }
           ]
         },
         "guard": {
-          "baseline": 51,
-          "candidate": 58
+          "baseline": 44,
+          "candidate": 59
         }
       },
-      "history": []
+      "history": [
+        {
+          "fp": "2c56a953",
+          "verdict": "bad",
+          "sealed": "2026-09-30",
+          "conditions": {
+            "metric": "cost_task",
+            "claimed": 40,
+            "scope": "outside",
+            "baseline": {
+              "modelId": "claude-opus-5",
+              "provider": "anthropic",
+              "setting": {
+                "output_config": {
+                  "effort": "max"
+                }
+              },
+              "priceIn": 5,
+              "priceOut": 25
+            },
+            "candidate": {
+              "modelId": "claude-opus-5-5",
+              "provider": "anthropic",
+              "setting": {
+                "output_config": {
+                  "effort": "max"
+                }
+              },
+              "priceIn": 4,
+              "priceOut": 20
+            },
+            "evidence": {
+              "baseline": 5.86,
+              "candidate": 5.98,
+              "unit": "$ per index task",
+              "sources": [
+                {
+                  "url": "https://artificialanalysis.ai/models/claude-opus-5",
+                  "date": "2026-07-24"
+                },
+                {
+                  "url": "https://artificialanalysis.ai/models/claude-opus-5-5",
+                  "date": "2026-09-23"
+                }
+              ]
+            },
+            "guard": {
+              "baseline": 51,
+              "candidate": 58
+            }
+          }
+        }
+      ]
     },
     "anthropic-opus-5-5/c3": {
-      "fp": "62954a23",
+      "fp": "78b533bd",
       "verdict": "ok",
-      "sealed": "2026-09-30",
-      "reviewed": "2026-09-25",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
       "conditions": {
         "metric": "output_speed",
         "claimed": 30,
@@ -218,23 +270,60 @@
           "setting": null
         },
         "evidence": {
-          "baseline": 55,
-          "candidate": 75,
+          "baseline": 76,
+          "candidate": 105,
           "unit": "output tokens per second",
           "sources": [
             {
-              "url": "https://artificialanalysis.ai/models/claude-opus-5-medium",
-              "date": "2026-07-24"
+              "url": "https://artificialanalysis.ai/models/claude-opus-5",
+              "date": "2026-11-24"
             },
             {
-              "url": "https://artificialanalysis.ai/models/claude-opus-5-5-medium",
-              "date": "2026-09-23"
+              "url": "https://artificialanalysis.ai/models/claude-opus-5-5",
+              "date": "2026-11-24"
             }
           ]
         },
         "guard": null
       },
-      "history": []
+      "history": [
+        {
+          "fp": "62954a23",
+          "verdict": "ok",
+          "sealed": "2026-09-30",
+          "conditions": {
+            "metric": "output_speed",
+            "claimed": 30,
+            "scope": "in",
+            "baseline": {
+              "modelId": "claude-opus-5",
+              "provider": "anthropic",
+              "setting": null
+            },
+            "candidate": {
+              "modelId": "claude-opus-5-5",
+              "provider": "anthropic",
+              "setting": null
+            },
+            "evidence": {
+              "baseline": 55,
+              "candidate": 75,
+              "unit": "output tokens per second",
+              "sources": [
+                {
+                  "url": "https://artificialanalysis.ai/models/claude-opus-5-medium",
+                  "date": "2026-07-24"
+                },
+                {
+                  "url": "https://artificialanalysis.ai/models/claude-opus-5-5-medium",
+                  "date": "2026-09-23"
+                }
+              ]
+            },
+            "guard": null
+          }
+        }
+      ]
     },
     "anthropic-opus-5-5/c4": {
       "fp": "f5f717b0",
@@ -275,10 +364,10 @@
       "history": []
     },
     "anthropic-opus-5-5/c5": {
-      "fp": "2814889e",
+      "fp": "da87547c",
       "verdict": "bad",
-      "sealed": "2026-09-30",
-      "reviewed": "2026-09-25",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
       "conditions": {
         "metric": "out_tokens",
         "claimed": 20,
@@ -302,19 +391,64 @@
           }
         },
         "evidence": {
-          "baseline": 73,
-          "candidate": 119,
-          "unit": "thousand output tokens per task",
+          "baseline": 128,
+          "candidate": 218,
+          "unit": "million output tokens across the index",
           "sources": [
             {
-              "url": "https://artificialanalysis.ai/articles/claude-opus-5-5",
-              "date": "2026-09-23"
+              "url": "https://artificialanalysis.ai/models/claude-opus-5",
+              "date": "2026-11-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/claude-opus-5-5",
+              "date": "2026-11-24"
             }
           ]
         },
         "guard": null
       },
-      "history": []
+      "history": [
+        {
+          "fp": "2814889e",
+          "verdict": "bad",
+          "sealed": "2026-09-30",
+          "conditions": {
+            "metric": "out_tokens",
+            "claimed": 20,
+            "scope": "outside",
+            "baseline": {
+              "modelId": "claude-opus-5",
+              "provider": "anthropic",
+              "setting": {
+                "output_config": {
+                  "effort": "max"
+                }
+              }
+            },
+            "candidate": {
+              "modelId": "claude-opus-5-5",
+              "provider": "anthropic",
+              "setting": {
+                "output_config": {
+                  "effort": "max"
+                }
+              }
+            },
+            "evidence": {
+              "baseline": 73,
+              "candidate": 119,
+              "unit": "thousand output tokens per task",
+              "sources": [
+                {
+                  "url": "https://artificialanalysis.ai/articles/claude-opus-5-5",
+                  "date": "2026-09-23"
+                }
+              ]
+            },
+            "guard": null
+          }
+        }
+      ]
     },
     "openai-gpt-6-sol-luna/c1": {
       "fp": "04f9f766",
@@ -433,10 +567,10 @@
       "history": []
     },
     "google-gemini-4-argon/c1": {
-      "fp": "f8d7c63e",
-      "verdict": "ok",
-      "sealed": "2026-10-01",
-      "reviewed": "2026-10-01",
+      "fp": "c777bb2b",
+      "verdict": "bad",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
       "conditions": {
         "metric": "index_points",
         "claimed": 1.9,
@@ -452,23 +586,56 @@
           "setting": null
         },
         "evidence": {
-          "baseline": 67,
-          "candidate": 68.9,
+          "baseline": 68.7,
+          "candidate": 67.37,
           "unit": "Vals Index, %",
           "sources": [
             {
               "url": "https://www.vals.ai/benchmarks/vals_index",
-              "date": "2026-09-30"
-            },
-            {
-              "url": "https://kingy.ai/blog/gemini-4-argon-specs-benchmarks-pricing/",
-              "date": "2026-09-30"
+              "date": "2026-11-21"
             }
           ]
         },
         "guard": null
       },
-      "history": []
+      "history": [
+        {
+          "fp": "f8d7c63e",
+          "verdict": "ok",
+          "sealed": "2026-10-01",
+          "conditions": {
+            "metric": "index_points",
+            "claimed": 1.9,
+            "scope": "in",
+            "baseline": {
+              "modelId": "claude-opus-5-5",
+              "provider": "anthropic",
+              "setting": null
+            },
+            "candidate": {
+              "modelId": "gemini-4-argon",
+              "provider": "gemini",
+              "setting": null
+            },
+            "evidence": {
+              "baseline": 67,
+              "candidate": 68.9,
+              "unit": "Vals Index, %",
+              "sources": [
+                {
+                  "url": "https://www.vals.ai/benchmarks/vals_index",
+                  "date": "2026-09-30"
+                },
+                {
+                  "url": "https://kingy.ai/blog/gemini-4-argon-specs-benchmarks-pricing/",
+                  "date": "2026-09-30"
+                }
+              ]
+            },
+            "guard": null
+          }
+        }
+      ]
     },
     "google-gemini-4-argon/c2": {
       "fp": "6d62c86f",
@@ -634,6 +801,572 @@
           ]
         },
         "guard": null
+      },
+      "history": []
+    },
+    "google-gemini-4-neon/c1": {
+      "fp": "5bade07d",
+      "verdict": "part",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
+      "conditions": {
+        "metric": "cost_task",
+        "claimed": 25,
+        "scope": "in",
+        "baseline": {
+          "modelId": "gemini-4-carbon",
+          "provider": "gemini",
+          "setting": null,
+          "priceIn": 4,
+          "priceOut": 20
+        },
+        "candidate": {
+          "modelId": "gemini-4-neon",
+          "provider": "gemini",
+          "setting": null,
+          "priceIn": 3,
+          "priceOut": 15
+        },
+        "evidence": {
+          "baseline": 7.76,
+          "candidate": 6.44,
+          "unit": "$ per index task",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/gemini-4-carbon",
+              "date": "2026-11-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/gemini-4-neon",
+              "date": "2026-11-24"
+            }
+          ]
+        },
+        "guard": {
+          "baseline": 60,
+          "candidate": 61
+        }
+      },
+      "history": []
+    },
+    "google-gemini-4-neon/c2": {
+      "fp": "31386748",
+      "verdict": "ok",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
+      "conditions": {
+        "metric": "cost_task",
+        "claimed": 25,
+        "scope": "in",
+        "baseline": {
+          "modelId": "gemini-4-carbon",
+          "provider": "gemini",
+          "setting": null,
+          "priceIn": 4,
+          "priceOut": 20
+        },
+        "candidate": {
+          "modelId": "gemini-4-neon",
+          "provider": "gemini",
+          "setting": null,
+          "priceIn": 3,
+          "priceOut": 15
+        },
+        "evidence": {
+          "baseline": 2.12,
+          "candidate": 0.88,
+          "unit": "$ per AutomationBench task",
+          "sources": [
+            {
+              "url": "https://zapier.com/benchmarks",
+              "date": "2026-11-24"
+            }
+          ]
+        },
+        "guard": {
+          "baseline": 53.88,
+          "candidate": 54.34
+        }
+      },
+      "history": []
+    },
+    "openai-gpt-6-2-astra-sol/c1": {
+      "fp": "b1414807",
+      "verdict": "ok",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
+      "conditions": {
+        "metric": "cost_task",
+        "claimed": 20,
+        "scope": "in",
+        "baseline": {
+          "modelId": "gpt-6-astra",
+          "provider": "openai",
+          "setting": null,
+          "priceIn": 10,
+          "priceOut": 50
+        },
+        "candidate": {
+          "modelId": "gpt-6.2-astra",
+          "provider": "openai",
+          "setting": null,
+          "priceIn": 8,
+          "priceOut": 40
+        },
+        "evidence": {
+          "baseline": 6.24,
+          "candidate": 4,
+          "unit": "$ per index task",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/gpt-6-astra",
+              "date": "2026-11-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/gpt-6-2-astra",
+              "date": "2026-11-24"
+            }
+          ]
+        },
+        "guard": {
+          "baseline": 57,
+          "candidate": 62
+        }
+      },
+      "history": []
+    },
+    "openai-gpt-6-2-astra-sol/c2": {
+      "fp": "c15ccb87",
+      "verdict": "ok",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
+      "conditions": {
+        "metric": "out_tokens",
+        "claimed": 22,
+        "scope": "proxy",
+        "baseline": {
+          "modelId": "gpt-6-astra",
+          "provider": "openai",
+          "setting": null
+        },
+        "candidate": {
+          "modelId": "gpt-6.2-astra",
+          "provider": "openai",
+          "setting": null
+        },
+        "evidence": {
+          "baseline": 25.6,
+          "candidate": 20,
+          "unit": "million output tokens across the index",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/gpt-6-astra",
+              "date": "2026-11-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/gpt-6-2-astra",
+              "date": "2026-11-24"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    },
+    "openai-gpt-6-2-astra-sol/c3": {
+      "fp": "023cb9c8",
+      "verdict": "bad",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
+      "conditions": {
+        "metric": "out_tokens",
+        "claimed": 22,
+        "scope": "outside",
+        "baseline": {
+          "modelId": "gpt-6-astra",
+          "provider": "openai",
+          "setting": null
+        },
+        "candidate": {
+          "modelId": "gpt-6.2-astra",
+          "provider": "openai",
+          "setting": null
+        },
+        "evidence": {
+          "baseline": 54.3,
+          "candidate": 65.8,
+          "unit": "million output tokens across the index",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/gpt-6-astra",
+              "date": "2026-11-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/gpt-6-2-astra",
+              "date": "2026-11-24"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    },
+    "openai-gpt-6-2-astra-sol/c4": {
+      "fp": "07929f9a",
+      "verdict": "ok",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
+      "conditions": {
+        "metric": "index_points",
+        "claimed": 6.2,
+        "scope": "proxy",
+        "baseline": {
+          "modelId": "gpt-6-astra",
+          "provider": "openai",
+          "setting": null
+        },
+        "candidate": {
+          "modelId": "gpt-6.2-astra",
+          "provider": "openai",
+          "setting": null
+        },
+        "evidence": {
+          "baseline": 57,
+          "candidate": 62,
+          "unit": "Intelligence Index points",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/gpt-6-astra",
+              "date": "2026-11-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/gpt-6-2-astra",
+              "date": "2026-11-24"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    },
+    "openai-gpt-6-2-astra-sol/c5": {
+      "fp": "8fea9d77",
+      "verdict": "bad",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
+      "conditions": {
+        "metric": "index_points",
+        "claimed": 5.3,
+        "scope": "proxy",
+        "baseline": {
+          "modelId": "gpt-6.1-sol",
+          "provider": "openai",
+          "setting": null
+        },
+        "candidate": {
+          "modelId": "gpt-6.2-sol",
+          "provider": "openai",
+          "setting": null
+        },
+        "evidence": {
+          "baseline": 55,
+          "candidate": 57,
+          "unit": "Intelligence Index points",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/gpt-6-1-sol",
+              "date": "2026-11-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/gpt-6-2-sol",
+              "date": "2026-11-24"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    },
+    "google-gemini-4-hydrogen/c1": {
+      "fp": "da8b6d0e",
+      "verdict": "ok",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
+      "conditions": {
+        "metric": "index_points",
+        "claimed": 1,
+        "scope": "in",
+        "baseline": {
+          "modelId": "gemini-4-argon",
+          "provider": "gemini",
+          "setting": null
+        },
+        "candidate": {
+          "modelId": "gemini-4-hydrogen",
+          "provider": "gemini",
+          "setting": null
+        },
+        "evidence": {
+          "baseline": 50,
+          "candidate": 51,
+          "unit": "Intelligence Index points",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/gemini-4-hydrogen",
+              "date": "2026-11-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/gemini-4-argon",
+              "date": "2026-11-24"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    },
+    "google-gemini-4-hydrogen/c2": {
+      "fp": "7888f89a",
+      "verdict": "ok",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
+      "conditions": {
+        "metric": "out_tokens",
+        "claimed": 12,
+        "scope": "proxy",
+        "baseline": {
+          "modelId": "gemini-3.8-flash",
+          "provider": "gemini",
+          "setting": null
+        },
+        "candidate": {
+          "modelId": "gemini-4-hydrogen",
+          "provider": "gemini",
+          "setting": null
+        },
+        "evidence": {
+          "baseline": 126,
+          "candidate": 110,
+          "unit": "million output tokens across the index",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/gemini-3-8-flash",
+              "date": "2026-11-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/gemini-4-hydrogen",
+              "date": "2026-11-24"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    },
+    "anthropic-fable-5-2/c1": {
+      "fp": "5e1ee365",
+      "verdict": "ok",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
+      "conditions": {
+        "metric": "output_speed",
+        "claimed": 30,
+        "scope": "in",
+        "baseline": {
+          "modelId": "claude-fable-5-1",
+          "provider": "anthropic",
+          "setting": null
+        },
+        "candidate": {
+          "modelId": "claude-fable-5-2",
+          "provider": "anthropic",
+          "setting": null
+        },
+        "evidence": {
+          "baseline": 88,
+          "candidate": 111,
+          "unit": "output tokens per second",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/claude-fable-5-1",
+              "date": "2026-11-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/claude-fable-5-2",
+              "date": "2026-11-24"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    },
+    "anthropic-fable-5-2/c2": {
+      "fp": "c45f6c12",
+      "verdict": "bad",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
+      "conditions": {
+        "metric": "cost_task",
+        "claimed": 20,
+        "scope": "outside",
+        "baseline": {
+          "modelId": "claude-fable-5-1",
+          "provider": "anthropic",
+          "setting": null,
+          "priceIn": 10,
+          "priceOut": 50
+        },
+        "candidate": {
+          "modelId": "claude-fable-5-2",
+          "provider": "anthropic",
+          "setting": null,
+          "priceIn": 8,
+          "priceOut": 40
+        },
+        "evidence": {
+          "baseline": 12.99,
+          "candidate": 26.54,
+          "unit": "$ per index task",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/claude-fable-5-1",
+              "date": "2026-11-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/claude-fable-5-2",
+              "date": "2026-11-24"
+            }
+          ]
+        },
+        "guard": {
+          "baseline": 49,
+          "candidate": 65
+        }
+      },
+      "history": []
+    },
+    "google-gemini-4-carbon/c1": {
+      "fp": "d166d9f5",
+      "verdict": "ok",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
+      "conditions": {
+        "metric": "index_points",
+        "claimed": 2.6,
+        "scope": "in",
+        "baseline": {
+          "modelId": "gemini-4-argon",
+          "provider": "gemini",
+          "setting": null
+        },
+        "candidate": {
+          "modelId": "gemini-4-carbon",
+          "provider": "gemini",
+          "setting": null
+        },
+        "evidence": {
+          "baseline": 51.29,
+          "candidate": 53.88,
+          "unit": "AutomationBench, % tasks fully completed",
+          "sources": [
+            {
+              "url": "https://zapier.com/benchmarks",
+              "date": "2026-11-24"
+            }
+          ]
+        },
+        "guard": null
+      },
+      "history": []
+    },
+    "openai-gpt-6-1-terra/c1": {
+      "fp": "579bc827",
+      "verdict": "ok",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
+      "conditions": {
+        "metric": "cost_task",
+        "claimed": 50,
+        "scope": "in",
+        "baseline": {
+          "modelId": "gpt-5.6-terra",
+          "provider": "openai",
+          "setting": null,
+          "priceIn": 2,
+          "priceOut": 12
+        },
+        "candidate": {
+          "modelId": "gpt-6.1-terra",
+          "provider": "openai",
+          "setting": null,
+          "priceIn": 1,
+          "priceOut": 5
+        },
+        "evidence": {
+          "baseline": 3.73,
+          "candidate": 0.96,
+          "unit": "$ per index task",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/gpt-5-6-terra",
+              "date": "2026-11-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/gpt-6-1-terra",
+              "date": "2026-11-24"
+            }
+          ]
+        },
+        "guard": {
+          "baseline": 32,
+          "candidate": 51
+        }
+      },
+      "history": []
+    },
+    "anthropic-haiku-5-5/c1": {
+      "fp": "daa8de2f",
+      "verdict": "bad",
+      "sealed": "2026-11-24",
+      "reviewed": "2026-11-24",
+      "conditions": {
+        "metric": "cost_task",
+        "claimed": 75,
+        "scope": "outside",
+        "baseline": {
+          "modelId": "claude-haiku-4-5",
+          "provider": "anthropic",
+          "setting": null,
+          "priceIn": 1,
+          "priceOut": 5
+        },
+        "candidate": {
+          "modelId": "claude-haiku-5-5",
+          "provider": "anthropic",
+          "setting": null,
+          "priceIn": 0.1,
+          "priceOut": 0.5
+        },
+        "evidence": {
+          "baseline": 0.53,
+          "candidate": 0.41,
+          "unit": "$ per index task",
+          "sources": [
+            {
+              "url": "https://artificialanalysis.ai/models/claude-4-5-haiku",
+              "date": "2026-11-24"
+            },
+            {
+              "url": "https://artificialanalysis.ai/models/claude-haiku-5-5",
+              "date": "2026-11-24"
+            }
+          ]
+        },
+        "guard": {
+          "baseline": 7,
+          "candidate": 36
+        }
       },
       "history": []
     }

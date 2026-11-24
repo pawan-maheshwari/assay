@@ -2,6 +2,216 @@
   "schema": "assay-announcements/1",
   "posts": [
     {
+      "id": "audited-anthropic-opus-5-5-2026-11-24",
+      "kind": "audited",
+      "date": "2026-11-24",
+      "provider": "anthropic",
+      "model": "claude-opus-5-5",
+      "baseline": "claude-opus-5",
+      "scenario": "anthropic-opus-5-5",
+      "headline": "Claude Opus 5.5: audit updated",
+      "body": "Anthropic's launch claims for Claude Opus 5.5 were checked against Opus 5 using independent measurements. Result: 3 Hallmarked, 2 Fool's gold. Re-checked on 24 November 2026 against the latest independent data.",
+      "highlights": [
+        "Fool's gold: The same 40% saving, checked at max effort",
+        "Hallmarked: Generates output more than 30% faster than Opus 5",
+        "Fool's gold: Fewer tokens per task, checked at max effort",
+        "Hallmarked: Costs about 40% less to run than Opus 5 on typical workloads at default effort"
+      ],
+      "tally": {
+        "ok": 3,
+        "part": 0,
+        "bad": 2,
+        "noref": 0
+      },
+      "url": "https://world-of-ai.co.in/assay.html#post-audited-anthropic-opus-5-5-2026-11-24",
+      "share": "Claude Opus 5.5: audit updated.\n\nAnthropic's launch claims for Claude Opus 5.5 were checked against Opus 5 using independent measurements. Result: 3 Hallmarked, 2 Fool's gold. Re-checked on 24 November 2026 against the latest independent data.\n\n• Fool's gold: The same 40% saving, checked at max effort\n• Hallmarked: Generates output more than 30% faster than Opus 5\n• Fool's gold: Fewer tokens per task, checked at max effort\n• Hallmarked: Costs about 40% less to run than Opus 5 on typical workloads at default effort\n\nFull evidence: https://world-of-ai.co.in/assay.html#post-audited-anthropic-opus-5-5-2026-11-24\n\n#Assay #LLM #AIGovernance"
+    },
+    {
+      "id": "audited-google-gemini-4-argon-2026-11-24",
+      "kind": "audited",
+      "date": "2026-11-24",
+      "provider": "gemini",
+      "model": "gemini-4-argon",
+      "baseline": "claude-opus-5-5",
+      "scenario": "google-gemini-4-argon",
+      "headline": "Gemini 4 Argon: audit updated",
+      "body": "Google's launch claims for Gemini 4 Argon were checked against Claude Opus 5.5 using independent measurements. Result: 2 Hallmarked, 3 Fool's gold. Re-checked on 24 November 2026 against the latest independent data.",
+      "highlights": [
+        "Fool's gold: Leads rival frontier models on the Vals Index, ahead of Opus 5.5",
+        "Hallmarked: Ranks first on Zapier's AutomationBench at 51.3%",
+        "Hallmarked: Half Opus 5.5's token price should mean about half the cost per task",
+        "Fool's gold: The same saving, after the introductory price ends"
+      ],
+      "tally": {
+        "ok": 2,
+        "part": 0,
+        "bad": 3,
+        "noref": 1
+      },
+      "url": "https://world-of-ai.co.in/assay.html#post-audited-google-gemini-4-argon-2026-11-24",
+      "share": "Gemini 4 Argon: audit updated.\n\nGoogle's launch claims for Gemini 4 Argon were checked against Claude Opus 5.5 using independent measurements. Result: 2 Hallmarked, 3 Fool's gold. Re-checked on 24 November 2026 against the latest independent data.\n\n• Fool's gold: Leads rival frontier models on the Vals Index, ahead of Opus 5.5\n• Hallmarked: Ranks first on Zapier's AutomationBench at 51.3%\n• Hallmarked: Half Opus 5.5's token price should mean about half the cost per task\n• Fool's gold: The same saving, after the introductory price ends\n\nFull evidence: https://world-of-ai.co.in/assay.html#post-audited-google-gemini-4-argon-2026-11-24\n\n#Assay #LLM #AIGovernance"
+    },
+    {
+      "id": "audited-anthropic-haiku-5-5-2026-11-24",
+      "kind": "audited",
+      "date": "2026-11-24",
+      "provider": "anthropic",
+      "model": "claude-haiku-5-5",
+      "baseline": "claude-haiku-4-5",
+      "scenario": "anthropic-haiku-5-5",
+      "headline": "Claude Haiku 5.5: 1 launch claim assayed",
+      "body": "Anthropic's launch claims for Claude Haiku 5.5 were checked against Haiku 4.5 using independent measurements. Result: 1 Fool's gold.",
+      "highlights": [
+        "Fool's gold: Costs around 75% less to run than Haiku 4.5 on average"
+      ],
+      "tally": {
+        "ok": 0,
+        "part": 0,
+        "bad": 1,
+        "noref": 1
+      },
+      "url": "https://world-of-ai.co.in/assay.html#post-audited-anthropic-haiku-5-5-2026-11-24",
+      "share": "Claude Haiku 5.5: 1 launch claim assayed.\n\nAnthropic's launch claims for Claude Haiku 5.5 were checked against Haiku 4.5 using independent measurements. Result: 1 Fool's gold.\n\n• Fool's gold: Costs around 75% less to run than Haiku 4.5 on average\n\nFull evidence: https://world-of-ai.co.in/assay.html#post-audited-anthropic-haiku-5-5-2026-11-24\n\n#Assay #LLM #AIGovernance"
+    },
+    {
+      "id": "audited-openai-gpt-6-1-terra-2026-11-24",
+      "kind": "audited",
+      "date": "2026-11-24",
+      "provider": "openai",
+      "model": "gpt-6.1-terra",
+      "baseline": "gpt-5.6-terra",
+      "scenario": "openai-gpt-6-1-terra",
+      "headline": "GPT-6.1 Terra: 1 launch claim assayed",
+      "body": "OpenAI's launch claims for GPT-6.1 Terra were checked against GPT-5.6 Terra using independent measurements. Result: 1 Hallmarked.",
+      "highlights": [
+        "Hallmarked: API pricing 50% lower than GPT-5.6 Terra"
+      ],
+      "tally": {
+        "ok": 1,
+        "part": 0,
+        "bad": 0,
+        "noref": 1
+      },
+      "url": "https://world-of-ai.co.in/assay.html#post-audited-openai-gpt-6-1-terra-2026-11-24",
+      "share": "GPT-6.1 Terra: 1 launch claim assayed.\n\nOpenAI's launch claims for GPT-6.1 Terra were checked against GPT-5.6 Terra using independent measurements. Result: 1 Hallmarked.\n\n• Hallmarked: API pricing 50% lower than GPT-5.6 Terra\n\nFull evidence: https://world-of-ai.co.in/assay.html#post-audited-openai-gpt-6-1-terra-2026-11-24\n\n#Assay #LLM #AIGovernance"
+    },
+    {
+      "id": "audited-google-gemini-4-carbon-2026-11-24",
+      "kind": "audited",
+      "date": "2026-11-24",
+      "provider": "gemini",
+      "model": "gemini-4-carbon",
+      "baseline": "gemini-4-argon",
+      "scenario": "google-gemini-4-carbon",
+      "headline": "Gemini 4 Carbon: 1 launch claim assayed",
+      "body": "Google's launch claims for Gemini 4 Carbon were checked against Gemini 4 Argon using independent measurements. Result: 1 Hallmarked.",
+      "highlights": [
+        "Hallmarked: Scores 53.9% on AutomationBench, ahead of Argon's 51.3%"
+      ],
+      "tally": {
+        "ok": 1,
+        "part": 0,
+        "bad": 0,
+        "noref": 0
+      },
+      "url": "https://world-of-ai.co.in/assay.html#post-audited-google-gemini-4-carbon-2026-11-24",
+      "share": "Gemini 4 Carbon: 1 launch claim assayed.\n\nGoogle's launch claims for Gemini 4 Carbon were checked against Gemini 4 Argon using independent measurements. Result: 1 Hallmarked.\n\n• Hallmarked: Scores 53.9% on AutomationBench, ahead of Argon's 51.3%\n\nFull evidence: https://world-of-ai.co.in/assay.html#post-audited-google-gemini-4-carbon-2026-11-24\n\n#Assay #LLM #AIGovernance"
+    },
+    {
+      "id": "audited-anthropic-fable-5-2-2026-11-24",
+      "kind": "audited",
+      "date": "2026-11-24",
+      "provider": "anthropic",
+      "model": "claude-fable-5-2",
+      "baseline": "claude-fable-5-1",
+      "scenario": "anthropic-fable-5-2",
+      "headline": "Claude Fable 5.2: 2 launch claims assayed",
+      "body": "Anthropic's launch claims for Claude Fable 5.2 were checked against Fable 5.1 using independent measurements. Result: 1 Hallmarked, 1 Fool's gold.",
+      "highlights": [
+        "Hallmarked: Generates output up to 30% faster than Fable 5.1",
+        "Fool's gold: A 20% lower token price should mean cheaper tasks"
+      ],
+      "tally": {
+        "ok": 1,
+        "part": 0,
+        "bad": 1,
+        "noref": 0
+      },
+      "url": "https://world-of-ai.co.in/assay.html#post-audited-anthropic-fable-5-2-2026-11-24",
+      "share": "Claude Fable 5.2: 2 launch claims assayed.\n\nAnthropic's launch claims for Claude Fable 5.2 were checked against Fable 5.1 using independent measurements. Result: 1 Hallmarked, 1 Fool's gold.\n\n• Hallmarked: Generates output up to 30% faster than Fable 5.1\n• Fool's gold: A 20% lower token price should mean cheaper tasks\n\nFull evidence: https://world-of-ai.co.in/assay.html#post-audited-anthropic-fable-5-2-2026-11-24\n\n#Assay #LLM #AIGovernance"
+    },
+    {
+      "id": "audited-google-gemini-4-hydrogen-2026-11-24",
+      "kind": "audited",
+      "date": "2026-11-24",
+      "provider": "gemini",
+      "model": "gemini-4-hydrogen",
+      "baseline": "gemini-4-argon",
+      "scenario": "google-gemini-4-hydrogen",
+      "headline": "Gemini 4 Hydrogen: 2 launch claims assayed",
+      "body": "Google's launch claims for Gemini 4 Hydrogen were checked against Gemini 3.8 Flash and Argon using independent measurements. Result: 2 Hallmarked.",
+      "highlights": [
+        "Hallmarked: Scores 51 on the Artificial Analysis Intelligence Index at its default setting, ahead of Argon's 50",
+        "Hallmarked: Uses 12% to 23% fewer tokens than Gemini 3.8 Flash"
+      ],
+      "tally": {
+        "ok": 2,
+        "part": 0,
+        "bad": 0,
+        "noref": 1
+      },
+      "url": "https://world-of-ai.co.in/assay.html#post-audited-google-gemini-4-hydrogen-2026-11-24",
+      "share": "Gemini 4 Hydrogen: 2 launch claims assayed.\n\nGoogle's launch claims for Gemini 4 Hydrogen were checked against Gemini 3.8 Flash and Argon using independent measurements. Result: 2 Hallmarked.\n\n• Hallmarked: Scores 51 on the Artificial Analysis Intelligence Index at its default setting, ahead of Argon's 50\n• Hallmarked: Uses 12% to 23% fewer tokens than Gemini 3.8 Flash\n\nFull evidence: https://world-of-ai.co.in/assay.html#post-audited-google-gemini-4-hydrogen-2026-11-24\n\n#Assay #LLM #AIGovernance"
+    },
+    {
+      "id": "audited-openai-gpt-6-2-astra-sol-2026-11-24",
+      "kind": "audited",
+      "date": "2026-11-24",
+      "provider": "openai",
+      "model": "gpt-6.2-astra",
+      "baseline": "gpt-6-astra",
+      "scenario": "openai-gpt-6-2-astra-sol",
+      "headline": "GPT-6.2 Astra and Sol: 5 launch claims assayed",
+      "body": "OpenAI's launch claims for GPT-6.2 Astra and Sol were checked against GPT-6 Astra and GPT-6.1 Sol using independent measurements. Result: 3 Hallmarked, 2 Fool's gold.",
+      "highlights": [
+        "Hallmarked: GPT-6.2 Astra is 20% cheaper than GPT-6 Astra",
+        "Hallmarked: GPT-6.2 Astra uses 22% fewer output tokens than GPT-6 Astra",
+        "Fool's gold: The same token saving, checked at max reasoning",
+        "Hallmarked: GPT-6.2 Astra scores 6.2 points higher than GPT-6 Astra"
+      ],
+      "tally": {
+        "ok": 3,
+        "part": 0,
+        "bad": 2,
+        "noref": 0
+      },
+      "url": "https://world-of-ai.co.in/assay.html#post-audited-openai-gpt-6-2-astra-sol-2026-11-24",
+      "share": "GPT-6.2 Astra and Sol: 5 launch claims assayed.\n\nOpenAI's launch claims for GPT-6.2 Astra and Sol were checked against GPT-6 Astra and GPT-6.1 Sol using independent measurements. Result: 3 Hallmarked, 2 Fool's gold.\n\n• Hallmarked: GPT-6.2 Astra is 20% cheaper than GPT-6 Astra\n• Hallmarked: GPT-6.2 Astra uses 22% fewer output tokens than GPT-6 Astra\n• Fool's gold: The same token saving, checked at max reasoning\n• Hallmarked: GPT-6.2 Astra scores 6.2 points higher than GPT-6 Astra\n\nFull evidence: https://world-of-ai.co.in/assay.html#post-audited-openai-gpt-6-2-astra-sol-2026-11-24\n\n#Assay #LLM #AIGovernance"
+    },
+    {
+      "id": "audited-google-gemini-4-neon-2026-11-24",
+      "kind": "audited",
+      "date": "2026-11-24",
+      "provider": "gemini",
+      "model": "gemini-4-neon",
+      "baseline": "gemini-4-carbon",
+      "scenario": "google-gemini-4-neon",
+      "headline": "Gemini 4 Neon: 2 launch claims assayed",
+      "body": "Google's launch claims for Gemini 4 Neon were checked against Gemini 4 Carbon using independent measurements. Result: 1 Hallmarked, 1 Plated.",
+      "highlights": [
+        "Plated: 25% lower list prices than Carbon mean cheaper work",
+        "Hallmarked: The same saving on AutomationBench, both at high"
+      ],
+      "tally": {
+        "ok": 1,
+        "part": 1,
+        "bad": 0,
+        "noref": 0
+      },
+      "url": "https://world-of-ai.co.in/assay.html#post-audited-google-gemini-4-neon-2026-11-24",
+      "share": "Gemini 4 Neon: 2 launch claims assayed.\n\nGoogle's launch claims for Gemini 4 Neon were checked against Gemini 4 Carbon using independent measurements. Result: 1 Hallmarked, 1 Plated.\n\n• Plated: 25% lower list prices than Carbon mean cheaper work\n• Hallmarked: The same saving on AutomationBench, both at high\n\nFull evidence: https://world-of-ai.co.in/assay.html#post-audited-google-gemini-4-neon-2026-11-24\n\n#Assay #LLM #AIGovernance"
+    },
+    {
       "id": "audited-google-gemini-4-argon-2026-10-01",
       "kind": "audited",
       "date": "2026-10-01",
@@ -50,26 +260,29 @@
       "share": "Claude Sonnet 5.5: 2 launch claims assayed.\n\nAnthropic's launch claims for Claude Sonnet 5.5 were checked against Sonnet 5 using independent measurements. Result: 2 Fool's gold.\n\n• Fool's gold: The same per-task saving, checked at max effort\n• Fool's gold: Fewer output tokens per task, checked at max effort\n\nFull evidence: https://world-of-ai.co.in/assay.html#post-audited-anthropic-sonnet-5-5-2026-09-30\n\n#Assay #LLM #AIGovernance"
     },
     {
-      "id": "audited-google-gemini-3-8-flash-2026-09-25",
+      "id": "audited-anthropic-opus-5-5-2026-09-25",
       "kind": "audited",
       "date": "2026-09-25",
-      "provider": "gemini",
-      "model": "gemini-3.8-flash",
-      "baseline": "gemini-3.7-flash",
-      "scenario": "google-gemini-3-8-flash",
-      "headline": "Gemini 3.8 Flash: 1 launch claim assayed",
-      "body": "Google's launch claims for Gemini 3.8 Flash were checked against 3.7 Flash using independent measurements. Result: 1 Fool's gold.",
+      "provider": "anthropic",
+      "model": "claude-opus-5-5",
+      "baseline": "claude-opus-5",
+      "scenario": "anthropic-opus-5-5",
+      "headline": "Claude Opus 5.5: 5 launch claims assayed",
+      "body": "Anthropic's launch claims for Claude Opus 5.5 were checked against Opus 5 using independent measurements. Result: 3 Hallmarked, 2 Fool's gold.",
       "highlights": [
-        "Fool's gold: Completed more than three times as many tasks as 3.7 Flash"
+        "Hallmarked: Costs about 40% less to run than Opus 5 on typical workloads at default effort",
+        "Fool's gold: The same 40% saving, checked at max effort",
+        "Hallmarked: Generates output more than 30% faster than Opus 5",
+        "Hallmarked: Uses fewer tokens per task (customer reports range from 20% to 66% fewer)"
       ],
       "tally": {
-        "ok": 0,
+        "ok": 3,
         "part": 0,
-        "bad": 1,
-        "noref": 1
+        "bad": 2,
+        "noref": 0
       },
-      "url": "https://world-of-ai.co.in/assay.html#post-audited-google-gemini-3-8-flash-2026-09-25",
-      "share": "Gemini 3.8 Flash: 1 launch claim assayed.\n\nGoogle's launch claims for Gemini 3.8 Flash were checked against 3.7 Flash using independent measurements. Result: 1 Fool's gold.\n\n• Fool's gold: Completed more than three times as many tasks as 3.7 Flash\n\nFull evidence: https://world-of-ai.co.in/assay.html#post-audited-google-gemini-3-8-flash-2026-09-25\n\n#Assay #LLM #AIGovernance"
+      "url": "https://world-of-ai.co.in/assay.html#post-audited-anthropic-opus-5-5-2026-09-25",
+      "share": "Claude Opus 5.5: 5 launch claims assayed.\n\nAnthropic's launch claims for Claude Opus 5.5 were checked against Opus 5 using independent measurements. Result: 3 Hallmarked, 2 Fool's gold.\n\n• Hallmarked: Costs about 40% less to run than Opus 5 on typical workloads at default effort\n• Fool's gold: The same 40% saving, checked at max effort\n• Hallmarked: Generates output more than 30% faster than Opus 5\n• Hallmarked: Uses fewer tokens per task (customer reports range from 20% to 66% fewer)\n\nFull evidence: https://world-of-ai.co.in/assay.html#post-audited-anthropic-opus-5-5-2026-09-25\n\n#Assay #LLM #AIGovernance"
     },
     {
       "id": "audited-openai-gpt-6-sol-luna-2026-09-25",
@@ -95,29 +308,26 @@
       "share": "GPT-6 Sol and Luna: 2 launch claims assayed.\n\nOpenAI's launch claims for GPT-6 Sol and Luna were checked against GPT-5.6 using independent measurements. Result: 1 Hallmarked, 1 Plated.\n\n• Hallmarked: GPT-6 Sol costs half as much as GPT-5.6 Sol\n• Plated: GPT-6 Luna cuts prices by about half\n\nFull evidence: https://world-of-ai.co.in/assay.html#post-audited-openai-gpt-6-sol-luna-2026-09-25\n\n#Assay #LLM #AIGovernance"
     },
     {
-      "id": "audited-anthropic-opus-5-5-2026-09-25",
+      "id": "audited-google-gemini-3-8-flash-2026-09-25",
       "kind": "audited",
       "date": "2026-09-25",
-      "provider": "anthropic",
-      "model": "claude-opus-5-5",
-      "baseline": "claude-opus-5",
-      "scenario": "anthropic-opus-5-5",
-      "headline": "Claude Opus 5.5: 5 launch claims assayed",
-      "body": "Anthropic's launch claims for Claude Opus 5.5 were checked against Opus 5 using independent measurements. Result: 3 Hallmarked, 2 Fool's gold.",
+      "provider": "gemini",
+      "model": "gemini-3.8-flash",
+      "baseline": "gemini-3.7-flash",
+      "scenario": "google-gemini-3-8-flash",
+      "headline": "Gemini 3.8 Flash: 1 launch claim assayed",
+      "body": "Google's launch claims for Gemini 3.8 Flash were checked against 3.7 Flash using independent measurements. Result: 1 Fool's gold.",
       "highlights": [
-        "Hallmarked: Costs about 40% less to run than Opus 5 on typical workloads at default effort",
-        "Fool's gold: The same 40% saving, checked at max effort",
-        "Hallmarked: Generates output more than 30% faster than Opus 5",
-        "Hallmarked: Uses fewer tokens per task (customer reports range from 20% to 66% fewer)"
+        "Fool's gold: Completed more than three times as many tasks as 3.7 Flash"
       ],
       "tally": {
-        "ok": 3,
+        "ok": 0,
         "part": 0,
-        "bad": 2,
-        "noref": 0
+        "bad": 1,
+        "noref": 1
       },
-      "url": "https://world-of-ai.co.in/assay.html#post-audited-anthropic-opus-5-5-2026-09-25",
-      "share": "Claude Opus 5.5: 5 launch claims assayed.\n\nAnthropic's launch claims for Claude Opus 5.5 were checked against Opus 5 using independent measurements. Result: 3 Hallmarked, 2 Fool's gold.\n\n• Hallmarked: Costs about 40% less to run than Opus 5 on typical workloads at default effort\n• Fool's gold: The same 40% saving, checked at max effort\n• Hallmarked: Generates output more than 30% faster than Opus 5\n• Hallmarked: Uses fewer tokens per task (customer reports range from 20% to 66% fewer)\n\nFull evidence: https://world-of-ai.co.in/assay.html#post-audited-anthropic-opus-5-5-2026-09-25\n\n#Assay #LLM #AIGovernance"
+      "url": "https://world-of-ai.co.in/assay.html#post-audited-google-gemini-3-8-flash-2026-09-25",
+      "share": "Gemini 3.8 Flash: 1 launch claim assayed.\n\nGoogle's launch claims for Gemini 3.8 Flash were checked against 3.7 Flash using independent measurements. Result: 1 Fool's gold.\n\n• Fool's gold: Completed more than three times as many tasks as 3.7 Flash\n\nFull evidence: https://world-of-ai.co.in/assay.html#post-audited-google-gemini-3-8-flash-2026-09-25\n\n#Assay #LLM #AIGovernance"
     }
   ],
   "updated": "2026-11-24"
