@@ -1,0 +1,176 @@
+{
+  "schema": "assay-scenario/1",
+  "id": "anthropic-haiku-5-5",
+  "title": "Claude Haiku 5.5 against Haiku 4.5",
+  "vendor": "Anthropic",
+  "released": "2026-10-07",
+  "checked": "2026-11-24",
+  "summary": "Anthropic says Haiku 5.5 costs around 75% less to run than Haiku 4.5 on average, after cutting per-token prices by 90%. Independent per-task cost data exists only at each model's top reasoning setting, where Haiku 5.5 does far more work.",
+  "sources": [
+    {
+      "id": "vp",
+      "label": "Anthropic upgrades Claude with new Haiku 5.5 model",
+      "publisher": "9to5Mac",
+      "url": "https://9to5mac.com/2026/10/07/anthropic-upgrades-claude-with-new-haiku-5-5-model-details-here/",
+      "date": "2026-10-07"
+    },
+    {
+      "id": "aa1",
+      "label": "Claude Haiku 4.5 model page (Intelligence Index v5.0.1)",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/claude-4-5-haiku",
+      "date": "2026-11-24"
+    },
+    {
+      "id": "aa2",
+      "label": "Claude Haiku 5.5 model page (Intelligence Index v5.0.1)",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/claude-haiku-5-5",
+      "date": "2026-11-24"
+    }
+  ],
+  "models": [
+    {
+      "id": "h45",
+      "label": "Haiku 4.5 (reasoning)",
+      "provider": "anthropic",
+      "modelId": "claude-haiku-4-5",
+      "idVerified": true,
+      "priceIn": 1,
+      "priceOut": 5,
+      "setting": "Reasoning, as benchmarked by Artificial Analysis."
+    },
+    {
+      "id": "h55x",
+      "label": "Haiku 5.5 (max)",
+      "provider": "anthropic",
+      "modelId": "claude-haiku-5-5",
+      "idVerified": true,
+      "priceIn": 0.1,
+      "priceOut": 0.5,
+      "setting": "Max effort."
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Costs around 75% less to run than Haiku 4.5 on average",
+      "claimedBy": "Anthropic",
+      "baseline": "h45",
+      "candidate": "h55x",
+      "metric": "cost_task",
+      "claimed": 75,
+      "scope": "outside",
+      "scopeNote": "Anthropic's figure is an average over typical workloads. Artificial Analysis publishes cost per task only at each model's top reasoning setting, so this compares both at their maximum.",
+      "ref": {
+        "baseline": 0.53,
+        "candidate": 0.41,
+        "unit": "$ per index task",
+        "sources": [
+          "aa1",
+          "aa2"
+        ],
+        "note": "Artificial Analysis Intelligence Index v5.0.1. Haiku 5.5 at max effort used 298M output tokens against Haiku 4.5's 40M."
+      },
+      "guard": {
+        "baseline": 7,
+        "candidate": 36,
+        "label": "Intelligence Index",
+        "sources": [
+          "aa1",
+          "aa2"
+        ]
+      },
+      "vendorSources": [
+        "vp"
+      ],
+      "kind": "stress"
+    },
+    {
+      "id": "c2",
+      "text": "Scores 72.4% on OSWorld 2.1 (offline subset), up from 15.7% for Haiku 4.5",
+      "claimedBy": "Anthropic",
+      "baseline": "h45",
+      "candidate": "h55x",
+      "metric": "accuracy",
+      "claimed": 56.7,
+      "scope": "in",
+      "noRefNote": "No independent OSWorld 2.1 run has been published yet.",
+      "vendorSources": [
+        "vp"
+      ],
+      "kind": "vendor"
+    }
+  ],
+  "observations": [
+    {
+      "text": "Per-token prices fell 90% ($1/$5 to $0.10/$0.50 per million tokens), so most of any saving is pricing rather than efficiency.",
+      "sources": [
+        "vp",
+        "aa2"
+      ]
+    }
+  ],
+  "livePack": {
+    "note": "Starter tasks plus multi-step efficiency tasks.",
+    "settings": {
+      "repeats": 3,
+      "maxTokens": 8000
+    },
+    "extraTasks": [
+      {
+        "id": "e1",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "205",
+        "prompt": "A train leaves at 09:40 and arrives at 13:05 the same day. How many minutes is the journey? Answer with the number only."
+      },
+      {
+        "id": "e2",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "46",
+        "prompt": "How many positive integers below 100 are divisible by 3 or by 5? Answer with the number only."
+      },
+      {
+        "id": "e3",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "friday",
+        "prompt": "If today is Wednesday, what day of the week will it be 100 days from today? Answer with the day name only."
+      },
+      {
+        "id": "e4",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "28",
+        "prompt": "A shop gives 20% off, then a further 10% off the reduced price. What is the total discount as a percentage of the original price? Answer with the number only."
+      },
+      {
+        "id": "e5",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "0.45",
+        "prompt": "Which is the largest of these: 3/7, 0.45, 4/9, 0.43? Answer with the value exactly as written in the list."
+      },
+      {
+        "id": "e6",
+        "cat": "Efficiency",
+        "grader": "json",
+        "expected": {
+          "po": "PO-7781",
+          "total": 15000
+        },
+        "prompt": "Return only JSON with keys \"po\" and \"total\" (total as a number, in rupees) for this order: \"PO-7781 for 12 units at Rs 1,250 each.\""
+      },
+      {
+        "id": "e7",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "5",
+        "prompt": "How many vowels (a, e, i, o, u) are in the word \"transformation\"? Answer with the number only."
+      }
+    ]
+  },
+  "vendorSource": "vp"
+}

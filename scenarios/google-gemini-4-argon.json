@@ -62,6 +62,13 @@
       "url": "https://kingy.ai/blog/gemini-4-argon-specs-benchmarks-pricing/",
       "date": "2026-09-30",
       "type": "secondary"
+    },
+    {
+      "id": "vals2",
+      "label": "Vals Index leaderboard (updated 21 Nov 2026)",
+      "publisher": "Vals AI",
+      "url": "https://www.vals.ai/benchmarks/vals_index",
+      "date": "2026-11-21"
     }
   ],
   "models": [
@@ -117,20 +124,20 @@
       "claimed": 1.9,
       "scope": "in",
       "ref": {
-        "baseline": 67.0,
-        "candidate": 68.9,
+        "baseline": 68.7,
+        "candidate": 67.37,
         "unit": "Vals Index, %",
         "sources": [
-          "vals",
-          "k"
+          "vals2"
         ],
-        "note": "Vals' own leaderboard, which publicly named Argon its new #1. The lead is 1.9 points."
+        "note": "Vals leaderboard updated 21 Nov 2026: Opus 5.5 68.70%, Argon 67.37%. At launch Argon led by 1.9 points (68.9 vs 67.0); the lead has not held."
       },
       "vendorSources": [
         "vp",
         "dm"
       ],
-      "kind": "vendor"
+      "kind": "vendor",
+      "checked": "2026-11-24"
     },
     {
       "id": "c2",

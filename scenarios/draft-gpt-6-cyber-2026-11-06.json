@@ -5,8 +5,8 @@
   "title": "gpt-6-cyber against gpt-5.6-cyber",
   "vendor": "OpenAI",
   "released": "2026-11-06",
-  "checked": "2026-11-06",
-  "summary": "Draft created by Release watch. Claims have not been checked against independent data yet. Review each claim against the source before publishing.",
+  "checked": "2026-11-24",
+  "summary": "Available only to approved Daybreak Red customers, so there are no independent benchmarks. Vendor claims recorded for when data appears.",
   "sources": [
     {
       "id": "v",
@@ -38,7 +38,20 @@
       "setting": "Price needed."
     }
   ],
-  "claims": [],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Scores 48.5% on ExploitGym, up from 32.1% for GPT-5.6 Cyber",
+      "claimedBy": "OpenAI",
+      "baseline": "base",
+      "candidate": "cand",
+      "metric": "accuracy",
+      "claimed": 16.4,
+      "scope": "in",
+      "noRefNote": "Internal evaluation; no independent run is possible while access is restricted.",
+      "kind": "vendor"
+    }
+  ],
   "observations": [],
   "livePack": {
     "note": "Starter tasks plus multi-step efficiency tasks.",

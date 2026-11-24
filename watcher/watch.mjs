@@ -136,11 +136,11 @@ ledger.maxAgeDays = cfg.reuseMaxDays || ledger.maxAgeDays || 90;
 for (const sc of A.scenarios().filter(x => x.status !== "draft")) for (const c of sc.claims) {
   const v = A.refVerdict(sc, c); if (v.key === "noref") continue;
   const key = sc.id + "/" + c.id, fp = A.conditionFingerprint(sc, c), conditions = A.conditionsOf(sc, c), e = ledger.entries[key];
-  if (!e) { ledger.entries[key] = { fp, verdict: v.key, sealed: TODAY, reviewed: sc.checked, conditions, history: [] }; log(`sealed ${key} (${fp})`); continue; }
+  if (!e) { ledger.entries[key] = { fp, verdict: v.key, sealed: TODAY, reviewed: A.claimChecked(sc, c), conditions, history: [] }; log(`sealed ${key} (${fp})`); continue; }
   if (e.fp === fp) continue;
-  if (String(sc.checked) > String(e.reviewed || "")) {
+  if (String(A.claimChecked(sc, c)) > String(e.reviewed || "")) {
     e.history = [{ fp: e.fp, verdict: e.verdict, sealed: e.sealed, conditions: e.conditions }, ...(e.history || [])].slice(0, 5);
-    Object.assign(e, { fp, verdict: v.key, sealed: TODAY, reviewed: sc.checked, conditions });
+    Object.assign(e, { fp, verdict: v.key, sealed: TODAY, reviewed: A.claimChecked(sc, c), conditions });
     log(`re-sealed ${key} after review (${fp})`);
   }
 }

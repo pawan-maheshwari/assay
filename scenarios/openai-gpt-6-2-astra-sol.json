@@ -1,0 +1,328 @@
+{
+  "schema": "assay-scenario/1",
+  "id": "openai-gpt-6-2-astra-sol",
+  "title": "GPT-6.2 Astra and Sol against GPT-6 Astra and GPT-6.1 Sol",
+  "vendor": "OpenAI",
+  "released": "2026-11-17",
+  "checked": "2026-11-24",
+  "summary": "OpenAI says GPT-6.2 Astra is 20% cheaper than GPT-6 Astra, scores 6.2 points higher and uses 22% fewer output tokens, and that GPT-6.2 Sol scores 5.3 points above GPT-6.1 Sol at the same price. OpenAI's quality figures come from its own GDPval v2 evaluation, so independent indexes are used as proxies.",
+  "sources": [
+    {
+      "id": "vp",
+      "label": "Introducing GPT-6.2 Astra and Sol",
+      "publisher": "OpenAI",
+      "url": "https://openai.com/index/introducing-gpt-6-2-astra-sol",
+      "date": "2026-11-17"
+    },
+    {
+      "id": "aa1",
+      "label": "GPT-6 Astra model page (Intelligence Index v5.0.1)",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/gpt-6-astra",
+      "date": "2026-11-24"
+    },
+    {
+      "id": "aa2",
+      "label": "GPT-6.2 Astra model page (Intelligence Index v5.0.1)",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/gpt-6-2-astra",
+      "date": "2026-11-24"
+    },
+    {
+      "id": "aa3",
+      "label": "GPT-6.1 Sol model page (Intelligence Index v5.0.1)",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/gpt-6-1-sol",
+      "date": "2026-11-24"
+    },
+    {
+      "id": "aa4",
+      "label": "GPT-6.2 Sol model page (Intelligence Index v5.0.1)",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/gpt-6-2-sol",
+      "date": "2026-11-24"
+    },
+    {
+      "id": "vals",
+      "label": "Vals Index leaderboard (updated 21 Nov 2026)",
+      "publisher": "Vals AI",
+      "url": "https://www.vals.ai/benchmarks/vals_index",
+      "date": "2026-11-21"
+    }
+  ],
+  "models": [
+    {
+      "id": "a6x",
+      "label": "GPT-6 Astra (max)",
+      "provider": "openai",
+      "modelId": "gpt-6-astra",
+      "idVerified": true,
+      "priceIn": 10,
+      "priceOut": 50,
+      "setting": "Max reasoning."
+    },
+    {
+      "id": "a62x",
+      "label": "GPT-6.2 Astra (max)",
+      "provider": "openai",
+      "modelId": "gpt-6.2-astra",
+      "idVerified": true,
+      "priceIn": 8,
+      "priceOut": 40,
+      "setting": "Max reasoning."
+    },
+    {
+      "id": "a6h",
+      "label": "GPT-6 Astra (high)",
+      "provider": "openai",
+      "modelId": "gpt-6-astra",
+      "idVerified": true,
+      "priceIn": 10,
+      "priceOut": 50,
+      "setting": "High reasoning."
+    },
+    {
+      "id": "a62h",
+      "label": "GPT-6.2 Astra (high)",
+      "provider": "openai",
+      "modelId": "gpt-6.2-astra",
+      "idVerified": true,
+      "priceIn": 8,
+      "priceOut": 40,
+      "setting": "High reasoning."
+    },
+    {
+      "id": "s61x",
+      "label": "GPT-6.1 Sol (max)",
+      "provider": "openai",
+      "modelId": "gpt-6.1-sol",
+      "idVerified": true,
+      "priceIn": 2,
+      "priceOut": 10,
+      "setting": "Max reasoning."
+    },
+    {
+      "id": "s62x",
+      "label": "GPT-6.2 Sol (max)",
+      "provider": "openai",
+      "modelId": "gpt-6.2-sol",
+      "idVerified": true,
+      "priceIn": 2,
+      "priceOut": 10,
+      "setting": "Max reasoning."
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "GPT-6.2 Astra is 20% cheaper than GPT-6 Astra",
+      "claimedBy": "OpenAI",
+      "baseline": "a6x",
+      "candidate": "a62x",
+      "metric": "cost_task",
+      "claimed": 20,
+      "scope": "in",
+      "ref": {
+        "baseline": 6.24,
+        "candidate": 4.0,
+        "unit": "$ per index task",
+        "sources": [
+          "aa1",
+          "aa2"
+        ],
+        "note": "Intelligence Index v5.0.1 at max. On the Vals Index, cost per test fell from $21.28 to $10.68."
+      },
+      "guard": {
+        "baseline": 57,
+        "candidate": 62,
+        "label": "Intelligence Index",
+        "sources": [
+          "aa1",
+          "aa2"
+        ]
+      },
+      "vendorSources": [
+        "vp"
+      ],
+      "kind": "vendor"
+    },
+    {
+      "id": "c2",
+      "text": "GPT-6.2 Astra uses 22% fewer output tokens than GPT-6 Astra",
+      "claimedBy": "OpenAI",
+      "baseline": "a6h",
+      "candidate": "a62h",
+      "metric": "out_tokens",
+      "claimed": 22,
+      "scope": "proxy",
+      "scopeNote": "OpenAI measured this on GDPval v2. This uses output tokens across the Artificial Analysis Intelligence Index.",
+      "ref": {
+        "baseline": 25.6,
+        "candidate": 20.0,
+        "unit": "million output tokens across the index",
+        "sources": [
+          "aa1",
+          "aa2"
+        ],
+        "note": "Both at high reasoning."
+      },
+      "vendorSources": [
+        "vp"
+      ],
+      "kind": "vendor"
+    },
+    {
+      "id": "c3",
+      "text": "The same token saving, checked at max reasoning",
+      "claimedBy": "OpenAI",
+      "baseline": "a6x",
+      "candidate": "a62x",
+      "metric": "out_tokens",
+      "claimed": 22,
+      "scope": "outside",
+      "scopeNote": "OpenAI did not say which setting. At max, GPT-6.2 Astra writes more tokens, not fewer.",
+      "ref": {
+        "baseline": 54.3,
+        "candidate": 65.8,
+        "unit": "million output tokens across the index",
+        "sources": [
+          "aa1",
+          "aa2"
+        ],
+        "note": "Both at max reasoning."
+      },
+      "vendorSources": [
+        "vp"
+      ],
+      "kind": "stress"
+    },
+    {
+      "id": "c4",
+      "text": "GPT-6.2 Astra scores 6.2 points higher than GPT-6 Astra",
+      "claimedBy": "OpenAI",
+      "baseline": "a6x",
+      "candidate": "a62x",
+      "metric": "index_points",
+      "claimed": 6.2,
+      "scope": "proxy",
+      "scopeNote": "OpenAI's figure is on GDPval v2; the Artificial Analysis Intelligence Index is the independent proxy.",
+      "ref": {
+        "baseline": 57,
+        "candidate": 62,
+        "unit": "Intelligence Index points",
+        "sources": [
+          "aa1",
+          "aa2"
+        ],
+        "note": "Both at max. The Vals Index shows +2.7 points (63.55% → 66.27%)."
+      },
+      "vendorSources": [
+        "vp"
+      ],
+      "kind": "vendor"
+    },
+    {
+      "id": "c5",
+      "text": "GPT-6.2 Sol scores 5.3 points higher than GPT-6.1 Sol",
+      "claimedBy": "OpenAI",
+      "baseline": "s61x",
+      "candidate": "s62x",
+      "metric": "index_points",
+      "claimed": 5.3,
+      "scope": "proxy",
+      "scopeNote": "OpenAI's figure is on GDPval v2; the Artificial Analysis Intelligence Index is the independent proxy.",
+      "ref": {
+        "baseline": 55,
+        "candidate": 57,
+        "unit": "Intelligence Index points",
+        "sources": [
+          "aa3",
+          "aa4"
+        ],
+        "note": "Both at max. The Vals Index shows +2.8 points (62.26% → 65.07%)."
+      },
+      "vendorSources": [
+        "vp"
+      ],
+      "kind": "vendor"
+    }
+  ],
+  "observations": [
+    {
+      "text": "GPT-6.2 Sol keeps GPT-6.1 Sol's prices, and its cost per index task at max fell from $1.27 to $1.01.",
+      "sources": [
+        "aa3",
+        "aa4"
+      ]
+    },
+    {
+      "text": "GPT-6 Astra and GPT-6.1 Sol are now marked deprecated by Artificial Analysis but are still benchmarked.",
+      "sources": [
+        "aa1",
+        "aa3"
+      ]
+    }
+  ],
+  "livePack": {
+    "note": "Starter tasks plus multi-step efficiency tasks.",
+    "settings": {
+      "repeats": 3,
+      "maxTokens": 8000
+    },
+    "extraTasks": [
+      {
+        "id": "e1",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "205",
+        "prompt": "A train leaves at 09:40 and arrives at 13:05 the same day. How many minutes is the journey? Answer with the number only."
+      },
+      {
+        "id": "e2",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "46",
+        "prompt": "How many positive integers below 100 are divisible by 3 or by 5? Answer with the number only."
+      },
+      {
+        "id": "e3",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "friday",
+        "prompt": "If today is Wednesday, what day of the week will it be 100 days from today? Answer with the day name only."
+      },
+      {
+        "id": "e4",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "28",
+        "prompt": "A shop gives 20% off, then a further 10% off the reduced price. What is the total discount as a percentage of the original price? Answer with the number only."
+      },
+      {
+        "id": "e5",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "0.45",
+        "prompt": "Which is the largest of these: 3/7, 0.45, 4/9, 0.43? Answer with the value exactly as written in the list."
+      },
+      {
+        "id": "e6",
+        "cat": "Efficiency",
+        "grader": "json",
+        "expected": {
+          "po": "PO-7781",
+          "total": 15000
+        },
+        "prompt": "Return only JSON with keys \"po\" and \"total\" (total as a number, in rupees) for this order: \"PO-7781 for 12 units at Rs 1,250 each.\""
+      },
+      {
+        "id": "e7",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "5",
+        "prompt": "How many vowels (a, e, i, o, u) are in the word \"transformation\"? Answer with the number only."
+      }
+    ]
+  },
+  "vendorSource": "vp"
+}
