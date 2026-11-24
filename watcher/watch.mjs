@@ -9,6 +9,7 @@ import path from "node:path";
 import http from "node:http";
 import { fileURLToPath } from "node:url";
 import { JSDOM } from "jsdom";
+import { writeAnnouncements } from "./announce.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const cfg = JSON.parse(await fs.readFile(path.join(ROOT, "watcher/config.json"), "utf8"));
@@ -144,6 +145,10 @@ if (needsReview.length) warn(`${needsReview.length} verdict(s) not cleared for r
 const ledgerChanged = JSON.stringify(ledger) !== ledgerBefore;
 if (ledgerChanged) await writeJSON(ledgerPath, ledger);
 await fs.writeFile(path.join(process.env.RUNNER_TEMP || "/tmp", "assay-reuse.json"), JSON.stringify({ runDate: TODAY, needsReview }, null, 2));
+
+// Release desk: public posts for new releases and finished audits (read by world-of-ai.co.in/assay).
+try { const a = await writeAnnouncements({ A, ROOT, TODAY, fresh, drafts }); if (a.added.length) log(`release desk: ${a.added.length} new post(s): ${a.added.join(", ")}`); }
+catch (e) { warn(`release desk failed: ${e.message}`); }
 
 // 4. Run live packs within budget.
 await fs.writeFile(path.join(process.env.RUNNER_TEMP || "/tmp", "assay-new-models.json"), JSON.stringify({ runDate: TODAY, models: fresh.map(m => ({ provider: m.provider, id: m.id, via: m.via, draft: drafts.find(d => d.includes(slug(m.id))) || "", covered: covered.find(id => A.scenarios().find(sc => sc.id === id && sc.models.some(x => x.modelId === m.id))) || "" })) }, null, 2));

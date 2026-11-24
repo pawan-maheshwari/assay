@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Assay release desk</title>
+  <link>https://world-of-ai.co.in/assay.html</link>
+  <atom:link href="https://pawan-maheshwari.github.io/assay/watch/announcements.xml" rel="self" type="application/rss+xml"/>
+  <description>New AI model releases and how their launch claims held up against independent measurement.</description>
+  <language>en</language>
+  <item>
+    <title>Gemini 4 Argon: 5 launch claims assayed</title>
+    <link>https://world-of-ai.co.in/assay.html#post-audited-google-gemini-4-argon-2026-10-01</link>
+    <guid isPermaLink="false">audited-google-gemini-4-argon-2026-10-01</guid>
+    <pubDate>Thu, 01 Oct 2026 09:00:00 GMT</pubDate>
+    <description>Google&apos;s launch claims for Gemini 4 Argon were checked against Claude Opus 5.5 using independent measurements. Result: 3 Hallmarked, 2 Fool&apos;s gold. Hallmarked: Leads rival frontier models on the Vals Index, ahead of Opus 5.5 Hallmarked: Ranks first on Zapier&apos;s AutomationBench at 51.3% Hallmarked: Half Opus 5.5&apos;s token price should mean about half the cost per task Fool&apos;s gold: The same saving, after the introductory price ends</description>
+  </item>
+  <item>
+    <title>Claude Sonnet 5.5: 2 launch claims assayed</title>
+    <link>https://world-of-ai.co.in/assay.html#post-audited-anthropic-sonnet-5-5-2026-09-30</link>
+    <guid isPermaLink="false">audited-anthropic-sonnet-5-5-2026-09-30</guid>
+    <pubDate>Wed, 30 Sep 2026 09:00:00 GMT</pubDate>
+    <description>Anthropic&apos;s launch claims for Claude Sonnet 5.5 were checked against Sonnet 5 using independent measurements. Result: 2 Fool&apos;s gold. Fool&apos;s gold: The same per-task saving, checked at max effort Fool&apos;s gold: Fewer output tokens per task, checked at max effort</description>
+  </item>
+  <item>
+    <title>Gemini 3.8 Flash: 1 launch claim assayed</title>
+    <link>https://world-of-ai.co.in/assay.html#post-audited-google-gemini-3-8-flash-2026-09-25</link>
+    <guid isPermaLink="false">audited-google-gemini-3-8-flash-2026-09-25</guid>
+    <pubDate>Fri, 25 Sep 2026 09:00:00 GMT</pubDate>
+    <description>Google&apos;s launch claims for Gemini 3.8 Flash were checked against 3.7 Flash using independent measurements. Result: 1 Fool&apos;s gold. Fool&apos;s gold: Completed more than three times as many tasks as 3.7 Flash</description>
+  </item>
+  <item>
+    <title>GPT-6 Sol and Luna: 2 launch claims assayed</title>
+    <link>https://world-of-ai.co.in/assay.html#post-audited-openai-gpt-6-sol-luna-2026-09-25</link>
+    <guid isPermaLink="false">audited-openai-gpt-6-sol-luna-2026-09-25</guid>
+    <pubDate>Fri, 25 Sep 2026 09:00:00 GMT</pubDate>
+    <description>OpenAI&apos;s launch claims for GPT-6 Sol and Luna were checked against GPT-5.6 using independent measurements. Result: 1 Hallmarked, 1 Plated. Hallmarked: GPT-6 Sol costs half as much as GPT-5.6 Sol Plated: GPT-6 Luna cuts prices by about half</description>
+  </item>
+  <item>
+    <title>Claude Opus 5.5: 5 launch claims assayed</title>
+    <link>https://world-of-ai.co.in/assay.html#post-audited-anthropic-opus-5-5-2026-09-25</link>
+    <guid isPermaLink="false">audited-anthropic-opus-5-5-2026-09-25</guid>
+    <pubDate>Fri, 25 Sep 2026 09:00:00 GMT</pubDate>
+    <description>Anthropic&apos;s launch claims for Claude Opus 5.5 were checked against Opus 5 using independent measurements. Result: 3 Hallmarked, 2 Fool&apos;s gold. Hallmarked: Costs about 40% less to run than Opus 5 on typical workloads at default effort Fool&apos;s gold: The same 40% saving, checked at max effort Hallmarked: Generates output more than 30% faster than Opus 5 Hallmarked: Uses fewer tokens per task (customer reports range from 20% to 66% fewer)</description>
+  </item>
+</channel>
+</rss>
