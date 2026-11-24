@@ -5,8 +5,8 @@
   "title": "claude-mythos-5-2 against claude-mythos-5-1",
   "vendor": "Anthropic",
   "released": "2026-11-10",
-  "checked": "2026-11-10",
-  "summary": "Draft created by Release watch. Claims have not been checked against independent data yet. Review each claim against the source before publishing.",
+  "checked": "2026-11-24",
+  "summary": "Available only to vetted organisations, so there are no independent benchmarks. Same underlying model as Fable 5.2, which is audited separately. Vendor claims recorded for when data appears.",
   "sources": [
     {
       "id": "v",
@@ -38,7 +38,20 @@
       "setting": "Price needed."
     }
   ],
-  "claims": [],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Finds 10.2% more vulnerabilities than Opus 5.5 and 14.4% more than Mythos 5.1 on Anthropic's CVE Rediscovery evaluation",
+      "claimedBy": "Anthropic",
+      "baseline": "base",
+      "candidate": "cand",
+      "metric": "score_rel",
+      "claimed": 14.4,
+      "scope": "in",
+      "noRefNote": "Internal evaluation; no independent run is possible while access is restricted.",
+      "kind": "vendor"
+    }
+  ],
   "observations": [],
   "livePack": {
     "note": "Starter tasks plus multi-step efficiency tasks.",

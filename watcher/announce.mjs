@@ -45,12 +45,16 @@ function auditPost(A, sc, today) {
   const name = tName || prettyModel(cand.modelId);
   const baseName = tBase || prettyModel(base.modelId) || "its predecessor";
   const parts = ["ok", "part", "bad"].filter(k => tally[k]).map(k => `${tally[k]} ${WORD[k]}`);
-  const lines = claims.filter(r => r.v.key !== "noref").slice(0, 4).map(r => `${WORD[r.v.key]}: ${r.c.text}`);
-  const id = `audited-${sc.id}-${sc.checked || today}`;
-  const headline = `${name}: ${checked} launch claim${checked > 1 ? "s" : ""} assayed`;
-  const body = `${sc.vendor ? sc.vendor + "'s launch claims for " : "The launch claims for "}${name} were checked against ${baseName} using independent measurements. Result: ${parts.join(", ")}.`;
+
+  // A later per-claim re-check produces an "audit updated" post.
+  const last = (sc.claims || []).reduce((d, c) => String(c.checked || "") > d ? c.checked : d, String(sc.checked || today));
+  const updated = last > String(sc.checked || "");
+  const id = `audited-${sc.id}-${last}`;
+  const lines = claims.filter(r => r.v.key !== "noref").sort((a, b) => (b.c.checked === last) - (a.c.checked === last)).slice(0, 4).map(r => `${WORD[r.v.key]}: ${r.c.text}`);
+  const headline = updated ? `${name}: audit updated` : `${name}: ${checked} launch claim${checked > 1 ? "s" : ""} assayed`;
+  const body = `${sc.vendor ? sc.vendor + "'s launch claims for " : "The launch claims for "}${name} were checked against ${baseName} using independent measurements. Result: ${parts.join(", ")}.${updated ? ` Re-checked on ${longDate(last)} against the latest independent data.` : ""}`;
   return {
-    id, kind: "audited", date: sc.checked || today, provider: cand.provider || "", model: cand.modelId || "",
+    id, kind: "audited", date: last, provider: cand.provider || "", model: cand.modelId || "",
     baseline: base.modelId || "", scenario: sc.id, headline, body, highlights: lines, tally,
     url: `${SITE}#post-${id}`,
     share: `${headline}.\n\n${body}\n\n${lines.map(l => "• " + l).join("\n")}\n\nFull evidence: ${SITE}#post-${id}\n\n#Assay #LLM #AIGovernance`

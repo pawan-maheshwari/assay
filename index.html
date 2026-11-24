@@ -1337,16 +1337,19 @@ function conditionChanges(a, b){
 }
 function addDays(d, n){ const t = Date.parse(d); return isFinite(t) ? new Date(t + n * 864e5).toISOString().slice(0, 10) : ""; }
 function daysBetween(a, b){ const x = Date.parse(a), y = Date.parse(b); return isFinite(x) && isFinite(y) ? Math.floor((y - x) / 864e5) : 0; }
+function claimChecked(sc, c){ return String((c && c.checked) || "") > String(sc.checked || "") ? c.checked : sc.checked; }
 function reuseStatus(sc, c, v, asOf){
   v = v || refVerdict(sc, c);
   if(v.key === "noref" || sc.status === "draft") return { status: "none", reasons: [] };
   const maxDays = (reuseLedger && reuseLedger.maxAgeDays) || REUSE_DEFAULT_DAYS;
   const key = sc.id + "/" + c.id, fp = conditionFingerprint(sc, c), now = asOf || today();
   const e = reuseLedger && reuseLedger.entries && reuseLedger.entries[key];
-  const sealed = e ? e.sealed : sc.checked, validUntil = addDays(sc.checked, maxDays);
+  /* A claim can be re-checked on its own (c.checked); otherwise the scenario's date applies. */
+  const checked = claimChecked(sc, c);
+  const sealed = e ? e.sealed : checked, validUntil = addDays(checked, maxDays);
   const r = { key, fp, sealed, validUntil, status: "valid", reasons: [] };
   if(e && e.fp !== fp){ r.status = "stale"; r.reasons.push(`Changed since it was verified: ${conditionChanges(e.conditions, conditionsOf(sc, c)).join(", ")}.`); return r; }
-  const age = daysBetween(sc.checked, now);
+  const age = daysBetween(checked, now);
   if(age > maxDays){ r.status = "expired"; r.reasons.push(`The evidence is ${age} days old; the limit is ${maxDays}.`); return r; }
   const cand = sc.models.find(m => m.id === c.candidate), known = reuseKnown || knownRemote || [];
   if(cand && cand.modelId){
@@ -2421,7 +2424,7 @@ window.addEventListener("scroll", () => {
   requestAnimationFrame(() => { toTop.classList.toggle("show", window.scrollY > 400); topTick = false; });
 }, { passive: true });
 
-window.Assay = { modelVersion, isNewerModel, isReleaseId, conditionsOf, conditionFingerprint, reuseStatus, setReuseContext: (ledger, known) => { reuseLedger = ledger; reuseKnown = known; }, setKey: (id, k) => { keys[id] = k; }, addScenarios, extractClaims, buildDraftScenario, listModels, isChatModel, guessPredecessor, runScenarioHeadless, buildReport, refVerdict, scenarios: () => scenarios, loadScenario, grade, compare, verdictFor, summary, agg, delta, wilson, state: () => state, loadDemo, startRun, STARTER_TASKS };
+window.Assay = { claimChecked, modelVersion, isNewerModel, isReleaseId, conditionsOf, conditionFingerprint, reuseStatus, setReuseContext: (ledger, known) => { reuseLedger = ledger; reuseKnown = known; }, setKey: (id, k) => { keys[id] = k; }, addScenarios, extractClaims, buildDraftScenario, listModels, isChatModel, guessPredecessor, runScenarioHeadless, buildReport, refVerdict, scenarios: () => scenarios, loadScenario, grade, compare, verdictFor, summary, agg, delta, wilson, state: () => state, loadDemo, startRun, STARTER_TASKS };
 })();
 </script>
 </body>

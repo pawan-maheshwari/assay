@@ -1,0 +1,207 @@
+{
+  "schema": "assay-scenario/1",
+  "id": "google-gemini-4-hydrogen",
+  "title": "Gemini 4 Hydrogen against Gemini 3.8 Flash and Argon",
+  "vendor": "Google",
+  "released": "2026-11-12",
+  "checked": "2026-11-24",
+  "summary": "Google says Hydrogen beats Argon on the Artificial Analysis Intelligence Index and, against Gemini 3.8 Flash, finishes tasks 2.5 times faster with 12% to 23% fewer tokens in partner testing.",
+  "sources": [
+    {
+      "id": "vp",
+      "label": "Introducing Gemini 4 Hydrogen",
+      "publisher": "Google",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
+      "date": "2026-11-12"
+    },
+    {
+      "id": "aa1",
+      "label": "Gemini 3.8 Flash model page (Intelligence Index v5.0.1)",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/gemini-3-8-flash",
+      "date": "2026-11-24"
+    },
+    {
+      "id": "aa2",
+      "label": "Gemini 4 Hydrogen model page (Intelligence Index v5.0.1)",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/gemini-4-hydrogen",
+      "date": "2026-11-24"
+    },
+    {
+      "id": "aa3",
+      "label": "Gemini 4 Argon model page (Intelligence Index v5.0.1)",
+      "publisher": "Artificial Analysis",
+      "url": "https://artificialanalysis.ai/models/gemini-4-argon",
+      "date": "2026-11-24"
+    }
+  ],
+  "models": [
+    {
+      "id": "f38h",
+      "label": "Gemini 3.8 Flash (high)",
+      "provider": "gemini",
+      "modelId": "gemini-3.8-flash",
+      "idVerified": true,
+      "priceIn": 0.75,
+      "priceOut": 3.75,
+      "setting": "High thinking."
+    },
+    {
+      "id": "h4h",
+      "label": "Gemini 4 Hydrogen (high)",
+      "provider": "gemini",
+      "modelId": "gemini-4-hydrogen",
+      "idVerified": true,
+      "priceIn": 1.5,
+      "priceOut": 7.5,
+      "setting": "High thinking (default)."
+    },
+    {
+      "id": "argh",
+      "label": "Gemini 4 Argon (high)",
+      "provider": "gemini",
+      "modelId": "gemini-4-argon",
+      "idVerified": true,
+      "priceIn": 4,
+      "priceOut": 20,
+      "setting": "High thinking."
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Scores 51 on the Artificial Analysis Intelligence Index at its default setting, ahead of Argon's 50",
+      "claimedBy": "Google",
+      "baseline": "argh",
+      "candidate": "h4h",
+      "metric": "index_points",
+      "claimed": 1,
+      "scope": "in",
+      "ref": {
+        "baseline": 50,
+        "candidate": 51,
+        "unit": "Intelligence Index points",
+        "sources": [
+          "aa2",
+          "aa3"
+        ],
+        "note": "Intelligence Index v5.0.1, both at high."
+      },
+      "vendorSources": [
+        "vp"
+      ],
+      "kind": "vendor"
+    },
+    {
+      "id": "c2",
+      "text": "Uses 12% to 23% fewer tokens than Gemini 3.8 Flash",
+      "claimedBy": "Google",
+      "baseline": "f38h",
+      "candidate": "h4h",
+      "metric": "out_tokens",
+      "claimed": 12,
+      "scope": "proxy",
+      "scopeNote": "Google's range comes from unnamed partners' workflows. This uses output tokens across the Intelligence Index and tests the bottom of the range.",
+      "ref": {
+        "baseline": 126,
+        "candidate": 110,
+        "unit": "million output tokens across the index",
+        "sources": [
+          "aa1",
+          "aa2"
+        ],
+        "note": "Both at high."
+      },
+      "vendorSources": [
+        "vp"
+      ],
+      "kind": "vendor"
+    },
+    {
+      "id": "c3",
+      "text": "Finishes tasks 2.5 times faster than Gemini 3.8 Flash at its default setting",
+      "claimedBy": "Google",
+      "baseline": "f38h",
+      "candidate": "h4h",
+      "metric": "latency",
+      "claimed": 60,
+      "scope": "in",
+      "noRefNote": "Artificial Analysis does not publish an end-to-end task time for Gemini 3.8 Flash at high.",
+      "vendorSources": [
+        "vp"
+      ],
+      "kind": "vendor"
+    }
+  ],
+  "observations": [
+    {
+      "text": "Gemini 3.8 Flash is now marked deprecated by Artificial Analysis, which recommends Hydrogen in its place.",
+      "sources": [
+        "aa1"
+      ]
+    }
+  ],
+  "livePack": {
+    "note": "Starter tasks plus multi-step efficiency tasks.",
+    "settings": {
+      "repeats": 3,
+      "maxTokens": 8000
+    },
+    "extraTasks": [
+      {
+        "id": "e1",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "205",
+        "prompt": "A train leaves at 09:40 and arrives at 13:05 the same day. How many minutes is the journey? Answer with the number only."
+      },
+      {
+        "id": "e2",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "46",
+        "prompt": "How many positive integers below 100 are divisible by 3 or by 5? Answer with the number only."
+      },
+      {
+        "id": "e3",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "friday",
+        "prompt": "If today is Wednesday, what day of the week will it be 100 days from today? Answer with the day name only."
+      },
+      {
+        "id": "e4",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "28",
+        "prompt": "A shop gives 20% off, then a further 10% off the reduced price. What is the total discount as a percentage of the original price? Answer with the number only."
+      },
+      {
+        "id": "e5",
+        "cat": "Efficiency",
+        "grader": "exact",
+        "expected": "0.45",
+        "prompt": "Which is the largest of these: 3/7, 0.45, 4/9, 0.43? Answer with the value exactly as written in the list."
+      },
+      {
+        "id": "e6",
+        "cat": "Efficiency",
+        "grader": "json",
+        "expected": {
+          "po": "PO-7781",
+          "total": 15000
+        },
+        "prompt": "Return only JSON with keys \"po\" and \"total\" (total as a number, in rupees) for this order: \"PO-7781 for 12 units at Rs 1,250 each.\""
+      },
+      {
+        "id": "e7",
+        "cat": "Efficiency",
+        "grader": "number",
+        "expected": "5",
+        "prompt": "How many vowels (a, e, i, o, u) are in the word \"transformation\"? Answer with the number only."
+      }
+    ]
+  },
+  "vendorSource": "vp"
+}
